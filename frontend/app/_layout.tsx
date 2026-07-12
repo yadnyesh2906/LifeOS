@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { ActivityIndicator, View, StyleSheet } from 'react-native';
 import { AuthProvider, useAuthContext } from '../context/AuthContext';
 import { colors } from '../theme';
+import '../global.css';
 
 function NavigationGate() {
   const { isAuthenticated, isLoading } = useAuthContext();
