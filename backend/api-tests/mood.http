@@ -1,0 +1,48 @@
+### Login
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email":"yadnyesh1@gmail.com",
+  "password":"123456"
+}
+
+###
+
+### Create Mood
+POST http://localhost:8080/api/moods
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5YWRueWVzaDFAZ21haWwuY29tIiwiaWF0IjoxNzgyODE0MjkxLCJleHAiOjE3ODI5MDA2OTF9.KwNsLnRaT7s_PPAFo1JQ5MvTikEshZkYUgAbDfSASEE
+Content-Type: application/json
+
+{
+  "mood":"HAPPY",
+  "note":"Completed my Spring Boot backend today."
+}
+
+###
+
+GET http://localhost:8080/api/moods
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5YWRueWVzaDFAZ21haWwuY29tIiwiaWF0IjoxNzgyODE0MjkxLCJleHAiOjE3ODI5MDA2OTF9.KwNsLnRaT7s_PPAFo1JQ5MvTikEshZkYUgAbDfSASEE
+
+### Get All Moods
+GET http://localhost:8080/api/moods
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5YWRueWVzaDFAZ21haWwuY29tIiwiaWF0IjoxNzgyODE0MjkxLCJleHAiOjE3ODI5MDA2OTF9.KwNsLnRaT7s_PPAFo1JQ5MvTikEshZkYUgAbDfSASEE
+
+### Get Mood By ID
+GET http://localhost:8080/api/moods/5
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5YWRueWVzaDFAZ21haWwuY29tIiwiaWF0IjoxNzgyODE0MjkxLCJleHAiOjE3ODI5MDA2OTF9.KwNsLnRaT7s_PPAFo1JQ5MvTikEshZkYUgAbDfSASEE
+### Update Mood
+### Update Mood
+PUT http://localhost:8080/api/moods/5
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5YWRueWVzaDFAZ21haWwuY29tIiwiaWF0IjoxNzgyODE0MjkxLCJleHAiOjE3ODI5MDA2OTF9.KwNsLnRaT7s_PPAFo1JQ5MvTikEshZkYUgAbDfSASEE
+Content-Type: application/json
+
+{
+  "mood":"MOTIVATED",
+  "note":"Started implementing JWT-based user-specific modules."
+}
+###
+
+### Delete Mood
+DELETE http://localhost:8080/api/moods/5
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5YWRueWVzaDFAZ21haWwuY29tIiwiaWF0IjoxNzgyODE0MjkxLCJleHAiOjE3ODI5MDA2OTF9.KwNsLnRaT7s_PPAFo1JQ5MvTikEshZkYUgAbDfSASEE
