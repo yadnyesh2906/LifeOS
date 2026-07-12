@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LifeOS | Task Intelligence</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#e2e7ff",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "tertiary-container": "#5f5f69",
+                    "surface-tint": "#4d44e3",
+                    "primary": "#3525cd",
+                    "secondary-fixed": "#acedff",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#faf8ff",
+                    "tertiary-fixed-dim": "#c7c5d1",
+                    "surface-container-highest": "#dae2fd",
+                    "on-surface-variant": "#464555",
+                    "background": "#faf8ff",
+                    "on-secondary-fixed-variant": "#004e5c",
+                    "on-surface": "#131b2e",
+                    "secondary-fixed-dim": "#4cd7f6",
+                    "surface-variant": "#dae2fd",
+                    "on-tertiary-fixed-variant": "#46464f",
+                    "surface": "#faf8ff",
+                    "error-container": "#ffdad6",
+                    "outline": "#777587",
+                    "secondary-container": "#57dffe",
+                    "on-secondary-container": "#006172",
+                    "on-primary-container": "#dad7ff",
+                    "inverse-on-surface": "#eef0ff",
+                    "surface-dim": "#d2d9f4",
+                    "on-error-container": "#93000a",
+                    "on-primary-fixed": "#000069",
+                    "surface-container": "#eaedff",
+                    "surface-container-low": "#f2f3ff",
+                    "on-tertiary-fixed": "#1a1b23",
+                    "on-secondary-fixed": "#001f26",
+                    "tertiary": "#474751",
+                    "tertiary-fixed": "#e3e1ed",
+                    "surface-container-lowest": "#ffffff",
+                    "on-background": "#131b2e",
+                    "on-secondary": "#ffffff",
+                    "primary-container": "#4f46e5",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "inverse-surface": "#283044",
+                    "on-tertiary-container": "#dbdae5",
+                    "secondary": "#00687a",
+                    "outline-variant": "#c7c4d8",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "inverse-primary": "#c3c0ff",
+                    "error": "#ba1a1a",
+                    "primary-fixed": "#e2dfff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "md": "24px",
+                    "sm": "16px",
+                    "margin-desktop": "64px",
+                    "xs": "8px",
+                    "lg": "48px",
+                    "base": "4px",
+                    "gutter": "24px",
+                    "xl": "80px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Outfit"],
+                    "body-lg": ["Outfit"],
+                    "headline-lg": ["Outfit"],
+                    "headline-md": ["Outfit"],
+                    "label-sm": ["Geist"],
+                    "body-md": ["Outfit"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(250, 248, 255, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(79, 70, 229, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            border-color: rgba(79, 70, 229, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px -10px rgba(53, 37, 205, 0.08);
+        }
+        .glow-active {
+            box-shadow: 0 0 15px rgba(53, 37, 205, 0.15);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        body {
+            background-color: #faf8ff;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(79, 70, 229, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(76, 215, 246, 0.05) 0px, transparent 50%);
+        }
+    </style>
+</head>
+<body class="min-h-screen text-on-surface selection:bg-primary/20">
+<!-- TopAppBar Shell -->
+<header class="fixed top-0 w-full bg-surface/60 backdrop-blur-xl border-b border-primary/10 shadow-[0_0_40px_rgba(77,68,227,0.05)] z-50 flex justify-between items-center px-margin-mobile py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-primary/20">
+<img class="w-full h-full object-cover" data-alt="A clean professional headshot of a modern executive in a bright minimalist office. The person is looking directly at the camera with a friendly expression. The lighting is soft and high-key, matching the light-mode UI aesthetic of the LifeOS platform. The background is a soft blur of white walls and subtle green plants." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDA4rTsFAMJiSA8K3p5Sf1CY4TqmXmT5pyfkJDOmNwscC4DzwUp44A_aF8tTkqI7UbRDeAQFHZ7pVLqinabjb324I4gHMBVWW5AogbNTtPHyyC50bnnIRzzlswtBnctBfUaxXwykUmSX69VU8KfQvotRjKz6CHmsCB44WZPrQ9MBnj02oIDxtexSr3JVhoOh7hJ8rZ2E4QuYOUMDH0sy3OH-PuIDlcdqvj_-AEng-oH0PkyeDxvJBFt"/>
+</div>
+<h1 class="font-headline-md text-headline-md-mobile font-semibold tracking-tight text-primary">LifeOS</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-primary/5 transition-colors duration-300 active:scale-95">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</header>
+<!-- Main Canvas -->
+<main class="pt-24 pb-32 px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto">
+<!-- Welcome Area -->
+<section class="mb-8">
+<p class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-1">Intelligence Overview</p>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface">Optimize your focus.</h2>
+</section>
+<!-- Search & Filters -->
+<div class="flex flex-col gap-6 mb-8">
+<!-- Search Bar -->
+<div class="relative w-full group">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-outline material-symbols-outlined transition-colors group-focus-within:text-primary">search</span>
+<input class="w-full bg-surface-container-low border-b border-outline/20 py-4 pl-12 pr-4 rounded-xl focus:outline-none focus:border-primary transition-all font-body-md text-body-md placeholder:text-outline/50" placeholder="Search tasks, priorities, or AI insights..." type="text"/>
+</div>
+<!-- Custom Tabs -->
+<div class="flex gap-2 p-1 bg-surface-container-lowest rounded-full w-fit border border-primary/10">
+<button class="px-6 py-2 rounded-full font-label-sm text-label-sm bg-primary text-on-primary glow-active transition-all">
+                    Active Tasks
+                </button>
+<button class="px-6 py-2 rounded-full font-label-sm text-label-sm text-on-surface-variant hover:bg-primary/5 transition-all">
+                    Completed
+                </button>
+<button class="px-6 py-2 rounded-full font-label-sm text-label-sm text-on-surface-variant hover:bg-primary/5 transition-all">
+                    AI Suggested
+                </button>
+</div>
+</div>
+<!-- Task Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Task 1: High Priority -->
+<div class="glass-card rounded-3xl p-8 flex flex-col justify-between min-h-[220px]">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="px-3 py-1 bg-error-container text-on-error-container rounded-full font-label-sm text-label-sm">High Priority</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Due Today</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Weekly Executive Summary</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Condense project metrics and AI-driven growth projections for the stakeholder meeting.</p>
+</div>
+<div class="mt-6 flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a woman with glasses, smiling warmly. Professional lighting, minimalist white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmkqHuJ4Oe5QbMOc5Wg3kvipb5mR6e3LS9I00iOP0ioC7WQIXIDIzm-TZNf8GO4xfqBa6Gek3fVmkzmEAtaPHitXuExXBQsiMedLyhgDbWe5Rzp6YqlKCxwTgJQTErNwEduA4zf9ABxGD6PrcPHqJdwDdE1VO16yywTKC08GVUzq3sT6snu3t_At0tSiftV6xhuYAv9ShDGMh8Y5bXp-meccxdP_-Rmz2F3GvLvilLCATAXx_B9Vtc"/>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-primary-container flex items-center justify-center text-[10px] text-white font-bold">
+                            +2
+                        </div>
+</div>
+<button class="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined" data-icon="check">check</span>
+</button>
+</div>
+</div>
+<!-- Task 2: AI Specific -->
+<div class="glass-card rounded-3xl p-8 flex flex-col justify-between min-h-[220px] relative overflow-hidden group">
+<!-- Atmospheric background element -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-secondary-container/10 blur-3xl -mr-16 -mt-16 group-hover:bg-secondary-container/20 transition-all"></div>
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                            Research
+                        </span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">2d left</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Research AI Workflow Tools</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Benchmark 2024 LLM agents for automated documentation tasks.</p>
+</div>
+<div class="mt-6 flex items-center justify-between">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">attachment</span>
+<span class="font-label-sm text-label-sm">4 Resources</span>
+</div>
+<button class="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined" data-icon="check">check</span>
+</button>
+</div>
+</div>
+<!-- Task 3 -->
+<div class="glass-card rounded-3xl p-8 flex flex-col justify-between min-h-[220px]">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="px-3 py-1 bg-surface-container-highest text-on-surface-variant rounded-full font-label-sm text-label-sm">Internal</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Tomorrow</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Team Sync Prep</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Outline key blockers and celebrate Q3 wins with the product engineering team.</p>
+</div>
+<div class="mt-6 flex items-center justify-between">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span class="font-label-sm text-label-sm">10:30 AM</span>
+</div>
+<button class="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined" data-icon="check">check</span>
+</button>
+</div>
+</div>
+<!-- New Task Placeholder / CTA -->
+<div class="glass-card rounded-3xl p-8 border-dashed border-2 flex flex-col items-center justify-center min-h-[220px] cursor-pointer hover:bg-primary/5 transition-all group">
+<div class="w-16 h-16 rounded-full bg-primary-container/10 flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</div>
+<span class="font-headline-md text-headline-md text-primary">Add New Task</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Or let AI suggest your next priority</p>
+</div>
+<!-- Productivity Stats Card (Bento Style) -->
+<div class="glass-card rounded-3xl p-8 md:col-span-2 lg:col-span-2 flex flex-col md:flex-row gap-8 items-center bg-gradient-to-br from-primary/5 to-secondary/5">
+<div class="flex-1">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Weekly Momentum</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">You've completed 84% of your high-impact tasks. You're trending 12% faster than last week.</p>
+<div class="flex gap-4">
+<div class="bg-surface/80 px-4 py-3 rounded-2xl border border-primary/10">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">Focus Score</p>
+<p class="font-headline-md text-headline-md text-primary">92/100</p>
+</div>
+<div class="bg-surface/80 px-4 py-3 rounded-2xl border border-primary/10">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">Time Saved</p>
+<p class="font-headline-md text-headline-md text-secondary">4.2h</p>
+</div>
+</div>
+</div>
+<div class="relative w-40 h-40 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-primary/10" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-width="12"></circle>
+<circle class="text-primary" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="440" stroke-dashoffset="70" stroke-linecap="round" stroke-width="12"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="font-headline-md text-headline-md text-on-surface">84%</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar Shell -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-surface/80 backdrop-blur-2xl border-t border-primary/10 shadow-[0_-8px_30px_rgba(0,0,0,0.04)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 p-3 hover:text-primary transition-all active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="track_changes">track_changes</span>
+<span class="font-label-sm text-label-sm mt-1">Focus</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container/20 text-primary rounded-full p-3 ring-1 ring-primary/20 active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="assignment_turned_in" style="font-variation-settings: 'FILL' 1;">assignment_turned_in</span>
+<span class="font-label-sm text-label-sm mt-1">Tasks</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 p-3 hover:text-primary transition-all active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="rebase_edit">rebase_edit</span>
+<span class="font-label-sm text-label-sm mt-1">Flows</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 p-3 hover:text-primary transition-all active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="flag">flag</span>
+<span class="font-label-sm text-label-sm mt-1">Goals</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 p-3 hover:text-primary transition-all active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-sm text-label-sm mt-1">Insights</span>
+</a>
+</nav>
+<script>
+        // Global API Configuration
+        const API_BASE_URL = 'http://localhost:8081/api';
+
+        // Check Authentication and Render UI
+        function checkAuth() {
+            const token = localStorage.getItem('jwt_token');
+            if (!token) {
+                showAuthModal();
+            } else {
+                hideAuthModal();
+                loadDashboardData();
+                loadTasks();
+            }
+        }
+
+        // Show Auth Modal overlay
+        function showAuthModal() {
+            let modal = document.getElementById('auth-modal');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'auth-modal';
+                modal.className = 'fixed inset-0 bg-surface/90 backdrop-blur-2xl z-[100] flex items-center justify-center p-4';
+                modal.innerHTML = `
+                    <div class="glass-card max-w-md w-full p-8 rounded-3xl border border-primary/20 shadow-2xl">
+                        <h2 class="font-headline-md text-headline-md text-primary mb-2 text-center" id="auth-title">Welcome to LifeOS</h2>
+                        <p class="font-body-md text-on-surface-variant text-center mb-6" id="auth-subtitle">Login to access your workspace</p>
+                        
+                        <form id="auth-form" class="flex flex-col gap-4">
+                            <div class="flex flex-col gap-1" id="fullname-container" style="display: none;">
+                                <label class="font-label-sm text-label-sm text-on-surface-variant">FULL NAME</label>
+                                <input id="auth-fullname" type="text" class="w-full bg-surface-container-low border border-outline/20 p-3 rounded-xl focus:border-primary focus:outline-none" placeholder="Jane Doe" />
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <label class="font-label-sm text-label-sm text-on-surface-variant">EMAIL ADDRESS</label>
+                                <input id="auth-email" type="email" required class="w-full bg-surface-container-low border border-outline/20 p-3 rounded-xl focus:border-primary focus:outline-none" placeholder="name@example.com" />
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <label class="font-label-sm text-label-sm text-on-surface-variant">PASSWORD</label>
+                                <input id="auth-password" type="password" required class="w-full bg-surface-container-low border border-outline/20 p-3 rounded-xl focus:border-primary focus:outline-none" placeholder="••••••••" />
+                            </div>
+                            <button type="submit" class="bg-primary text-on-primary font-label-sm py-3 px-6 rounded-full font-semibold transition-all hover:opacity-90 active:scale-95 glow-active mt-2">
+                                Continue
+                            </button>
+                        </form>
+                        
+                        <p class="text-center font-label-sm text-on-surface-variant mt-6">
+                            <span id="auth-toggle-text">New to LifeOS?</span>
+                            <button id="auth-toggle-btn" class="text-primary font-semibold hover:underline">Create an account</button>
+                        </p>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+
+                // Setup toggle
+                let isLogin = true;
+                const toggleBtn = document.getElementById('auth-toggle-btn');
+                toggleBtn.addEventListener('click', () => {
+                    isLogin = !isLogin;
+                    document.getElementById('fullname-container').style.display = isLogin ? 'none' : 'flex';
+                    document.getElementById('auth-title').textContent = isLogin ? 'Welcome to LifeOS' : 'Create Account';
+                    document.getElementById('auth-subtitle').textContent = isLogin ? 'Login to access your workspace' : 'Get started for free';
+                    toggleBtn.textContent = isLogin ? 'Create an account' : 'Login';
+                    document.getElementById('auth-toggle-text').textContent = isLogin ? 'New to LifeOS?' : 'Already have an account?';
+                });
+
+                // Setup form submit
+                document.getElementById('auth-form').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const email = document.getElementById('auth-email').value;
+                    const password = document.getElementById('auth-password').value;
+
+                    if (isLogin) {
+                        try {
+                            const res = await fetch(`${API_BASE_URL}/auth/login`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ email, password })
+                            });
+                            const result = await res.json();
+                            if (result.success) {
+                                localStorage.setItem('jwt_token', result.data.token);
+                                checkAuth();
+                            } else {
+                                alert(result.message || 'Login failed');
+                            }
+                        } catch (err) {
+                            alert('Server connection error. Is the backend running on port 8081?');
+                        }
+                    } else {
+                        const fullName = document.getElementById('auth-fullname').value;
+                        try {
+                            const res = await fetch(`${API_BASE_URL}/auth/register`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ fullName, email, password })
+                            });
+                            const result = await res.json();
+                            if (result.success) {
+                                alert('Registration successful! Please login.');
+                                toggleBtn.click();
+                            } else {
+                                alert(result.message || 'Registration failed');
+                            }
+                        } catch (err) {
+                            alert('Server connection error.');
+                        }
+                    }
+                });
+            }
+            modal.style.display = 'flex';
+        }
+
+        function hideAuthModal() {
+            const modal = document.getElementById('auth-modal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        // Helper: Auth Fetch wrapper
+        async function fetchWithAuth(url, options = {}) {
+            const token = localStorage.getItem('jwt_token');
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+                ...options.headers
+            };
+            const response = await fetch(url, { ...options, headers });
+            if (response.status === 401) {
+                localStorage.removeItem('jwt_token');
+                checkAuth();
+                throw new Error('Unauthorized');
+            }
+            return response.json();
+        }
+
+        // Load Dashboard details from API
+        async function loadDashboardData() {
+            try {
+                const res = await fetchWithAuth(`${API_BASE_URL}/dashboard`);
+                if (res.success && res.data) {
+                    const data = res.data;
+                    
+                    // Render Task Progress
+                    const total = data.totalTasks || 0;
+                    const completed = data.completedTasks || 0;
+                    const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+                    
+                    // Update dynamic text
+                    const momentumTitle = document.querySelector('h3.font-headline-md:has(+ p)');
+                    if (momentumTitle) {
+                        const description = momentumTitle.nextElementSibling;
+                        momentumTitle.textContent = "Weekly Momentum";
+                        description.textContent = `You've completed ${percentage}% of your high-impact tasks (${completed}/${total} tasks). Keep up the great work!`;
+                    }
+                    
+                    // Update radial progress circle
+                    const percentageText = document.querySelector('.relative.w-40.h-40 .absolute span');
+                    if (percentageText) {
+                        percentageText.textContent = `${percentage}%`;
+                    }
+                    
+                    const progressCircle = document.querySelector('.relative.w-40.h-40 svg circle:last-child');
+                    if (progressCircle) {
+                        const radius = 70;
+                        const circumference = 2 * Math.PI * radius;
+                        const offset = circumference - (percentage / 100) * circumference;
+                        progressCircle.style.strokeDashoffset = offset;
+                    }
+                }
+            } catch (err) {
+                console.error("Error loading dashboard data", err);
+            }
+        }
+
+        // Load dynamic Tasks from API
+        async function loadTasks() {
+            const grid = document.querySelector('.grid.grid-cols-1');
+            if (!grid) return;
+
+            // Keep the "Add New Task" placeholder
+            const addPlaceholder = document.querySelector('div.border-dashed');
+
+            try {
+                const res = await fetchWithAuth(`${API_BASE_URL}/tasks`);
+                if (res.success && res.data) {
+                    // Remove current task cards but preserve "Add New Task" & "Momentum Card"
+                    const currentCards = Array.from(grid.children);
+                    currentCards.forEach(card => {
+                        if (!card.classList.contains('border-dashed') && !card.classList.contains('md:col-span-2')) {
+                            card.remove();
+                        }
+                    });
+
+                    // Add new task cards
+                    res.data.forEach(task => {
+                        const card = document.createElement('div');
+                        card.className = `glass-card rounded-3xl p-8 flex flex-col justify-between min-h-[220px] transition-all duration-300 ${task.completed ? 'opacity-50 line-through' : ''}`;
+                        card.innerHTML = `
+                            <div>
+                                <div class="flex justify-between items-start mb-4">
+                                    <span class="px-3 py-1 ${task.completed ? 'bg-surface-container-high text-on-surface-variant' : 'bg-error-container text-on-error-container'} rounded-full font-label-sm text-label-sm">
+                                        ${task.completed ? 'Completed' : 'Active'}
+                                    </span>
+                                    <span class="text-on-surface-variant font-label-sm text-label-sm">
+                                        ${task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'No Due Date'}
+                                    </span>
+                                </div>
+                                <h3 class="font-headline-md text-headline-md text-on-surface mb-2">${task.title}</h3>
+                                <p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">${task.description || ''}</p>
+                            </div>
+                            <div class="mt-6 flex items-center justify-between">
+                                <button class="delete-btn text-error hover:text-red-700 flex items-center gap-1 font-label-sm text-label-sm" data-id="${task.id}">
+                                    <span class="material-symbols-outlined text-[18px]">delete</span> Delete
+                                </button>
+                                <button class="complete-btn w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" data-id="${task.id}" data-completed="${task.completed}">
+                                    <span class="material-symbols-outlined">${task.completed ? 'undo' : 'check'}</span>
+                                </button>
+                            </div>
+                        `;
+                        // Insert before the Add Task card
+                        grid.insertBefore(card, addPlaceholder);
+                    });
+
+                    // Setup actions
+                    setupTaskActions();
+                }
+            } catch (err) {
+                console.error("Error loading tasks", err);
+            }
+        }
+
+        // Setup actions for dynamic cards
+        function setupTaskActions() {
+            // Check & Complete Button
+            document.querySelectorAll('.complete-btn').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    const button = e.currentTarget;
+                    const id = button.getAttribute('data-id');
+                    const isCompleted = button.getAttribute('data-completed') === 'true';
+
+                    try {
+                        let res;
+                        if (!isCompleted) {
+                            res = await fetchWithAuth(`${API_BASE_URL}/tasks/${id}/complete`, { method: 'PATCH' });
+                        } else {
+                            // If reversing status, use normal update API with completed = false
+                            res = await fetchWithAuth(`${API_BASE_URL}/tasks/${id}`, {
+                                method: 'PUT',
+                                body: JSON.stringify({ completed: false })
+                            });
+                        }
+                        if (res.success) {
+                            loadTasks();
+                            loadDashboardData();
+                        }
+                    } catch (err) {
+                        console.error(err);
+                    }
+                });
+            });
+
+            // Delete Button
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    const button = e.currentTarget;
+                    const id = button.getAttribute('data-id');
+                    if (confirm('Delete this task?')) {
+                        try {
+                            const res = await fetchWithAuth(`${API_BASE_URL}/tasks/${id}`, { method: 'DELETE' });
+                            if (res.success) {
+                                loadTasks();
+                                loadDashboardData();
+                            }
+                        } catch (err) {
+                            console.error(err);
+                        }
+                    }
+                });
+            });
+        }
+
+        // Setup Task Creation Dialog
+        const addCard = document.querySelector('div.border-dashed');
+        if (addCard) {
+            addCard.addEventListener('click', async () => {
+                const title = prompt("Enter Task Title:");
+                if (!title) return;
+                const description = prompt("Enter Task Description:");
+                
+                try {
+                    const res = await fetchWithAuth(`${API_BASE_URL}/tasks`, {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            title,
+                            description,
+                            dueDate: new Date().toISOString()
+                        })
+                    });
+                    if (res.success) {
+                        loadTasks();
+                        loadDashboardData();
+                    }
+                } catch (err) {
+                    console.error("Error creating task", err);
+                }
+            });
+        }
+
+        // Setup settings button click for Logout
+        const settingsBtn = document.querySelector('header button');
+        if (settingsBtn) {
+            settingsBtn.addEventListener('click', () => {
+                if (confirm('Do you want to log out?')) {
+                    localStorage.removeItem('jwt_token');
+                    checkAuth();
+                }
+            });
+        }
+
+        // Add mouse move listener for glass effects
+        document.body.addEventListener('mousemove', (e) => {
+            document.querySelectorAll('.glass-card').forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Initialize App
+        checkAuth();
+    </script>
+</body></html>
