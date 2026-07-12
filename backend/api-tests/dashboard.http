@@ -1,0 +1,22 @@
+#################################################
+# LOGIN
+#################################################
+
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "yadnyesh1@gmail.com",
+  "password": "123456"
+}
+
+###
+
+#################################################
+# DASHBOARD
+#################################################
+
+GET http://localhost:8080/api/dashboard
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5YWRueWVzaDFAZ21haWwuY29tIiwiaWF0IjoxNzgyOTEwNjExLCJleHAiOjE3ODI5OTcwMTF9.Bd4Rggppm9AYEa2oG2MYiqVwXxM0OU1h-8fEJbg2OGg
+
+###

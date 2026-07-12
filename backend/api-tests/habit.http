@@ -1,0 +1,2 @@
+GET http://localhost:8080/api/habits
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5YWRueWVzaDFAZ21haWwuY29tIiwiaWF0IjoxNzgyNjQ2MTg3LCJleHAiOjE3ODI3MzI1ODd9.kLZ-1s5SH-oq8bxvgBBjkD0jXL9fC09rltkUXrjwqQ4
