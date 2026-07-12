@@ -1,0 +1,59 @@
+### Login
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email":"yadnyesh1@gmail.com",
+  "password":"123456"
+}
+
+###
+
+### Create Goal
+POST http://localhost:8080/api/goals
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5YWRueWVzaDFAZ21haWwuY29tIiwiaWF0IjoxNzgyOTEwNjg5LCJleHAiOjE3ODI5OTcwODl9.pBx4c158hgpOG7Ww-EDAxxotfn38XPoVB54aCo8QuKI
+Content-Type: application/json
+
+{
+  "title":"Get Placement",
+  "description":"Secure a Software Engineer role",
+  "targetDate":"2026-12-31T23:59:59",
+  "status":"NOT_STARTED"
+}
+###
+
+### Get All Goals
+GET http://localhost:8080/api/goals
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5YWRueWVzaDFAZ21haWwuY29tIiwiaWF0IjoxNzgyNjQ2MTg3LCJleHAiOjE3ODI3MzI1ODd9.kLZ-1s5SH-oq8bxvgBBjkD0jXL9fC09rltkUXrjwqQ4
+
+###
+
+### Get Goal By ID
+GET http://localhost:8080/api/goals/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5YWRueWVzaDFAZ21haWwuY29tIiwiaWF0IjoxNzgyNjQ2MTg3LCJleHAiOjE3ODI3MzI1ODd9.kLZ-1s5SH-oq8bxvgBBjkD0jXL9fC09rltkUXrjwqQ4
+
+###
+
+### Update Goal
+PUT http://localhost:8080/api/goals/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5YWRueWVzaDFAZ21haWwuY29tIiwiaWF0IjoxNzgyNjQ2MTg3LCJleHAiOjE3ODI3MzI1ODd9.kLZ-1s5SH-oq8bxvgBBjkD0jXL9fC09rltkUXrjwqQ4
+Content-Type: application/json
+
+{
+  "title":"Get Dream Job",
+  "description":"Become a Backend Java Developer",
+  "targetDate":"2026-11-30T23:59:59",
+  "status":"IN_PROGRESS"
+}
+
+###
+
+### Complete Goal
+PATCH http://localhost:8080/api/goals/1/complete
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5YWRueWVzaDFAZ21haWwuY29tIiwiaWF0IjoxNzgyNjQ2MTg3LCJleHAiOjE3ODI3MzI1ODd9.kLZ-1s5SH-oq8bxvgBBjkD0jXL9fC09rltkUXrjwqQ4
+
+###
+
+### Delete Goal
+DELETE http://localhost:8080/api/goals/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5YWRueWVzaDFAZ21haWwuY29tIiwiaWF0IjoxNzgyNjQ2MTg3LCJleHAiOjE3ODI3MzI1ODd9.kLZ-1s5SH-oq8bxvgBBjkD0jXL9fC09rltkUXrjwqQ4
