@@ -149,493 +149,664 @@
 </button>
 </header>
 <!-- Main Canvas -->
-<main class="pt-24 pb-32 px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto">
-<!-- Welcome Area -->
-<section class="mb-8">
-<p class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-1">Intelligence Overview</p>
-<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface">Optimize your focus.</h2>
-</section>
-<!-- Search & Filters -->
-<div class="flex flex-col gap-6 mb-8">
-<!-- Search Bar -->
-<div class="relative w-full group">
-<span class="absolute left-4 top-1/2 -translate-y-1/2 text-outline material-symbols-outlined transition-colors group-focus-within:text-primary">search</span>
-<input class="w-full bg-surface-container-low border-b border-outline/20 py-4 pl-12 pr-4 rounded-xl focus:outline-none focus:border-primary transition-all font-body-md text-body-md placeholder:text-outline/50" placeholder="Search tasks, priorities, or AI insights..." type="text"/>
-</div>
-<!-- Custom Tabs -->
-<div class="flex gap-2 p-1 bg-surface-container-lowest rounded-full w-fit border border-primary/10">
-<button class="px-6 py-2 rounded-full font-label-sm text-label-sm bg-primary text-on-primary glow-active transition-all">
-                    Active Tasks
-                </button>
-<button class="px-6 py-2 rounded-full font-label-sm text-label-sm text-on-surface-variant hover:bg-primary/5 transition-all">
-                    Completed
-                </button>
-<button class="px-6 py-2 rounded-full font-label-sm text-label-sm text-on-surface-variant hover:bg-primary/5 transition-all">
-                    AI Suggested
-                </button>
-</div>
-</div>
-<!-- Task Bento Grid -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-<!-- Task 1: High Priority -->
-<div class="glass-card rounded-3xl p-8 flex flex-col justify-between min-h-[220px]">
-<div>
-<div class="flex justify-between items-start mb-4">
-<span class="px-3 py-1 bg-error-container text-on-error-container rounded-full font-label-sm text-label-sm">High Priority</span>
-<span class="text-on-surface-variant font-label-sm text-label-sm">Due Today</span>
-</div>
-<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Weekly Executive Summary</h3>
-<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Condense project metrics and AI-driven growth projections for the stakeholder meeting.</p>
-</div>
-<div class="mt-6 flex items-center justify-between">
-<div class="flex -space-x-2">
-<div class="w-8 h-8 rounded-full border-2 border-surface overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="Close-up portrait of a woman with glasses, smiling warmly. Professional lighting, minimalist white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmkqHuJ4Oe5QbMOc5Wg3kvipb5mR6e3LS9I00iOP0ioC7WQIXIDIzm-TZNf8GO4xfqBa6Gek3fVmkzmEAtaPHitXuExXBQsiMedLyhgDbWe5Rzp6YqlKCxwTgJQTErNwEduA4zf9ABxGD6PrcPHqJdwDdE1VO16yywTKC08GVUzq3sT6snu3t_At0tSiftV6xhuYAv9ShDGMh8Y5bXp-meccxdP_-Rmz2F3GvLvilLCATAXx_B9Vtc"/>
-</div>
-<div class="w-8 h-8 rounded-full border-2 border-surface bg-primary-container flex items-center justify-center text-[10px] text-white font-bold">
-                            +2
-                        </div>
-</div>
-<button class="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
-<span class="material-symbols-outlined" data-icon="check">check</span>
-</button>
-</div>
-</div>
-<!-- Task 2: AI Specific -->
-<div class="glass-card rounded-3xl p-8 flex flex-col justify-between min-h-[220px] relative overflow-hidden group">
-<!-- Atmospheric background element -->
-<div class="absolute top-0 right-0 w-32 h-32 bg-secondary-container/10 blur-3xl -mr-16 -mt-16 group-hover:bg-secondary-container/20 transition-all"></div>
-<div>
-<div class="flex justify-between items-start mb-4">
-<span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full font-label-sm text-label-sm flex items-center gap-1">
-<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
-                            Research
-                        </span>
-<span class="text-on-surface-variant font-label-sm text-label-sm">2d left</span>
-</div>
-<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Research AI Workflow Tools</h3>
-<p class="font-body-md text-body-md text-on-surface-variant">Benchmark 2024 LLM agents for automated documentation tasks.</p>
-</div>
-<div class="mt-6 flex items-center justify-between">
-<div class="flex items-center gap-2 text-on-surface-variant">
-<span class="material-symbols-outlined text-[18px]">attachment</span>
-<span class="font-label-sm text-label-sm">4 Resources</span>
-</div>
-<button class="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
-<span class="material-symbols-outlined" data-icon="check">check</span>
-</button>
-</div>
-</div>
-<!-- Task 3 -->
-<div class="glass-card rounded-3xl p-8 flex flex-col justify-between min-h-[220px]">
-<div>
-<div class="flex justify-between items-start mb-4">
-<span class="px-3 py-1 bg-surface-container-highest text-on-surface-variant rounded-full font-label-sm text-label-sm">Internal</span>
-<span class="text-on-surface-variant font-label-sm text-label-sm">Tomorrow</span>
-</div>
-<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Team Sync Prep</h3>
-<p class="font-body-md text-body-md text-on-surface-variant">Outline key blockers and celebrate Q3 wins with the product engineering team.</p>
-</div>
-<div class="mt-6 flex items-center justify-between">
-<div class="flex items-center gap-1 text-primary">
-<span class="material-symbols-outlined text-[18px]">schedule</span>
-<span class="font-label-sm text-label-sm">10:30 AM</span>
-</div>
-<button class="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
-<span class="material-symbols-outlined" data-icon="check">check</span>
-</button>
-</div>
-</div>
-<!-- New Task Placeholder / CTA -->
-<div class="glass-card rounded-3xl p-8 border-dashed border-2 flex flex-col items-center justify-center min-h-[220px] cursor-pointer hover:bg-primary/5 transition-all group">
-<div class="w-16 h-16 rounded-full bg-primary-container/10 flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined text-[32px]">add</span>
-</div>
-<span class="font-headline-md text-headline-md text-primary">Add New Task</span>
-<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Or let AI suggest your next priority</p>
-</div>
-<!-- Productivity Stats Card (Bento Style) -->
-<div class="glass-card rounded-3xl p-8 md:col-span-2 lg:col-span-2 flex flex-col md:flex-row gap-8 items-center bg-gradient-to-br from-primary/5 to-secondary/5">
-<div class="flex-1">
-<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Weekly Momentum</h3>
-<p class="font-body-md text-body-md text-on-surface-variant mb-6">You've completed 84% of your high-impact tasks. You're trending 12% faster than last week.</p>
-<div class="flex gap-4">
-<div class="bg-surface/80 px-4 py-3 rounded-2xl border border-primary/10">
-<p class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">Focus Score</p>
-<p class="font-headline-md text-headline-md text-primary">92/100</p>
-</div>
-<div class="bg-surface/80 px-4 py-3 rounded-2xl border border-primary/10">
-<p class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">Time Saved</p>
-<p class="font-headline-md text-headline-md text-secondary">4.2h</p>
-</div>
-</div>
-</div>
-<div class="relative w-40 h-40 flex items-center justify-center">
-<svg class="w-full h-full transform -rotate-90">
-<circle class="text-primary/10" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-width="12"></circle>
-<circle class="text-primary" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="440" stroke-dashoffset="70" stroke-linecap="round" stroke-width="12"></circle>
-</svg>
-<div class="absolute flex flex-col items-center">
-<span class="font-headline-md text-headline-md text-on-surface">84%</span>
-</div>
-</div>
-</div>
-</div>
+<main id="main-content" class="pt-24 pb-32 px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto">
+    <!-- Active view will be rendered here by script -->
 </main>
+
 <!-- BottomNavBar Shell -->
 <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-surface/80 backdrop-blur-2xl border-t border-primary/10 shadow-[0_-8px_30px_rgba(0,0,0,0.04)] rounded-t-xl">
-<a class="flex flex-col items-center justify-center text-on-surface-variant/60 p-3 hover:text-primary transition-all active:scale-90 duration-300" href="#">
-<span class="material-symbols-outlined" data-icon="track_changes">track_changes</span>
-<span class="font-label-sm text-label-sm mt-1">Focus</span>
-</a>
-<a class="flex flex-col items-center justify-center bg-primary-container/20 text-primary rounded-full p-3 ring-1 ring-primary/20 active:scale-90 transition-all" href="#">
-<span class="material-symbols-outlined" data-icon="assignment_turned_in" style="font-variation-settings: 'FILL' 1;">assignment_turned_in</span>
-<span class="font-label-sm text-label-sm mt-1">Tasks</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant/60 p-3 hover:text-primary transition-all active:scale-90 duration-300" href="#">
-<span class="material-symbols-outlined" data-icon="rebase_edit">rebase_edit</span>
-<span class="font-label-sm text-label-sm mt-1">Flows</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant/60 p-3 hover:text-primary transition-all active:scale-90 duration-300" href="#">
-<span class="material-symbols-outlined" data-icon="flag">flag</span>
-<span class="font-label-sm text-label-sm mt-1">Goals</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant/60 p-3 hover:text-primary transition-all active:scale-90 duration-300" href="#">
-<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
-<span class="font-label-sm text-label-sm mt-1">Insights</span>
-</a>
+    <button onclick="changeTab('focus')" id="tab-btn-focus" class="flex flex-col items-center justify-center text-on-surface-variant/60 p-3 hover:text-primary transition-all active:scale-90 duration-300">
+        <span class="material-symbols-outlined" data-icon="track_changes">track_changes</span>
+        <span class="font-label-sm text-label-sm mt-1">Focus</span>
+    </button>
+    <button onclick="changeTab('tasks')" id="tab-btn-tasks" class="flex flex-col items-center justify-center text-on-surface-variant/60 p-3 hover:text-primary transition-all active:scale-90 duration-300">
+        <span class="material-symbols-outlined" data-icon="assignment_turned_in">assignment_turned_in</span>
+        <span class="font-label-sm text-label-sm mt-1">Tasks</span>
+    </button>
+    <button onclick="changeTab('flows')" id="tab-btn-flows" class="flex flex-col items-center justify-center text-on-surface-variant/60 p-3 hover:text-primary transition-all active:scale-90 duration-300">
+        <span class="material-symbols-outlined" data-icon="rebase_edit">rebase_edit</span>
+        <span class="font-label-sm text-label-sm mt-1">Vault</span>
+    </button>
+    <button onclick="changeTab('goals')" id="tab-btn-goals" class="flex flex-col items-center justify-center text-on-surface-variant/60 p-3 hover:text-primary transition-all active:scale-90 duration-300">
+        <span class="material-symbols-outlined" data-icon="flag">flag</span>
+        <span class="font-label-sm text-label-sm mt-1">Goals</span>
+    </button>
+    <button onclick="changeTab('insights')" id="tab-btn-insights" class="flex flex-col items-center justify-center text-on-surface-variant/60 p-3 hover:text-primary transition-all active:scale-90 duration-300">
+        <span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+        <span class="font-label-sm text-label-sm mt-1">Insights</span>
+    </button>
 </nav>
+
 <script>
-        // Global API Configuration
-        const API_BASE_URL = 'http://localhost:8081/api';
+    // Global API Configuration
+    const API_BASE_URL = 'http://localhost:8081/api';
+    let currentTab = 'tasks';
 
-        // Check Authentication and Render UI
-        function checkAuth() {
-            const token = localStorage.getItem('jwt_token');
-            if (!token) {
-                showAuthModal();
-            } else {
-                hideAuthModal();
-                loadDashboardData();
-                loadTasks();
-            }
+    // Check Authentication
+    function checkAuth() {
+        const token = localStorage.getItem('jwt_token');
+        if (!token) {
+            showAuthModal();
+        } else {
+            hideAuthModal();
+            renderActiveTab();
         }
+    }
 
-        // Show Auth Modal overlay
-        function showAuthModal() {
-            let modal = document.getElementById('auth-modal');
-            if (!modal) {
-                modal = document.createElement('div');
-                modal.id = 'auth-modal';
-                modal.className = 'fixed inset-0 bg-surface/90 backdrop-blur-2xl z-[100] flex items-center justify-center p-4';
-                modal.innerHTML = `
-                    <div class="glass-card max-w-md w-full p-8 rounded-3xl border border-primary/20 shadow-2xl">
-                        <h2 class="font-headline-md text-headline-md text-primary mb-2 text-center" id="auth-title">Welcome to LifeOS</h2>
-                        <p class="font-body-md text-on-surface-variant text-center mb-6" id="auth-subtitle">Login to access your workspace</p>
-                        
-                        <form id="auth-form" class="flex flex-col gap-4">
-                            <div class="flex flex-col gap-1" id="fullname-container" style="display: none;">
-                                <label class="font-label-sm text-label-sm text-on-surface-variant">FULL NAME</label>
-                                <input id="auth-fullname" type="text" class="w-full bg-surface-container-low border border-outline/20 p-3 rounded-xl focus:border-primary focus:outline-none" placeholder="Jane Doe" />
-                            </div>
-                            <div class="flex flex-col gap-1">
-                                <label class="font-label-sm text-label-sm text-on-surface-variant">EMAIL ADDRESS</label>
-                                <input id="auth-email" type="email" required class="w-full bg-surface-container-low border border-outline/20 p-3 rounded-xl focus:border-primary focus:outline-none" placeholder="name@example.com" />
-                            </div>
-                            <div class="flex flex-col gap-1">
-                                <label class="font-label-sm text-label-sm text-on-surface-variant">PASSWORD</label>
-                                <input id="auth-password" type="password" required class="w-full bg-surface-container-low border border-outline/20 p-3 rounded-xl focus:border-primary focus:outline-none" placeholder="••••••••" />
-                            </div>
-                            <button type="submit" class="bg-primary text-on-primary font-label-sm py-3 px-6 rounded-full font-semibold transition-all hover:opacity-90 active:scale-95 glow-active mt-2">
-                                Continue
-                            </button>
-                        </form>
-                        
-                        <p class="text-center font-label-sm text-on-surface-variant mt-6">
-                            <span id="auth-toggle-text">New to LifeOS?</span>
-                            <button id="auth-toggle-btn" class="text-primary font-semibold hover:underline">Create an account</button>
-                        </p>
-                    </div>
-                `;
-                document.body.appendChild(modal);
-
-                // Setup toggle
-                let isLogin = true;
-                const toggleBtn = document.getElementById('auth-toggle-btn');
-                toggleBtn.addEventListener('click', () => {
-                    isLogin = !isLogin;
-                    document.getElementById('fullname-container').style.display = isLogin ? 'none' : 'flex';
-                    document.getElementById('auth-title').textContent = isLogin ? 'Welcome to LifeOS' : 'Create Account';
-                    document.getElementById('auth-subtitle').textContent = isLogin ? 'Login to access your workspace' : 'Get started for free';
-                    toggleBtn.textContent = isLogin ? 'Create an account' : 'Login';
-                    document.getElementById('auth-toggle-text').textContent = isLogin ? 'New to LifeOS?' : 'Already have an account?';
-                });
-
-                // Setup form submit
-                document.getElementById('auth-form').addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    const email = document.getElementById('auth-email').value;
-                    const password = document.getElementById('auth-password').value;
-
-                    if (isLogin) {
-                        try {
-                            const res = await fetch(`${API_BASE_URL}/auth/login`, {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ email, password })
-                            });
-                            const result = await res.json();
-                            if (result.success) {
-                                localStorage.setItem('jwt_token', result.data.token);
-                                checkAuth();
-                            } else {
-                                alert(result.message || 'Login failed');
-                            }
-                        } catch (err) {
-                            alert('Server connection error. Is the backend running on port 8081?');
-                        }
-                    } else {
-                        const fullName = document.getElementById('auth-fullname').value;
-                        try {
-                            const res = await fetch(`${API_BASE_URL}/auth/register`, {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ fullName, email, password })
-                            });
-                            const result = await res.json();
-                            if (result.success) {
-                                alert('Registration successful! Please login.');
-                                toggleBtn.click();
-                            } else {
-                                alert(result.message || 'Registration failed');
-                            }
-                        } catch (err) {
-                            alert('Server connection error.');
-                        }
-                    }
-                });
-            }
-            modal.style.display = 'flex';
-        }
-
-        function hideAuthModal() {
-            const modal = document.getElementById('auth-modal');
-            if (modal) modal.style.display = 'none';
-        }
-
-        // Helper: Auth Fetch wrapper
-        async function fetchWithAuth(url, options = {}) {
-            const token = localStorage.getItem('jwt_token');
-            const headers = {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-                ...options.headers
-            };
-            const response = await fetch(url, { ...options, headers });
-            if (response.status === 401) {
-                localStorage.removeItem('jwt_token');
-                checkAuth();
-                throw new Error('Unauthorized');
-            }
-            return response.json();
-        }
-
-        // Load Dashboard details from API
-        async function loadDashboardData() {
-            try {
-                const res = await fetchWithAuth(`${API_BASE_URL}/dashboard`);
-                if (res.success && res.data) {
-                    const data = res.data;
+    // Auth Overlay Modal
+    function showAuthModal() {
+        let modal = document.getElementById('auth-modal');
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.id = 'auth-modal';
+            modal.className = 'fixed inset-0 bg-surface/90 backdrop-blur-2xl z-[100] flex items-center justify-center p-4';
+            modal.innerHTML = `
+                <div class="glass-card max-w-md w-full p-8 rounded-3xl border border-primary/20 shadow-2xl">
+                    <h2 class="font-headline-md text-headline-md text-primary mb-2 text-center" id="auth-title">Welcome to LifeOS</h2>
+                    <p class="font-body-md text-on-surface-variant text-center mb-6" id="auth-subtitle">Login to access your workspace</p>
                     
-                    // Render Task Progress
-                    const total = data.totalTasks || 0;
-                    const completed = data.completedTasks || 0;
-                    const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+                    <form id="auth-form" class="flex flex-col gap-4">
+                        <div class="flex flex-col gap-1" id="fullname-container" style="display: none;">
+                            <label class="font-label-sm text-label-sm text-on-surface-variant">FULL NAME</label>
+                            <input id="auth-fullname" type="text" class="w-full bg-surface-container-low border border-outline/20 p-3 rounded-xl focus:border-primary focus:outline-none" placeholder="Jane Doe" />
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label class="font-label-sm text-label-sm text-on-surface-variant">EMAIL ADDRESS</label>
+                            <input id="auth-email" type="email" required class="w-full bg-surface-container-low border border-outline/20 p-3 rounded-xl focus:border-primary focus:outline-none" placeholder="name@example.com" />
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label class="font-label-sm text-label-sm text-on-surface-variant">PASSWORD</label>
+                            <input id="auth-password" type="password" required class="w-full bg-surface-container-low border border-outline/20 p-3 rounded-xl focus:border-primary focus:outline-none" placeholder="••••••••" />
+                        </div>
+                        <button type="submit" class="bg-primary text-on-primary font-label-sm py-3 px-6 rounded-full font-semibold transition-all hover:opacity-90 active:scale-95 glow-active mt-2">
+                            Continue
+                        </button>
+                    </form>
                     
-                    // Update dynamic text
-                    const momentumTitle = document.querySelector('h3.font-headline-md:has(+ p)');
-                    if (momentumTitle) {
-                        const description = momentumTitle.nextElementSibling;
-                        momentumTitle.textContent = "Weekly Momentum";
-                        description.textContent = `You've completed ${percentage}% of your high-impact tasks (${completed}/${total} tasks). Keep up the great work!`;
-                    }
-                    
-                    // Update radial progress circle
-                    const percentageText = document.querySelector('.relative.w-40.h-40 .absolute span');
-                    if (percentageText) {
-                        percentageText.textContent = `${percentage}%`;
-                    }
-                    
-                    const progressCircle = document.querySelector('.relative.w-40.h-40 svg circle:last-child');
-                    if (progressCircle) {
-                        const radius = 70;
-                        const circumference = 2 * Math.PI * radius;
-                        const offset = circumference - (percentage / 100) * circumference;
-                        progressCircle.style.strokeDashoffset = offset;
-                    }
-                }
-            } catch (err) {
-                console.error("Error loading dashboard data", err);
-            }
-        }
+                    <p class="text-center font-label-sm text-on-surface-variant mt-6">
+                        <span id="auth-toggle-text">New to LifeOS?</span>
+                        <button id="auth-toggle-btn" class="text-primary font-semibold hover:underline">Create an account</button>
+                    </p>
+                </div>
+            `;
+            document.body.appendChild(modal);
 
-        // Load dynamic Tasks from API
-        async function loadTasks() {
-            const grid = document.querySelector('.grid.grid-cols-1');
-            if (!grid) return;
+            let isLogin = true;
+            const toggleBtn = document.getElementById('auth-toggle-btn');
+            toggleBtn.addEventListener('click', () => {
+                isLogin = !isLogin;
+                document.getElementById('fullname-container').style.display = isLogin ? 'none' : 'flex';
+                document.getElementById('auth-title').textContent = isLogin ? 'Welcome to LifeOS' : 'Create Account';
+                document.getElementById('auth-subtitle').textContent = isLogin ? 'Login to access your workspace' : 'Get started for free';
+                toggleBtn.textContent = isLogin ? 'Create an account' : 'Login';
+                document.getElementById('auth-toggle-text').textContent = isLogin ? 'New to LifeOS?' : 'Already have an account?';
+            });
 
-            // Keep the "Add New Task" placeholder
-            const addPlaceholder = document.querySelector('div.border-dashed');
+            document.getElementById('auth-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = document.getElementById('auth-email').value;
+                const password = document.getElementById('auth-password').value;
 
-            try {
-                const res = await fetchWithAuth(`${API_BASE_URL}/tasks`);
-                if (res.success && res.data) {
-                    // Remove current task cards but preserve "Add New Task" & "Momentum Card"
-                    const currentCards = Array.from(grid.children);
-                    currentCards.forEach(card => {
-                        if (!card.classList.contains('border-dashed') && !card.classList.contains('md:col-span-2')) {
-                            card.remove();
-                        }
-                    });
-
-                    // Add new task cards
-                    res.data.forEach(task => {
-                        const card = document.createElement('div');
-                        card.className = `glass-card rounded-3xl p-8 flex flex-col justify-between min-h-[220px] transition-all duration-300 ${task.completed ? 'opacity-50 line-through' : ''}`;
-                        card.innerHTML = `
-                            <div>
-                                <div class="flex justify-between items-start mb-4">
-                                    <span class="px-3 py-1 ${task.completed ? 'bg-surface-container-high text-on-surface-variant' : 'bg-error-container text-on-error-container'} rounded-full font-label-sm text-label-sm">
-                                        ${task.completed ? 'Completed' : 'Active'}
-                                    </span>
-                                    <span class="text-on-surface-variant font-label-sm text-label-sm">
-                                        ${task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'No Due Date'}
-                                    </span>
-                                </div>
-                                <h3 class="font-headline-md text-headline-md text-on-surface mb-2">${task.title}</h3>
-                                <p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">${task.description || ''}</p>
-                            </div>
-                            <div class="mt-6 flex items-center justify-between">
-                                <button class="delete-btn text-error hover:text-red-700 flex items-center gap-1 font-label-sm text-label-sm" data-id="${task.id}">
-                                    <span class="material-symbols-outlined text-[18px]">delete</span> Delete
-                                </button>
-                                <button class="complete-btn w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all" data-id="${task.id}" data-completed="${task.completed}">
-                                    <span class="material-symbols-outlined">${task.completed ? 'undo' : 'check'}</span>
-                                </button>
-                            </div>
-                        `;
-                        // Insert before the Add Task card
-                        grid.insertBefore(card, addPlaceholder);
-                    });
-
-                    // Setup actions
-                    setupTaskActions();
-                }
-            } catch (err) {
-                console.error("Error loading tasks", err);
-            }
-        }
-
-        // Setup actions for dynamic cards
-        function setupTaskActions() {
-            // Check & Complete Button
-            document.querySelectorAll('.complete-btn').forEach(btn => {
-                btn.addEventListener('click', async (e) => {
-                    const button = e.currentTarget;
-                    const id = button.getAttribute('data-id');
-                    const isCompleted = button.getAttribute('data-completed') === 'true';
-
+                if (isLogin) {
                     try {
-                        let res;
-                        if (!isCompleted) {
-                            res = await fetchWithAuth(`${API_BASE_URL}/tasks/${id}/complete`, { method: 'PATCH' });
+                        const res = await fetch(`${API_BASE_URL}/auth/login`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ email, password })
+                        });
+                        const result = await res.json();
+                        if (result.success) {
+                            localStorage.setItem('jwt_token', result.data.token);
+                            checkAuth();
                         } else {
-                            // If reversing status, use normal update API with completed = false
-                            res = await fetchWithAuth(`${API_BASE_URL}/tasks/${id}`, {
-                                method: 'PUT',
-                                body: JSON.stringify({ completed: false })
-                            });
-                        }
-                        if (res.success) {
-                            loadTasks();
-                            loadDashboardData();
+                            alert(result.message || 'Login failed');
                         }
                     } catch (err) {
-                        console.error(err);
+                        alert('Server connection error.');
                     }
-                });
-            });
-
-            // Delete Button
-            document.querySelectorAll('.delete-btn').forEach(btn => {
-                btn.addEventListener('click', async (e) => {
-                    const button = e.currentTarget;
-                    const id = button.getAttribute('data-id');
-                    if (confirm('Delete this task?')) {
-                        try {
-                            const res = await fetchWithAuth(`${API_BASE_URL}/tasks/${id}`, { method: 'DELETE' });
-                            if (res.success) {
-                                loadTasks();
-                                loadDashboardData();
-                            }
-                        } catch (err) {
-                            console.error(err);
+                } else {
+                    const fullName = document.getElementById('auth-fullname').value;
+                    try {
+                        const res = await fetch(`${API_BASE_URL}/auth/register`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ fullName, email, password })
+                        });
+                        const result = await res.json();
+                        if (result.success) {
+                            alert('Registration successful! Please login.');
+                            toggleBtn.click();
+                        } else {
+                            alert(result.message || 'Registration failed');
                         }
+                    } catch (err) {
+                        alert('Server connection error.');
                     }
-                });
-            });
-        }
-
-        // Setup Task Creation Dialog
-        const addCard = document.querySelector('div.border-dashed');
-        if (addCard) {
-            addCard.addEventListener('click', async () => {
-                const title = prompt("Enter Task Title:");
-                if (!title) return;
-                const description = prompt("Enter Task Description:");
-                
-                try {
-                    const res = await fetchWithAuth(`${API_BASE_URL}/tasks`, {
-                        method: 'POST',
-                        body: JSON.stringify({
-                            title,
-                            description,
-                            dueDate: new Date().toISOString()
-                        })
-                    });
-                    if (res.success) {
-                        loadTasks();
-                        loadDashboardData();
-                    }
-                } catch (err) {
-                    console.error("Error creating task", err);
                 }
             });
         }
+        modal.style.display = 'flex';
+    }
 
-        // Setup settings button click for Logout
-        const settingsBtn = document.querySelector('header button');
-        if (settingsBtn) {
-            settingsBtn.addEventListener('click', () => {
-                if (confirm('Do you want to log out?')) {
-                    localStorage.removeItem('jwt_token');
-                    checkAuth();
-                }
-            });
+    function hideAuthModal() {
+        const modal = document.getElementById('auth-modal');
+        if (modal) modal.style.display = 'none';
+    }
+
+    // Helper: Authenticated request fetcher
+    async function fetchWithAuth(url, options = {}) {
+        const token = localStorage.getItem('jwt_token');
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            ...options.headers
+        };
+        const response = await fetch(url, { ...options, headers });
+        if (response.status === 401) {
+            localStorage.removeItem('jwt_token');
+            checkAuth();
+            throw new Error('Unauthorized');
         }
+        return response.json();
+    }
 
-        // Add mouse move listener for glass effects
-        document.body.addEventListener('mousemove', (e) => {
-            document.querySelectorAll('.glass-card').forEach(card => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
-            });
+    // Switch Navigation Tab
+    function changeTab(tabName) {
+        currentTab = tabName;
+        renderActiveTab();
+    }
+
+    // Render active tab view
+    async function renderActiveTab() {
+        // Toggle Nav Bar classes
+        const tabs = ['focus', 'tasks', 'flows', 'goals', 'insights'];
+        tabs.forEach(t => {
+            const btn = document.getElementById(`tab-btn-${t}`);
+            if (btn) {
+                if (t === currentTab) {
+                    btn.className = "flex flex-col items-center justify-center bg-primary-container/20 text-primary rounded-full p-3 ring-1 ring-primary/20 active:scale-90 transition-all";
+                } else {
+                    btn.className = "flex flex-col items-center justify-center text-on-surface-variant/60 p-3 hover:text-primary transition-all active:scale-90 duration-300";
+                }
+            }
         });
 
-        // Initialize App
-        checkAuth();
-    </script>
+        const mainContent = document.getElementById('main-content');
+        if (!mainContent) return;
+
+        // Render loading state
+        mainContent.innerHTML = `
+            <div class="flex items-center justify-center py-20">
+                <p class="font-headline-md text-primary animate-pulse">Loading Workspace Module...</p>
+            </div>
+        `;
+
+        try {
+            if (currentTab === 'tasks') {
+                await renderTasksView(mainContent);
+            } else if (currentTab === 'focus') {
+                await renderFocusView(mainContent);
+            } else if (currentTab === 'flows') {
+                await renderFlowsView(mainContent);
+            } else if (currentTab === 'goals') {
+                await renderGoalsView(mainContent);
+            } else if (currentTab === 'insights') {
+                await renderInsightsView(mainContent);
+            }
+        } catch (err) {
+            mainContent.innerHTML = `<p class="text-error text-center py-10">Error loading tab content.</p>`;
+        }
+    }
+
+    // ==========================================
+    // MODULE: TASKS VIEW
+    // ==========================================
+    async function renderTasksView(container) {
+        let total = 0, completed = 0, percentage = 0;
+        try {
+            const dashboardRes = await fetchWithAuth(`${API_BASE_URL}/dashboard`);
+            if (dashboardRes.success && dashboardRes.data) {
+                total = dashboardRes.data.totalTasks || 0;
+                completed = dashboardRes.data.completedTasks || 0;
+                percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+            }
+        } catch(e){}
+
+        container.innerHTML = `
+            <section class="mb-8">
+                <p class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-1">Intelligence Overview</p>
+                <h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface">Optimize your focus.</h2>
+            </section>
+            
+            <div class="flex flex-col gap-6 mb-8">
+                <div class="relative w-full group">
+                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-outline material-symbols-outlined transition-colors group-focus-within:text-primary">search</span>
+                    <input class="w-full bg-surface-container-low border-b border-outline/20 py-4 pl-12 pr-4 rounded-xl focus:outline-none focus:border-primary transition-all font-body-md text-body-md placeholder:text-outline/50" placeholder="Search tasks, priorities..." type="text"/>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter" id="tasks-grid">
+                <!-- Task Cards will render here -->
+                
+                <!-- Add Task CTA -->
+                <div onclick="createNewTask()" class="glass-card rounded-3xl p-8 border-dashed border-2 flex flex-col items-center justify-center min-h-[220px] cursor-pointer hover:bg-primary/5 transition-all group">
+                    <div class="w-16 h-16 rounded-full bg-primary-container/10 flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-[32px]">add</span>
+                    </div>
+                    <span class="font-headline-md text-headline-md text-primary">Add New Task</span>
+                    <p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Create a custom scheduled task</p>
+                </div>
+
+                <!-- Stats card -->
+                <div class="glass-card rounded-3xl p-8 md:col-span-2 lg:col-span-2 flex flex-col md:flex-row gap-8 items-center bg-gradient-to-br from-primary/5 to-secondary/5">
+                    <div class="flex-1">
+                        <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Weekly Momentum</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-6">You've completed ${percentage}% of your high-impact tasks (${completed}/${total} tasks).</p>
+                        <div class="flex gap-4">
+                            <div class="bg-surface/80 px-4 py-3 rounded-2xl border border-primary/10">
+                                <p class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">Focus Score</p>
+                                <p class="font-headline-md text-headline-md text-primary">92/100</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative w-40 h-40 flex items-center justify-center">
+                        <svg class="w-full h-full transform -rotate-90">
+                            <circle class="text-primary/10" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-width="12"></circle>
+                            <circle class="text-primary" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="440" stroke-dashoffset="${440 - (percentage/100)*440}" stroke-linecap="round" stroke-width="12"></circle>
+                        </svg>
+                        <div class="absolute flex flex-col items-center">
+                            <span class="font-headline-md text-headline-md text-on-surface">${percentage}%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        const grid = document.getElementById('tasks-grid');
+        const tasksRes = await fetchWithAuth(`${API_BASE_URL}/tasks`);
+        if (tasksRes.success && tasksRes.data) {
+            tasksRes.data.forEach(task => {
+                const card = document.createElement('div');
+                card.className = `glass-card rounded-3xl p-8 flex flex-col justify-between min-h-[220px] transition-all duration-300 ${task.completed ? 'opacity-50 line-through' : ''}`;
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="px-3 py-1 ${task.completed ? 'bg-surface-container-high text-on-surface-variant' : 'bg-error-container text-on-error-container'} rounded-full font-label-sm text-label-sm">
+                                ${task.completed ? 'Completed' : 'Active'}
+                            </span>
+                            <span class="text-on-surface-variant font-label-sm text-label-sm">
+                                ${task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'No Due Date'}
+                            </span>
+                        </div>
+                        <h3 class="font-headline-md text-headline-md text-on-surface mb-2">${task.title}</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">${task.description || ''}</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <button onclick="deleteTask(${task.id})" class="text-error hover:text-red-700 flex items-center gap-1 font-label-sm text-label-sm">
+                            <span class="material-symbols-outlined text-[18px]">delete</span> Delete
+                        </button>
+                        <button onclick="toggleTaskCompletion(${task.id}, ${task.completed})" class="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
+                            <span class="material-symbols-outlined">${task.completed ? 'undo' : 'check'}</span>
+                        </button>
+                    </div>
+                `;
+                grid.insertBefore(card, grid.firstChild);
+            });
+        }
+    }
+
+    async function createNewTask() {
+        const title = prompt("Enter Task Title:");
+        if (!title) return;
+        const description = prompt("Enter Description:");
+        try {
+            const res = await fetchWithAuth(`${API_BASE_URL}/tasks`, {
+                method: 'POST',
+                body: JSON.stringify({ title, description, dueDate: new Date().toISOString() })
+            });
+            if (res.success) renderActiveTab();
+        } catch(e){}
+    }
+
+    async function toggleTaskCompletion(id, completed) {
+        try {
+            let res;
+            if (!completed) {
+                res = await fetchWithAuth(`${API_BASE_URL}/tasks/${id}/complete`, { method: 'PATCH' });
+            } else {
+                res = await fetchWithAuth(`${API_BASE_URL}/tasks/${id}`, {
+                    method: 'PUT',
+                    body: JSON.stringify({ completed: false })
+                });
+            }
+            if (res.success) renderActiveTab();
+        } catch(e){}
+    }
+
+    async function deleteTask(id) {
+        if (confirm('Delete this task?')) {
+            try {
+                const res = await fetchWithAuth(`${API_BASE_URL}/tasks/${id}`, { method: 'DELETE' });
+                if (res.success) renderActiveTab();
+            } catch(e){}
+        }
+    }
+
+    // ==========================================
+    // MODULE: FOCUS (HABITS) VIEW
+    // ==========================================
+    async function renderFocusView(container) {
+        container.innerHTML = `
+            <section class="mb-8">
+                <p class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-1">Streaks & Routines</p>
+                <h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface">Build Daily Habits.</h2>
+            </section>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter" id="habits-grid">
+                <!-- Habits render here -->
+                
+                <div onclick="createNewHabit()" class="glass-card rounded-3xl p-8 border-dashed border-2 flex flex-col items-center justify-center min-h-[220px] cursor-pointer hover:bg-primary/5 transition-all group">
+                    <div class="w-16 h-16 rounded-full bg-primary-container/10 flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-[32px]">add</span>
+                    </div>
+                    <span class="font-headline-md text-headline-md text-primary">New Routine</span>
+                    <p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Add a habit tracker</p>
+                </div>
+            </div>
+        `;
+
+        const grid = document.getElementById('habits-grid');
+        const habitsRes = await fetchWithAuth(`${API_BASE_URL}/habits`);
+        if (habitsRes.success && habitsRes.data) {
+            habitsRes.data.forEach(habit => {
+                const card = document.createElement('div');
+                card.className = `glass-card rounded-3xl p-8 flex flex-col justify-between min-h-[220px]`;
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full font-label-sm text-label-sm">
+                                🔥 Streak: ${habit.streak || 0} Days
+                            </span>
+                            <span class="text-on-surface-variant font-label-sm text-label-sm">
+                                ${habit.completedToday ? 'Checked in' : 'Pending'}
+                            </span>
+                        </div>
+                        <h3 class="font-headline-md text-headline-md text-on-surface mb-2">${habit.name}</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">${habit.description || ''}</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <button onclick="deleteHabit(${habit.id})" class="text-error hover:text-red-700 flex items-center gap-1 font-label-sm text-label-sm">
+                            <span class="material-symbols-outlined text-[18px]">delete</span> Delete
+                        </button>
+                        <button onclick="checkinHabit(${habit.id})" class="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center text-secondary hover:bg-secondary hover:text-white transition-all">
+                            <span class="material-symbols-outlined">bolt</span>
+                        </button>
+                    </div>
+                `;
+                grid.insertBefore(card, grid.firstChild);
+            });
+        }
+    }
+
+    async function createNewHabit() {
+        const name = prompt("Habit Name:");
+        if (!name) return;
+        const description = prompt("Description:");
+        try {
+            const res = await fetchWithAuth(`${API_BASE_URL}/habits`, {
+                method: 'POST',
+                body: JSON.stringify({ name, description, streak: 0, completedToday: false })
+            });
+            if (res.success) renderActiveTab();
+        } catch(e){}
+    }
+
+    async function checkinHabit(id) {
+        try {
+            const res = await fetchWithAuth(`${API_BASE_URL}/habits/${id}/complete`, { method: 'PATCH' });
+            if (res.success) renderActiveTab();
+        } catch(e){}
+    }
+
+    async function deleteHabit(id) {
+        if (confirm('Delete this habit?')) {
+            try {
+                const res = await fetchWithAuth(`${API_BASE_URL}/habits/${id}`, { method: 'DELETE' });
+                if (res.success) renderActiveTab();
+            } catch(e){}
+        }
+    }
+
+    // ==========================================
+    // MODULE: FLOWS (NOTES / VAULT) VIEW
+    // ==========================================
+    async function renderFlowsView(container) {
+        container.innerHTML = `
+            <section class="mb-8 flex justify-between items-center">
+                <div>
+                    <p class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-1">Knowledge Base</p>
+                    <h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface">The Vault.</h2>
+                </div>
+                <button onclick="createNewNote()" class="bg-primary text-on-primary px-6 py-3 rounded-full font-label-sm hover:opacity-90 active:scale-95">
+                    Create Note
+                </button>
+            </section>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter" id="vault-grid">
+                <!-- Notes rendering -->
+            </div>
+        `;
+
+        const grid = document.getElementById('vault-grid');
+        const notesRes = await fetchWithAuth(`${API_BASE_URL}/notes`);
+        if (notesRes.success && notesRes.data) {
+            notesRes.data.forEach(note => {
+                const card = document.createElement('div');
+                card.className = `glass-card rounded-3xl p-8 flex flex-col justify-between min-h-[200px]`;
+                card.innerHTML = `
+                    <div>
+                        <h3 class="font-headline-md text-headline-md text-on-surface mb-2">${note.title}</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant line-clamp-3">${note.content || ''}</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <button onclick="deleteNote(${note.id})" class="text-error hover:text-red-700 flex items-center gap-1 font-label-sm text-label-sm">
+                            <span class="material-symbols-outlined text-[18px]">delete</span> Delete
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+    }
+
+    async function createNewNote() {
+        const title = prompt("Note Title:");
+        if (!title) return;
+        const content = prompt("Content:");
+        try {
+            const res = await fetchWithAuth(`${API_BASE_URL}/notes`, {
+                method: 'POST',
+                body: JSON.stringify({ title, content })
+            });
+            if (res.success) renderActiveTab();
+        } catch(e){}
+    }
+
+    async function deleteNote(id) {
+        if (confirm('Delete this note?')) {
+            try {
+                const res = await fetchWithAuth(`${API_BASE_URL}/notes/${id}`, { method: 'DELETE' });
+                if (res.success) renderActiveTab();
+            } catch(e){}
+        }
+    }
+
+    // ==========================================
+    // MODULE: GOALS VIEW
+    // ==========================================
+    async function renderGoalsView(container) {
+        container.innerHTML = `
+            <section class="mb-8">
+                <p class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-1">Milestones & Targets</p>
+                <h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface">Achieve Success.</h2>
+            </section>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter" id="goals-grid">
+                <!-- Goals render here -->
+                
+                <div onclick="createNewGoal()" class="glass-card rounded-3xl p-8 border-dashed border-2 flex flex-col items-center justify-center min-h-[220px] cursor-pointer hover:bg-primary/5 transition-all group">
+                    <div class="w-16 h-16 rounded-full bg-primary-container/10 flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-[32px]">add</span>
+                    </div>
+                    <span class="font-headline-md text-headline-md text-primary">New Target</span>
+                    <p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Add goal milestones</p>
+                </div>
+            </div>
+        `;
+
+        const grid = document.getElementById('goals-grid');
+        const goalsRes = await fetchWithAuth(`${API_BASE_URL}/goals`);
+        if (goalsRes.success && goalsRes.data) {
+            goalsRes.data.forEach(goal => {
+                const card = document.createElement('div');
+                card.className = `glass-card rounded-3xl p-8 flex flex-col justify-between min-h-[220px] ${goal.completed ? 'opacity-50 line-through' : ''}`;
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="px-3 py-1 bg-surface-tint/10 text-primary rounded-full font-label-sm text-label-sm">
+                                ${goal.completed ? 'Completed' : 'Active'}
+                            </span>
+                            <span class="text-on-surface-variant font-label-sm text-label-sm">
+                                ${goal.targetDate ? new Date(goal.targetDate).toLocaleDateString() : 'No Target Date'}
+                            </span>
+                        </div>
+                        <h3 class="font-headline-md text-headline-md text-on-surface mb-2">${goal.title}</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">${goal.description || ''}</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between">
+                        <button onclick="deleteGoal(${goal.id})" class="text-error hover:text-red-700 flex items-center gap-1 font-label-sm text-label-sm">
+                            <span class="material-symbols-outlined text-[18px]">delete</span> Delete
+                        </button>
+                        <button onclick="toggleGoalCompletion(${goal.id}, ${goal.completed})" class="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all">
+                            <span class="material-symbols-outlined">${goal.completed ? 'undo' : 'check'}</span>
+                        </button>
+                    </div>
+                `;
+                grid.insertBefore(card, grid.firstChild);
+            });
+        }
+    }
+
+    async function createNewGoal() {
+        const title = prompt("Goal Target Title:");
+        if (!title) return;
+        const description = prompt("Description:");
+        try {
+            const res = await fetchWithAuth(`${API_BASE_URL}/goals`, {
+                method: 'POST',
+                body: JSON.stringify({ title, description, targetDate: new Date().toISOString(), completed: false })
+            });
+            if (res.success) renderActiveTab();
+        } catch(e){}
+    }
+
+    async function toggleGoalCompletion(id, completed) {
+        try {
+            const res = await fetchWithAuth(`${API_BASE_URL}/goals/${id}/${completed ? 'pending' : 'complete'}`, {
+                method: 'PATCH'
+            });
+            if (res.success) renderActiveTab();
+        } catch(e){}
+    }
+
+    async function deleteGoal(id) {
+        if (confirm('Delete this goal?')) {
+            try {
+                const res = await fetchWithAuth(`${API_BASE_URL}/goals/${id}`, { method: 'DELETE' });
+                if (res.success) renderActiveTab();
+            } catch(e){}
+        }
+    }
+
+    // ==========================================
+    // MODULE: INSIGHTS & MOOD VIEW
+    // ==========================================
+    async function renderInsightsView(container) {
+        let stats = {
+            totalTasks: 0, completedTasks: 0, totalHabits: 0, 
+            totalGoals: 0, completedGoals: 0, totalNotes: 0, 
+            totalJournals: 0, totalReminders: 0, todayMood: 'Not Set'
+        };
+
+        try {
+            const res = await fetchWithAuth(`${API_BASE_URL}/dashboard`);
+            if (res.success && res.data) stats = res.data;
+        } catch(e){}
+
+        container.innerHTML = `
+            <section class="mb-8">
+                <p class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-1">Personal Diagnostics</p>
+                <h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface">Workspace Metrics.</h2>
+            </section>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+                <!-- Mood logger card -->
+                <div class="glass-card rounded-3xl p-8 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Daily Mood: ${stats.todayMood || 'None'}</h3>
+                        <p class="font-body-md text-on-surface-variant mb-6">How are you feeling today?</p>
+                        
+                        <div class="flex gap-2 flex-wrap">
+                            <button onclick="logMood('Excellent')" class="px-4 py-2 bg-primary/10 text-primary rounded-full hover:bg-primary hover:text-white font-label-sm">Excellent</button>
+                            <button onclick="logMood('Good')" class="px-4 py-2 bg-primary/10 text-primary rounded-full hover:bg-primary hover:text-white font-label-sm">Good</button>
+                            <button onclick="logMood('Neutral')" class="px-4 py-2 bg-primary/10 text-primary rounded-full hover:bg-primary hover:text-white font-label-sm">Neutral</button>
+                            <button onclick="logMood('Bad')" class="px-4 py-2 bg-primary/10 text-primary rounded-full hover:bg-primary hover:text-white font-label-sm">Bad</button>
+                            <button onclick="logMood('Awful')" class="px-4 py-2 bg-primary/10 text-primary rounded-full hover:bg-primary hover:text-white font-label-sm">Awful</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats card 1 -->
+                <div class="glass-card rounded-3xl p-8 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-2">Milestones Checked</h3>
+                        <p class="text-4xl font-headline-lg text-primary">${stats.completedGoals}/${stats.totalGoals} Goals</p>
+                    </div>
+                </div>
+
+                <!-- Stats card 2 -->
+                <div class="glass-card rounded-3xl p-8 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-2">Vault Items</h3>
+                        <p class="text-4xl font-headline-lg text-secondary">${stats.totalNotes} Notes / ${stats.totalJournals} Journals</p>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    async function logMood(val) {
+        try {
+            const res = await fetchWithAuth(`${API_BASE_URL}/moods`, {
+                method: 'POST',
+                body: JSON.stringify({ moodValue: val, notes: 'Logged via Web Dashboard' })
+            });
+            if (res.success) renderActiveTab();
+        } catch(e){}
+    }
+
+    // Setup global logout trigger
+    const settingsBtn = document.querySelector('header button');
+    if (settingsBtn) {
+        settingsBtn.addEventListener('click', () => {
+            if (confirm('Do you want to log out?')) {
+                localStorage.removeItem('jwt_token');
+                checkAuth();
+            }
+        });
+    }
+
+    // Initialize App
+    checkAuth();
+</script>
 </body></html>
