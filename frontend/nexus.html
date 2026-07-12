@@ -6,12 +6,12 @@
     <title>LifeOS - Nexus Dashboard</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    <script id="tailwind-config">
+    <script>
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
-                    "colors": {
+                    colors: {
                         "primary-container": "#0ea5e9",
                         "secondary-container": "#7ed4fd",
                         "surface": "#faf8ff",
@@ -22,14 +22,6 @@
                         "surface-container": "#eaedff",
                         "secondary": "#006686",
                         "surface-container-high": "#e2e7ff"
-                    },
-                    "fontFamily": {
-                        "body-lg": ["Inter"],
-                        "label-sm": ["JetBrains Mono"],
-                        "body-sm": ["Inter"],
-                        "body-md": ["Inter"],
-                        "headline-xl": ["Manrope"],
-                        "headline-md": ["Manrope"]
                     }
                 }
             }
@@ -44,36 +36,36 @@
         }
     </style>
 </head>
-<body class="font-body-md text-on-surface">
+<body class="font-sans text-base text-on-surface">
 
     <!-- Top Navigation Bar -->
-    <header class="bg-surface border-b border-surface-variant flex justify-between items-center px-lg py-sm w-full fixed top-0 z-50 shadow-sm">
-        <div class="flex items-center gap-md">
+    <header class="bg-surface border-b border-surface-variant flex justify-between items-center px-6 py-4 w-full fixed top-0 z-50 shadow-sm">
+        <div class="flex items-center gap-4">
             <div class="w-10 h-10 rounded-full overflow-hidden bg-primary-container flex items-center justify-center">
                 <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvYSKatxVfKBIONQASWRy9cZiXcW3_Px1SX2o0_yHSXsJAvJlt2xE9pKC-25GBgaeZ-5RUKM_wriYzHuG7EU8dT8_Gqc2PF9D0hb960XN6iuBjwDveD9iYcitXETb9hrqy7vSeO-oJwrCczflXu46ALaOa2tEJ8a2Q5F8RL6Igh-DpLVq8sP4_-ErY1icolMRaXqYotOHXjw7RXAX_3vb2rAe7r59Tx_yBl-8PhD5ezUd0WtW7_X4LGg"/>
             </div>
-            <h1 class="font-headline-md text-headline-md font-bold text-primary">LifeOS</h1>
+            <h1 class="text-xl md:text-2xl font-bold text-primary tracking-tight">LifeOS</h1>
         </div>
-        <div class="flex items-center gap-lg">
+        <div class="flex items-center gap-6">
             <button onclick="window.location.href='orbit.html'" class="material-symbols-outlined text-primary hover:bg-surface-container-low p-2 rounded-full transition-colors duration-200">settings</button>
         </div>
     </header>
 
     <!-- Main Canvas -->
-    <main class="max-w-max-width mx-auto pt-24 pb-32 px-md md:px-margin-desktop">
+    <main class="max-w-[1440px] mx-auto pt-28 pb-32 px-6 md:px-16">
         <!-- Hero Section / Statistics -->
-        <section class="mb-xl">
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-md">
+        <section class="mb-10">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                    <h2 class="font-headline-xl text-headline-xl text-on-surface">Daily Pulse</h2>
-                    <p class="text-on-surface-variant font-body-lg" id="tasks-remaining-text">Loading diagnostics...</p>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-on-surface tracking-tight mb-2">Daily Pulse</h2>
+                    <p class="text-on-surface-variant text-lg" id="tasks-remaining-text">Loading diagnostics...</p>
                 </div>
-                <div class="flex gap-sm">
-                    <div class="bg-white border border-outline-variant p-md rounded-xl ambient-shadow flex items-center gap-md">
+                <div class="flex gap-4">
+                    <div class="bg-white border border-outline-variant p-4 rounded-xl ambient-shadow flex items-center gap-4">
                         <div class="w-2 h-12 bg-primary-container rounded-full"></div>
                         <div>
-                            <p class="font-label-sm text-label-sm text-on-surface-variant">COMPLETION</p>
-                            <p class="font-headline-md text-headline-md" id="completion-percentage-text">0%</p>
+                            <p class="text-xs font-mono tracking-wider uppercase text-on-surface-variant">COMPLETION</p>
+                            <p class="text-xl md:text-2xl font-bold" id="completion-percentage-text">0%</p>
                         </div>
                     </div>
                 </div>
@@ -81,70 +73,69 @@
         </section>
 
         <!-- Bento Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Mood Log Card -->
-            <div class="bg-white border border-outline-variant p-lg rounded-xl ambient-shadow flex flex-col justify-between">
+            <div class="bg-white border border-outline-variant p-6 rounded-xl ambient-shadow flex flex-col justify-between">
                 <div>
-                    <h4 class="font-headline-md text-body-lg text-on-surface mb-xs" id="today-mood-title">Today's Mood: Not Logged</h4>
-                    <p class="text-on-surface-variant font-body-sm mb-md">Tap to update your current diagnostics.</p>
+                    <h4 class="text-lg font-bold text-on-surface mb-2" id="today-mood-title">Today's Mood: Not Logged</h4>
+                    <p class="text-on-surface-variant text-sm mb-4">Tap to update your current diagnostics.</p>
                     <div class="flex gap-2 flex-wrap">
-                        <button onclick="submitMood('Excellent')" class="px-3 py-1 bg-surface-container text-primary rounded-full hover:bg-primary hover:text-white transition-all font-label-sm">Excellent</button>
-                        <button onclick="submitMood('Good')" class="px-3 py-1 bg-surface-container text-primary rounded-full hover:bg-primary hover:text-white transition-all font-label-sm">Good</button>
-                        <button onclick="submitMood('Neutral')" class="px-3 py-1 bg-surface-container text-primary rounded-full hover:bg-primary hover:text-white transition-all font-label-sm">Neutral</button>
-                        <button onclick="submitMood('Bad')" class="px-3 py-1 bg-surface-container text-primary rounded-full hover:bg-primary hover:text-white transition-all font-label-sm">Bad</button>
-                        <button onclick="submitMood('Awful')" class="px-3 py-1 bg-surface-container text-primary rounded-full hover:bg-primary hover:text-white transition-all font-label-sm">Awful</button>
+                        <button onclick="submitMood('Excellent')" class="px-3 py-1 bg-surface-container text-primary rounded-full hover:bg-primary hover:text-white transition-all text-xs font-mono">Excellent</button>
+                        <button onclick="submitMood('Good')" class="px-3 py-1 bg-surface-container text-primary rounded-full hover:bg-primary hover:text-white transition-all text-xs font-mono">Good</button>
+                        <button onclick="submitMood('Neutral')" class="px-3 py-1 bg-surface-container text-primary rounded-full hover:bg-primary hover:text-white transition-all text-xs font-mono">Neutral</button>
+                        <button onclick="submitMood('Bad')" class="px-3 py-1 bg-surface-container text-primary rounded-full hover:bg-primary hover:text-white transition-all text-xs font-mono">Bad</button>
+                        <button onclick="submitMood('Awful')" class="px-3 py-1 bg-surface-container text-primary rounded-full hover:bg-primary hover:text-white transition-all text-xs font-mono">Awful</button>
                     </div>
                 </div>
             </div>
 
             <!-- Habits streak summary card -->
-            <div class="bg-white border border-outline-variant p-lg rounded-xl ambient-shadow flex flex-col justify-between">
+            <div class="bg-white border border-outline-variant p-6 rounded-xl ambient-shadow flex flex-col justify-between">
                 <div>
-                    <h4 class="font-headline-md text-body-lg text-on-surface mb-xs">Active Habits</h4>
-                    <p class="text-on-surface-variant font-body-sm mb-md">Routines loaded and ready for check-in.</p>
-                    <p class="text-4xl font-headline-xl text-primary" id="total-habits-text">0 Habits</p>
+                    <h4 class="text-lg font-bold text-on-surface mb-2">Active Habits</h4>
+                    <p class="text-on-surface-variant text-sm mb-4">Routines loaded and ready for check-in.</p>
+                    <p class="text-4xl font-extrabold text-primary" id="total-habits-text">0 Habits</p>
                 </div>
             </div>
 
             <!-- Vault Summary Card -->
-            <div class="bg-white border border-outline-variant p-lg rounded-xl ambient-shadow flex flex-col justify-between" onclick="window.location.href='vault.html'">
+            <div class="bg-white border border-outline-variant p-6 rounded-xl ambient-shadow flex flex-col justify-between cursor-pointer hover:border-primary transition-all" onclick="window.location.href='vault.html'">
                 <div>
-                    <h4 class="font-headline-md text-body-lg text-on-surface mb-xs cursor-pointer hover:underline">Knowledge Vault</h4>
-                    <p class="text-on-surface-variant font-body-sm mb-md">Notes and journal files tracked in memory.</p>
-                    <p class="text-4xl font-headline-xl text-secondary" id="total-vault-text">0 Notes / 0 Journals</p>
+                    <h4 class="text-lg font-bold text-on-surface mb-2 hover:underline">Knowledge Vault</h4>
+                    <p class="text-on-surface-variant text-sm mb-4">Notes and journal files tracked in memory.</p>
+                    <p class="text-4xl font-extrabold text-secondary" id="total-vault-text">0 Notes / 0 Journals</p>
                 </div>
             </div>
         </div>
     </main>
 
     <!-- Bottom Navigation Bar -->
-    <nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-sm py-xs pb-safe bg-surface border-t border-surface-variant shadow-sm">
-        <a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-md py-xs transition-transform duration-150 scale-95 active:scale-90" href="nexus.html">
+    <nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-surface border-t border-surface-variant shadow-sm">
+        <a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-6 py-2 transition-all scale-95" href="nexus.html">
             <span class="material-symbols-outlined">dashboard</span>
-            <span class="font-label-sm text-label-sm">Nexus</span>
+            <span class="text-xs font-mono">Nexus</span>
         </a>
-        <a class="flex flex-col items-center justify-center text-on-surface-variant px-md py-xs hover:text-primary transition-transform duration-150 scale-95 active:scale-90" href="tasks.html">
+        <a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-2 hover:text-primary transition-all scale-95" href="tasks.html">
             <span class="material-symbols-outlined">check_circle</span>
-            <span class="font-label-sm text-label-sm">Tasks</span>
+            <span class="text-xs font-mono">Tasks</span>
         </a>
-        <a class="flex flex-col items-center justify-center text-on-surface-variant px-md py-xs hover:text-primary transition-transform duration-150 scale-95 active:scale-90" href="pulse.html">
+        <a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-2 hover:text-primary transition-all scale-95" href="pulse.html">
             <span class="material-symbols-outlined">favorite</span>
-            <span class="font-label-sm text-label-sm">Pulse</span>
+            <span class="text-xs font-mono">Pulse</span>
         </a>
-        <a class="flex flex-col items-center justify-center text-on-surface-variant px-md py-xs hover:text-primary transition-transform duration-150 scale-95 active:scale-90" href="vault.html">
+        <a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-2 hover:text-primary transition-all scale-95" href="vault.html">
             <span class="material-symbols-outlined">description</span>
-            <span class="font-label-sm text-label-sm">Vault</span>
+            <span class="text-xs font-mono">Vault</span>
         </a>
-        <a class="flex flex-col items-center justify-center text-on-surface-variant px-md py-xs hover:text-primary transition-transform duration-150 scale-95 active:scale-90" href="orbit.html">
+        <a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-2 hover:text-primary transition-all scale-95" href="orbit.html">
             <span class="material-symbols-outlined">settings</span>
-            <span class="font-label-sm text-label-sm">Orbit</span>
+            <span class="text-xs font-mono">Orbit</span>
         </a>
     </nav>
 
     <script>
         const API_BASE_URL = 'http://localhost:8081/api';
 
-        // Check Auth
         const token = localStorage.getItem('jwt_token');
         if (!token) {
             window.location.href = 'index.html';

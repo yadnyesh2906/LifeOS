@@ -6,23 +6,18 @@
     <title>LifeOS - Entry Center</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    <script id="tailwind-config">
+    <script>
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
-                    "colors": {
-                        "primary": "#006591",
-                        "surface": "#faf8ff",
+                    colors: {
+                        primary: "#006591",
+                        surface: "#faf8ff",
                         "on-surface": "#131b2e",
                         "on-surface-variant": "#3e4850",
                         "surface-container-low": "#f2f3ff",
                         "outline-variant": "#bec8d2"
-                    },
-                    "fontFamily": {
-                        "body-md": ["Inter"],
-                        "headline-lg": ["Manrope"],
-                        "label-sm": ["JetBrains Mono"]
                     }
                 }
             }
@@ -37,23 +32,23 @@
         }
     </style>
 </head>
-<body class="font-body-md text-on-surface min-h-screen flex items-center justify-center p-4">
+<body class="font-sans text-base min-h-screen flex items-center justify-center p-4">
 
-    <div class="bg-white border border-outline-variant p-8 max-w-md w-full rounded-2xl ambient-shadow">
-        <h2 class="font-headline-lg text-3xl text-primary text-center mb-2 font-bold" id="auth-title">Welcome to LifeOS</h2>
-        <p class="font-body-md text-on-surface-variant text-center mb-6" id="auth-subtitle">Login to enter your command center</p>
+    <div class="bg-white border border-outline-variant p-6 md:p-8 max-w-md w-full rounded-2xl ambient-shadow">
+        <h2 class="text-3xl font-extrabold text-primary text-center mb-2 tracking-tight" id="auth-title">Welcome to LifeOS</h2>
+        <p class="text-base text-on-surface-variant text-center mb-6" id="auth-subtitle">Login to enter your command center</p>
         
         <form id="auth-form" class="flex flex-col gap-4">
             <div class="flex flex-col gap-1" id="fullname-container" style="display: none;">
-                <label class="font-label-sm text-label-sm text-on-surface-variant">FULL NAME</label>
+                <label class="text-xs font-mono tracking-wider uppercase text-on-surface-variant">FULL NAME</label>
                 <input id="auth-fullname" type="text" class="w-full bg-surface-container-low border border-outline-variant p-3 rounded-lg focus:border-primary focus:outline-none" placeholder="Vedant Sonawane" />
             </div>
             <div class="flex flex-col gap-1">
-                <label class="font-label-sm text-label-sm text-on-surface-variant">EMAIL ADDRESS</label>
+                <label class="text-xs font-mono tracking-wider uppercase text-on-surface-variant">EMAIL ADDRESS</label>
                 <input id="auth-email" type="email" required class="w-full bg-surface-container-low border border-outline-variant p-3 rounded-lg focus:border-primary focus:outline-none" placeholder="vedant@example.com" />
             </div>
             <div class="flex flex-col gap-1">
-                <label class="font-label-sm text-label-sm text-on-surface-variant">PASSWORD</label>
+                <label class="text-xs font-mono tracking-wider uppercase text-on-surface-variant">PASSWORD</label>
                 <input id="auth-password" type="password" required class="w-full bg-surface-container-low border border-outline-variant p-3 rounded-lg focus:border-primary focus:outline-none" placeholder="••••••••" />
             </div>
             <button type="submit" class="bg-primary text-on-primary py-3 px-6 rounded-full font-semibold transition-all hover:opacity-90 active:scale-95 mt-2">
@@ -61,7 +56,7 @@
             </button>
         </form>
         
-        <p class="text-center font-label-sm text-on-surface-variant mt-6">
+        <p class="text-center text-xs font-mono text-on-surface-variant mt-6">
             <span id="auth-toggle-text">New to LifeOS?</span>
             <button id="auth-toggle-btn" class="text-primary font-semibold hover:underline ms-1">Create an account</button>
         </p>
@@ -70,7 +65,6 @@
     <script>
         const API_BASE_URL = 'http://localhost:8081/api';
 
-        // Check if already authenticated
         if (localStorage.getItem('jwt_token')) {
             window.location.href = 'nexus.html';
         }
