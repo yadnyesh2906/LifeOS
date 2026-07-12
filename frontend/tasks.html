@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>LifeOS - Tasks Board</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#0ea5e9",
+                        "secondary-container": "#7ed4fd",
+                        "surface": "#faf8ff",
+                        "on-surface": "#131b2e",
+                        "on-surface-variant": "#3e4850",
+                        "primary": "#006591",
+                        "outline-variant": "#bec8d2",
+                        "surface-container": "#eaedff",
+                        "secondary": "#006686",
+                        "surface-container-high": "#e2e7ff",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "label-sm": ["JetBrains Mono"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-xl": ["Manrope"],
+                        "headline-md": ["Manrope"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F8FAFC;
+        }
+        .ambient-shadow {
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04), 0 2px 10px -2px rgba(0, 0, 0, 0.02);
+        }
+        .task-card-enter {
+            animation: slideIn 0.4s ease-out forwards;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface">
+
+    <!-- Top Navigation Bar -->
+    <header class="bg-surface border-b border-surface-variant flex justify-between items-center px-lg py-sm w-full fixed top-0 z-50 shadow-sm">
+        <div class="flex items-center gap-md">
+            <div class="w-10 h-10 rounded-full overflow-hidden bg-primary-container flex items-center justify-center">
+                <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvYSKatxVfKBIONQASWRy9cZiXcW3_Px1SX2o0_yHSXsJAvJlt2xE9pKC-25GBgaeZ-5RUKM_wriYzHuG7EU8dT8_Gqc2PF9D0hb960XN6iuBjwDveD9iYcitXETb9hrqy7vSeO-oJwrCczflXu46ALaOa2tEJ8a2Q5F8RL6Igh-DpLVq8sP4_-ErY1icolMRaXqYotOHXjw7RXAX_3vb2rAe7r59Tx_yBl-8PhD5ezUd0WtW7_X4LGg"/>
+            </div>
+            <h1 class="font-headline-md text-headline-md font-bold text-primary">LifeOS</h1>
+        </div>
+        <div class="flex items-center gap-lg">
+            <button onclick="window.location.href='orbit.html'" class="material-symbols-outlined text-primary hover:bg-surface-container-low p-2 rounded-full transition-colors duration-200">settings</button>
+        </div>
+    </header>
+
+    <!-- Main Canvas -->
+    <main class="max-w-max-width mx-auto pt-24 pb-32 px-md md:px-margin-desktop">
+        <section class="mb-xl">
+            <h2 class="font-headline-xl text-headline-xl text-on-surface">Daily Tasks</h2>
+            <p class="text-on-surface-variant font-body-lg">Manage your tasks, deadlines, and milestone progress.</p>
+        </section>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+            <!-- Column 1: Active -->
+            <section class="lg:col-span-4 flex flex-col gap-md">
+                <div class="flex items-center justify-between mb-xs">
+                    <h3 class="font-headline-md text-headline-md flex items-center gap-sm">
+                        <span class="w-2 h-2 rounded-full bg-primary"></span>
+                        Active
+                    </h3>
+                    <span class="font-label-sm text-label-sm bg-primary-container text-on-primary-container px-sm py-1 rounded-full" id="active-task-count">0 TASKS</span>
+                </div>
+                <div class="flex flex-col gap-md" id="active-tasks-list"></div>
+            </section>
+
+            <!-- Column 2: Upcoming -->
+            <section class="lg:col-span-4 flex flex-col gap-md">
+                <div class="flex items-center justify-between mb-xs">
+                    <h3 class="font-headline-md text-headline-md flex items-center gap-sm">
+                        <span class="w-2 h-2 rounded-full bg-secondary"></span>
+                        Upcoming
+                    </h3>
+                    <span class="font-label-sm text-label-sm bg-surface-container-high text-on-surface-variant px-sm py-1 rounded-full" id="upcoming-task-count">0 TASKS</span>
+                </div>
+                <div class="flex flex-col gap-md" id="upcoming-tasks-list"></div>
+            </section>
+
+            <!-- Column 3: Completed -->
+            <section class="lg:col-span-4 flex flex-col gap-md">
+                <div class="flex items-center justify-between mb-xs">
+                    <h3 class="font-headline-md text-headline-md flex items-center gap-sm">
+                        <span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+                        Completed
+                    </h3>
+                    <button onclick="clearCompletedTasks()" class="font-label-sm text-label-sm text-primary hover:underline">CLEAR ALL</button>
+                </div>
+                <div class="flex flex-col gap-md opacity-70" id="completed-tasks-list"></div>
+            </section>
+        </div>
+    </main>
+
+    <!-- FAB for Task Creation -->
+    <button onclick="openTaskCreateModal()" class="fixed bottom-24 right-8 w-14 h-14 bg-primary text-white rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-transform duration-200 z-50">
+        <span class="material-symbols-outlined text-[32px]">add</span>
+    </button>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-sm py-xs pb-safe bg-surface border-t border-surface-variant shadow-sm">
+        <a class="flex flex-col items-center justify-center text-on-surface-variant px-md py-xs hover:text-primary transition-transform duration-150 scale-95 active:scale-90" href="nexus.html">
+            <span class="material-symbols-outlined">dashboard</span>
+            <span class="font-label-sm text-label-sm">Nexus</span>
+        </a>
+        <a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-md py-xs transition-transform duration-150 scale-95 active:scale-90" href="tasks.html">
+            <span class="material-symbols-outlined">check_circle</span>
+            <span class="font-label-sm text-label-sm">Tasks</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant px-md py-xs hover:text-primary transition-transform duration-150 scale-95 active:scale-90" href="pulse.html">
+            <span class="material-symbols-outlined">favorite</span>
+            <span class="font-label-sm text-label-sm">Pulse</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant px-md py-xs hover:text-primary transition-transform duration-150 scale-95 active:scale-90" href="vault.html">
+            <span class="material-symbols-outlined">description</span>
+            <span class="font-label-sm text-label-sm">Vault</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant px-md py-xs hover:text-primary transition-transform duration-150 scale-95 active:scale-90" href="orbit.html">
+            <span class="material-symbols-outlined">settings</span>
+            <span class="font-label-sm text-label-sm">Orbit</span>
+        </a>
+    </nav>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:8081/api';
+
+        // Check Auth
+        const token = localStorage.getItem('jwt_token');
+        if (!token) {
+            window.location.href = 'index.html';
+        }
+
+        async function fetchWithAuth(url, options = {}) {
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+                ...options.headers
+            };
+            const response = await fetch(url, { ...options, headers });
+            if (response.status === 401) {
+                localStorage.removeItem('jwt_token');
+                window.location.href = 'index.html';
+                throw new Error('Unauthorized');
+            }
+            return response.json();
+        }
+
+        async function loadTasks() {
+            try {
+                const res = await fetchWithAuth(`${API_BASE_URL}/tasks`);
+                if (res.success && res.data) {
+                    const activeList = document.getElementById('active-tasks-list');
+                    const upcomingList = document.getElementById('upcoming-tasks-list');
+                    const completedList = document.getElementById('completed-tasks-list');
+
+                    activeList.innerHTML = '';
+                    upcomingList.innerHTML = '';
+                    completedList.innerHTML = '';
+
+                    let activeCount = 0;
+                    let upcomingCount = 0;
+
+                    res.data.forEach(task => {
+                        const card = document.createElement('div');
+                        card.className = `bg-white border border-outline-variant p-lg rounded-xl ambient-shadow hover:border-primary transition-all duration-300 group cursor-pointer task-card-enter`;
+                        
+                        if (task.completed) {
+                            card.innerHTML = `
+                                <div class="flex items-start justify-between">
+                                    <h4 class="font-headline-md text-body-lg text-on-surface line-through">${task.title}</h4>
+                                    <button onclick="toggleTaskCompletion(${task.id}, true)" class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</button>
+                                </div>
+                                <p class="text-on-surface-variant font-body-sm mt-2">${task.description || ''}</p>
+                                <button onclick="deleteTask(${task.id})" class="text-error hover:text-red-700 flex items-center gap-1 font-label-sm text-label-sm mt-3">
+                                    <span class="material-symbols-outlined text-[16px]">delete</span> Remove
+                                </button>
+                            `;
+                            completedList.appendChild(card);
+                        } else {
+                            const isUpcoming = task.dueDate && new Date(task.dueDate) > new Date(new Date().setHours(23, 59, 59, 999));
+                            
+                            card.innerHTML = `
+                                <div class="flex items-start justify-between mb-sm">
+                                    <h4 class="font-headline-md text-body-lg text-on-surface group-hover:text-primary transition-colors">${task.title}</h4>
+                                    <input onclick="toggleTaskCompletion(${task.id}, false)" class="w-6 h-6 rounded-md border-outline-variant text-primary focus:ring-primary-container cursor-pointer" type="checkbox"/>
+                                </div>
+                                <p class="text-on-surface-variant font-body-sm mb-md line-clamp-2">${task.description || ''}</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="font-label-sm text-label-sm text-primary flex items-center gap-xs">
+                                        <span class="material-symbols-outlined text-[16px]">${isUpcoming ? 'calendar_month' : 'schedule'}</span>
+                                        ${task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'No Deadline'}
+                                    </span>
+                                    <button onclick="deleteTask(${task.id})" class="text-error hover:text-red-700 flex items-center gap-1 font-label-sm text-label-sm">
+                                        <span class="material-symbols-outlined text-[16px]">delete</span>
+                                    </button>
+                                </div>
+                            `;
+
+                            if (isUpcoming) {
+                                upcomingList.appendChild(card);
+                                upcomingCount++;
+                            } else {
+                                activeList.appendChild(card);
+                                activeCount++;
+                            }
+                        }
+                    });
+
+                    document.getElementById('active-task-count').textContent = `${activeCount} TASKS`;
+                    document.getElementById('upcoming-task-count').textContent = `${upcomingCount} TASKS`;
+                }
+            } catch(e){}
+        }
+
+        async function toggleTaskCompletion(id, completed) {
+            try {
+                let res;
+                if (!completed) {
+                    res = await fetchWithAuth(`${API_BASE_URL}/tasks/${id}/complete`, { method: 'PATCH' });
+                } else {
+                    res = await fetchWithAuth(`${API_BASE_URL}/tasks/${id}`, {
+                        method: 'PUT',
+                        body: JSON.stringify({ completed: false })
+                    });
+                }
+                if (res.success) loadTasks();
+            } catch(e){}
+        }
+
+        async function deleteTask(id) {
+            if (confirm('Delete this task?')) {
+                try {
+                    const res = await fetchWithAuth(`${API_BASE_URL}/tasks/${id}`, { method: 'DELETE' });
+                    if (res.success) loadTasks();
+                } catch(e){}
+            }
+        }
+
+        async function clearCompletedTasks() {
+            if (confirm('Are you sure you want to clear completed tasks?')) {
+                try {
+                    const res = await fetchWithAuth(`${API_BASE_URL}/tasks`);
+                    if (res.success && res.data) {
+                        for (const task of res.data) {
+                            if (task.completed) {
+                                await fetchWithAuth(`${API_BASE_URL}/tasks/${task.id}`, { method: 'DELETE' });
+                            }
+                        }
+                        loadTasks();
+                    }
+                } catch(e){}
+            }
+        }
+
+        async function openTaskCreateModal() {
+            const title = prompt("Enter Task Title:");
+            if (!title) return;
+            const description = prompt("Enter Task Description:");
+            
+            try {
+                const res = await fetchWithAuth(`${API_BASE_URL}/tasks`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        title,
+                        description,
+                        dueDate: new Date().toISOString()
+                    })
+                });
+                if (res.success) loadTasks();
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        loadTasks();
+    </script>
+</body>
+</html>

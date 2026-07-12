@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>LifeOS - Habits Pulse</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#0ea5e9",
+                        "secondary-container": "#7ed4fd",
+                        "surface": "#faf8ff",
+                        "on-surface": "#131b2e",
+                        "on-surface-variant": "#3e4850",
+                        "primary": "#006591",
+                        "outline-variant": "#bec8d2",
+                        "surface-container": "#eaedff",
+                        "secondary": "#006686",
+                        "surface-container-high": "#e2e7ff",
+                        "error": "#ba1a1a"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "label-sm": ["JetBrains Mono"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-xl": ["Manrope"],
+                        "headline-md": ["Manrope"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F8FAFC;
+        }
+        .ambient-shadow {
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04), 0 2px 10px -2px rgba(0, 0, 0, 0.02);
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface">
+
+    <!-- Top Navigation Bar -->
+    <header class="bg-surface border-b border-surface-variant flex justify-between items-center px-lg py-sm w-full fixed top-0 z-50 shadow-sm">
+        <div class="flex items-center gap-md">
+            <div class="w-10 h-10 rounded-full overflow-hidden bg-primary-container flex items-center justify-center">
+                <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvYSKatxVfKBIONQASWRy9cZiXcW3_Px1SX2o0_yHSXsJAvJlt2xE9pKC-25GBgaeZ-5RUKM_wriYzHuG7EU8dT8_Gqc2PF9D0hb960XN6iuBjwDveD9iYcitXETb9hrqy7vSeO-oJwrCczflXu46ALaOa2tEJ8a2Q5F8RL6Igh-DpLVq8sP4_-ErY1icolMRaXqYotOHXjw7RXAX_3vb2rAe7r59Tx_yBl-8PhD5ezUd0WtW7_X4LGg"/>
+            </div>
+            <h1 class="font-headline-md text-headline-md font-bold text-primary">LifeOS</h1>
+        </div>
+        <div class="flex items-center gap-lg">
+            <button onclick="window.location.href='orbit.html'" class="material-symbols-outlined text-primary hover:bg-surface-container-low p-2 rounded-full transition-colors duration-200">settings</button>
+        </div>
+    </header>
+
+    <!-- Main Canvas -->
+    <main class="max-w-max-width mx-auto pt-24 pb-32 px-md md:px-margin-desktop">
+        <section class="mb-xl">
+            <h2 class="font-headline-xl text-headline-xl text-on-surface">Habit Routines</h2>
+            <p class="text-on-surface-variant font-body-lg">Build daily persistence and view check-in stats.</p>
+        </section>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter" id="habits-list">
+            <!-- Habits render here -->
+        </div>
+    </main>
+
+    <!-- FAB for Habit Creation -->
+    <button onclick="openHabitCreateModal()" class="fixed bottom-24 right-8 w-14 h-14 bg-primary text-white rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-transform duration-200 z-50">
+        <span class="material-symbols-outlined text-[32px]">add</span>
+    </button>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-sm py-xs pb-safe bg-surface border-t border-surface-variant shadow-sm">
+        <a class="flex flex-col items-center justify-center text-on-surface-variant px-md py-xs hover:text-primary transition-transform duration-150 scale-95 active:scale-90" href="nexus.html">
+            <span class="material-symbols-outlined">dashboard</span>
+            <span class="font-label-sm text-label-sm">Nexus</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant px-md py-xs hover:text-primary transition-transform duration-150 scale-95 active:scale-90" href="tasks.html">
+            <span class="material-symbols-outlined">check_circle</span>
+            <span class="font-label-sm text-label-sm">Tasks</span>
+        </a>
+        <a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-md py-xs transition-transform duration-150 scale-95 active:scale-90" href="pulse.html">
+            <span class="material-symbols-outlined">favorite</span>
+            <span class="font-label-sm text-label-sm">Pulse</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant px-md py-xs hover:text-primary transition-transform duration-150 scale-95 active:scale-90" href="vault.html">
+            <span class="material-symbols-outlined">description</span>
+            <span class="font-label-sm text-label-sm">Vault</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant px-md py-xs hover:text-primary transition-transform duration-150 scale-95 active:scale-90" href="orbit.html">
+            <span class="material-symbols-outlined">settings</span>
+            <span class="font-label-sm text-label-sm">Orbit</span>
+        </a>
+    </nav>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:8081/api';
+
+        // Check Auth
+        const token = localStorage.getItem('jwt_token');
+        if (!token) {
+            window.location.href = 'index.html';
+        }
+
+        async function fetchWithAuth(url, options = {}) {
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+                ...options.headers
+            };
+            const response = await fetch(url, { ...options, headers });
+            if (response.status === 401) {
+                localStorage.removeItem('jwt_token');
+                window.location.href = 'index.html';
+                throw new Error('Unauthorized');
+            }
+            return response.json();
+        }
+
+        async function loadHabits() {
+            try {
+                const res = await fetchWithAuth(`${API_BASE_URL}/habits`);
+                if (res.success && res.data) {
+                    const list = document.getElementById('habits-list');
+                    list.innerHTML = '';
+
+                    res.data.forEach(habit => {
+                        const card = document.createElement('div');
+                        card.className = `bg-white border border-outline-variant p-lg rounded-xl ambient-shadow flex flex-col justify-between min-h-[200px]`;
+                        card.innerHTML = `
+                            <div>
+                                <div class="flex justify-between items-start mb-sm">
+                                    <span class="font-label-sm text-label-sm bg-primary-container text-on-primary-container px-sm py-1 rounded-full">
+                                        🔥 Streak: ${habit.streak || 0} Days
+                                    </span>
+                                    <span class="text-on-surface-variant font-label-sm text-label-sm">
+                                        ${habit.completedToday ? 'Checked in' : 'Pending'}
+                                    </span>
+                                </div>
+                                <h4 class="font-headline-md text-body-lg text-on-surface font-semibold mb-xs">${habit.name}</h4>
+                                <p class="text-on-surface-variant font-body-sm">${habit.description || ''}</p>
+                            </div>
+                            <div class="flex items-center justify-between mt-6">
+                                <button onclick="deleteHabit(${habit.id})" class="text-error hover:text-red-700 flex items-center gap-1 font-label-sm text-label-sm">
+                                    <span class="material-symbols-outlined text-[18px]">delete</span> Delete
+                                </button>
+                                <button onclick="checkinHabit(${habit.id})" class="px-4 py-2 bg-primary text-white rounded-full flex items-center gap-1 font-label-sm hover:scale-105 transition-all">
+                                    <span class="material-symbols-outlined text-[16px]">done</span> Complete
+                                </button>
+                            </div>
+                        `;
+                        list.appendChild(card);
+                    });
+                }
+            } catch(e){}
+        }
+
+        async function checkinHabit(id) {
+            try {
+                const res = await fetchWithAuth(`${API_BASE_URL}/habits/${id}/complete`, { method: 'PATCH' });
+                if (res.success) loadHabits();
+            } catch(e){}
+        }
+
+        async function deleteHabit(id) {
+            if (confirm('Delete this habit?')) {
+                try {
+                    const res = await fetchWithAuth(`${API_BASE_URL}/habits/${id}`, { method: 'DELETE' });
+                    if (res.success) loadHabits();
+                } catch(e){}
+            }
+        }
+
+        async function openHabitCreateModal() {
+            const name = prompt("Habit Name:");
+            if (!name) return;
+            const description = prompt("Description:");
+            
+            try {
+                const res = await fetchWithAuth(`${API_BASE_URL}/habits`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        name,
+                        description,
+                        streak: 0,
+                        completedToday: false
+                    })
+                });
+                if (res.success) loadHabits();
+            } catch(err){}
+        }
+
+        loadHabits();
+    </script>
+</body>
+</html>
