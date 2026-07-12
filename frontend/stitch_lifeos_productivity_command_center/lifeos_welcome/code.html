@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LifeOS - Digital Serenity Auth</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#8a5100",
+                    "on-primary-fixed-variant": "#004c6e",
+                    "on-surface-variant": "#3e4850",
+                    "on-tertiary-fixed": "#2c1600",
+                    "primary-fixed": "#c9e6ff",
+                    "on-tertiary": "#ffffff",
+                    "primary-container": "#0ea5e9",
+                    "inverse-surface": "#2c3135",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#d6dae0",
+                    "on-background": "#171c20",
+                    "on-secondary-fixed": "#001e2b",
+                    "surface-variant": "#dee3e9",
+                    "on-tertiary-fixed-variant": "#693c00",
+                    "surface-container": "#eaeef4",
+                    "secondary-fixed-dim": "#7bd1fa",
+                    "on-secondary-fixed-variant": "#004d66",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#c0e8ff",
+                    "on-tertiary-container": "#4d2b00",
+                    "surface": "#f6faff",
+                    "on-secondary": "#ffffff",
+                    "inverse-primary": "#89ceff",
+                    "secondary-container": "#7ed4fd",
+                    "outline": "#6e7881",
+                    "inverse-on-surface": "#edf1f7",
+                    "tertiary-fixed-dim": "#ffb86e",
+                    "background": "#f6faff",
+                    "on-error-container": "#93000a",
+                    "primary-fixed-dim": "#89ceff",
+                    "surface-container-low": "#f0f4fa",
+                    "surface-bright": "#f6faff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#de8712",
+                    "surface-tint": "#006591",
+                    "on-surface": "#171c20",
+                    "secondary": "#006686",
+                    "on-primary-container": "#003751",
+                    "surface-container-highest": "#dee3e9",
+                    "on-primary-fixed": "#001e2f",
+                    "outline-variant": "#bec8d2",
+                    "tertiary-fixed": "#ffdcbd",
+                    "surface-container-high": "#e4e8ee",
+                    "on-error": "#ffffff",
+                    "primary": "#006591",
+                    "on-secondary-container": "#005b78"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-gap-md": "16px",
+                    "container-margin": "20px",
+                    "element-padding-v": "12px",
+                    "stack-gap-sm": "8px",
+                    "stack-gap-lg": "24px",
+                    "element-padding-h": "16px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Manrope"],
+                    "body-lg": ["Inter"],
+                    "display-lg": ["Manrope"],
+                    "button-text": ["Inter"],
+                    "label-mono": ["JetBrains Mono"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Manrope"]
+            },
+            "fontSize": {
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "button-text": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                    "label-mono": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .surface_glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .bg-mesh {
+            background-color: #f6faff;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(203, 92%, 92%, 1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(199, 95%, 89%, 1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(187, 81%, 94%, 1) 0, transparent 50%);
+        }
+        .input-focus-glow:focus {
+            box-shadow: 0 0 15px rgba(14, 165, 233, 0.3);
+            border-color: #0EA5E9;
+        }
+        .spring-animation:active {
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+    </style>
+</head>
+<body class="bg-mesh min-h-screen flex flex-col font-body-md text-on-surface">
+<!-- Top AppBar (Identity Anchor) -->
+<header class="fixed top-4 left-5 right-5 rounded-full bg-surface/70 backdrop-blur-xl border border-white/20 shadow-[0px_10px_30px_rgba(15,23,42,0.08)] h-[64px] flex justify-between items-center px-container-margin z-50">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="hub">hub</span>
+<h1 class="font-headline-md text-headline-md font-bold tracking-tight text-primary">LifeOS</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex items-center justify-center p-container-margin pt-24 pb-12">
+<div class="w-full max-w-[440px] space-y-stack-gap-lg">
+<!-- Auth Card -->
+<div class="surface_glass rounded-xl p-8 shadow-[0px_10px_30px_rgba(15,23,42,0.08)]">
+<div class="text-center mb-8">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2" id="auth-title">Welcome Back</h2>
+<p class="font-body-md text-on-surface-variant" id="auth-subtitle">Sign in to your high-performance life.</p>
+</div>
+<form id="auth-form" class="space-y-stack-gap-md">
+<!-- Name Field (Register only) -->
+<div class="space-y-stack-gap-sm" id="fullname-container" style="display: none;">
+<label class="font-label-mono text-label-mono uppercase tracking-wider text-on-surface-variant ml-1">Operator Name</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant/50 text-sm">person</span>
+<input id="auth-fullname" class="w-full h-12 pl-12 pr-4 bg-white/50 border border-outline-variant rounded-lg font-body-md outline-none transition-all input-focus-glow" placeholder="Vedant Sonawane" type="text"/>
+</div>
+</div>
+<!-- Email Field -->
+<div class="space-y-stack-gap-sm">
+<label class="font-label-mono text-label-mono uppercase tracking-wider text-on-surface-variant ml-1">Email Address</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant/50 text-sm" data-icon="mail">mail</span>
+<input id="auth-email" class="w-full h-12 pl-12 pr-4 bg-white/50 border border-outline-variant rounded-lg font-body-md outline-none transition-all input-focus-glow" placeholder="name@company.com" required="" type="email"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-stack-gap-sm">
+<div class="flex justify-between items-center ml-1">
+<label class="font-label-mono text-label-mono uppercase tracking-wider text-on-surface-variant">Password</label>
+</div>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant/50 text-sm" data-icon="lock">lock</span>
+<input id="auth-password" class="w-full h-12 pl-12 pr-4 bg-white/50 border border-outline-variant rounded-lg font-body-md outline-none transition-all input-focus-glow" placeholder="••••••••" required="" type="password"/>
+</div>
+</div>
+<!-- Actions -->
+<div class="pt-2">
+<button type="submit" class="w-full h-[48px] bg-primary-container text-on-primary font-button-text rounded-lg shadow-lg shadow-primary-container/20 hover:opacity-90 active:scale-95 transition-all spring-animation">
+                            Continue to LifeOS
+                        </button>
+</div>
+</form>
+</div>
+<!-- Footer Links -->
+<div class="text-center space-y-4">
+<p class="font-body-md text-on-surface-variant">
+                    <span id="auth-toggle-text">Don't have an account?</span>
+                    <a id="auth-toggle-btn" class="text-primary font-semibold hover:underline cursor-pointer ms-1">Register Operator</a>
+</p>
+</div>
+</div>
+</main>
+<!-- Visual Accent Element (Decorative) -->
+<div class="fixed bottom-0 right-0 w-full md:w-1/2 h-1/2 pointer-events-none opacity-40 z-[-1]">
+<div class="w-full h-full bg-no-repeat bg-right-bottom bg-contain mix-blend-multiply filter blur-3xl" data-alt="A macro close-up of a high-tech glass surface with soft digital refractions and prismatic light effects. The color palette is composed of soft royal blues, icy whites, and pale sky blues, reflecting the LifeOS brand identity of digital serenity and high-fidelity professional focus. Soft bokeh circles float in the background against a clean, light-mode aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCqelJ3XjFK0nwBLnMdGVZVm3i-YPUzOzTXsP3kij3MP-pral46gskRX1JKgc_2pR4gIIZp7uLzlMWLHwFli8KjsN3CqAmpNNAJbbWjBqvJsyOWwv4rJaOF1n0N0zqrGVDMrCmYjBF0MXrTBMOh-kfJPALUe7C5qIZBp9PsxRMVQjmCJ1Z_3Hiyv8u9evh9C4RW4K58GaNtjxhWC5Gmab0aoeVvNxOjGUMwy-zfXVokkNn18L6OlI3gfQ')"></div>
+</div>
+<!-- Micro-interaction Script -->
+<script>
+        const API_BASE_URL = 'http://localhost:8081/api';
+
+        if (localStorage.getItem('jwt_token')) {
+            window.location.href = '../lifeos_nexus/code.html';
+        }
+
+        let isLogin = true;
+        const toggleBtn = document.getElementById('auth-toggle-btn');
+        toggleBtn.addEventListener('click', () => {
+            isLogin = !isLogin;
+            document.getElementById('fullname-container').style.display = isLogin ? 'none' : 'block';
+            document.getElementById('auth-title').textContent = isLogin ? 'Welcome Back' : 'Register Operator';
+            document.getElementById('auth-subtitle').textContent = isLogin ? 'Sign in to your high-performance life.' : 'Initialize a new local profile.';
+            toggleBtn.textContent = isLogin ? 'Register Operator' : 'Access System';
+            document.getElementById('auth-toggle-text').textContent = isLogin ? "Don't have an account?" : 'Already registered?';
+        });
+
+        document.getElementById('auth-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('auth-email').value;
+            const password = document.getElementById('auth-password').value;
+
+            if (isLogin) {
+                try {
+                    const res = await fetch(`${API_BASE_URL}/auth/login`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password })
+                    });
+                    const result = await res.json();
+                    if (result.success) {
+                        localStorage.setItem('jwt_token', result.data.token);
+                        window.location.href = '../lifeos_nexus/code.html';
+                    } else {
+                        alert(result.message || 'Access Denied');
+                    }
+                } catch (err) {
+                    alert('Command center offline. Please make sure the Spring Boot backend is running on port 8081.');
+                }
+            } else {
+                const fullName = document.getElementById('auth-fullname').value;
+                try {
+                    const res = await fetch(`${API_BASE_URL}/auth/register`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ fullName, email, password })
+                    });
+                    const result = await res.json();
+                    if (result.success) {
+                        alert('System profile registered! You can now log in.');
+                        toggleBtn.click();
+                    } else {
+                        alert(result.message || 'Registration failed');
+                    }
+                } catch (err) {
+                    alert('Server error connecting to backend.');
+                }
+            }
+        });
+    </script>
+</body></html>

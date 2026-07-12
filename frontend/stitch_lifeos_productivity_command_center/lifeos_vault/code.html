@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LifeOS Vault</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Manrope:wght@600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .journal-gradient {
+            background: linear-gradient(135deg, #f6faff 0%, #e0f2fe 100%);
+        }
+        body {
+            background: radial-gradient(circle at top right, #c0e8ff44, transparent),
+                        radial-gradient(circle at bottom left, #7ed4fd22, transparent),
+                        #f6faff;
+            min-height: 100vh;
+        }
+        .active-tab-indicator {
+            view-transition-name: active-tab;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary": "#8a5100",
+                      "on-primary-fixed-variant": "#004c6e",
+                      "on-surface-variant": "#3e4850",
+                      "on-tertiary-fixed": "#2c1600",
+                      "primary-fixed": "#c9e6ff",
+                      "on-tertiary": "#ffffff",
+                      "primary-container": "#0ea5e9",
+                      "inverse-surface": "#2c3135",
+                      "error": "#ba1a1a",
+                      "surface-dim": "#d6dae0",
+                      "on-background": "#171c20",
+                      "on-secondary-fixed": "#001e2b",
+                      "surface-variant": "#dee3e9",
+                      "on-tertiary-fixed-variant": "#693c00",
+                      "surface-container": "#eaeef4",
+                      "secondary-fixed-dim": "#7bd1fa",
+                      "on-secondary-fixed-variant": "#004d66",
+                      "error-container": "#ffdad6",
+                      "secondary-fixed": "#c0e8ff",
+                      "on-tertiary-container": "#4d2b00",
+                      "surface": "#f6faff",
+                      "on-secondary": "#ffffff",
+                      "inverse-primary": "#89ceff",
+                      "secondary-container": "#7ed4fd",
+                      "outline": "#6e7881",
+                      "inverse-on-surface": "#edf1f7",
+                      "tertiary-fixed-dim": "#ffb86e",
+                      "background": "#f6faff",
+                      "on-error-container": "#93000a",
+                      "primary-fixed-dim": "#89ceff",
+                      "surface-container-low": "#f0f4fa",
+                      "surface-bright": "#f6faff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "tertiary-container": "#de8712",
+                      "surface-tint": "#006591",
+                      "on-surface": "#171c20",
+                      "secondary": "#006686",
+                      "on-primary-container": "#003751",
+                      "surface-container-highest": "#dee3e9",
+                      "on-primary-fixed": "#001e2f",
+                      "outline-variant": "#bec8d2",
+                      "tertiary-fixed": "#ffdcbd",
+                      "surface-container-high": "#e4e8ee",
+                      "on-error": "#ffffff",
+                      "primary": "#006591",
+                      "on-secondary-container": "#005b78"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-gap-md": "16px",
+                      "container-margin": "20px",
+                      "element-padding-v": "12px",
+                      "stack-gap-sm": "8px",
+                      "stack-gap-lg": "24px",
+                      "element-padding-h": "16px"
+              },
+              "fontFamily": {
+                      "headline-sm": ["Manrope"],
+                      "body-lg": ["Inter"],
+                      "display-lg": ["Manrope"],
+                      "button-text": ["Inter"],
+                      "label-mono": ["JetBrains Mono"],
+                      "body-md": ["Inter"],
+                      "headline-md": ["Manrope"]
+              },
+              "fontSize": {
+                      "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "button-text": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                      "label-mono": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="text-on-surface font-body-md">
+<!-- TopAppBar -->
+<header class="fixed top-4 left-5 right-5 rounded-full bg-surface/70 backdrop-blur-xl border border-white/20 shadow-[0px_10px_30px_rgba(15,23,42,0.08)] flex justify-between items-center px-container-margin h-[64px] z-50">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">hub</span>
+<h1 class="font-headline-md text-headline-md font-bold tracking-tight text-primary">LifeOS</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity">search</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity">settings</button>
+</div>
+</header>
+<main class="pt-28 pb-24 px-container-margin">
+<!-- Section Header -->
+<div class="mb-stack-gap-lg">
+<h2 class="font-display-lg text-display-lg text-on-surface mb-1">Knowledge Vault</h2>
+<p class="text-on-surface-variant font-body-md">Your personal second brain and introspection space.</p>
+</div>
+<!-- Sub-Tabs Navigation -->
+<nav class="flex gap-stack-gap-md mb-stack-gap-lg p-1 bg-surface-container-low rounded-full w-fit">
+<button class="px-6 py-2 rounded-full font-button-text transition-all duration-300 bg-primary text-on-primary shadow-md" id="notes-tab-btn" onclick="switchTab('notes')">
+                Notes
+            </button>
+<button class="px-6 py-2 rounded-full font-button-text transition-all duration-300 text-on-surface-variant hover:bg-white/50" id="journals-tab-btn" onclick="switchTab('journals')">
+                Journals
+            </button>
+</nav>
+<!-- Notes Content -->
+<section class="space-y-stack-gap-md" id="notes-content">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-gap-md">
+<!-- Note Item 1 -->
+<div class="glass-card rounded-xl p-element-padding-h hover:shadow-lg transition-all duration-300 group">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-mono text-label-mono text-primary-container bg-primary-fixed px-2 py-0.5 rounded">CONCEPT</span>
+<span class="font-label-mono text-label-mono text-outline">2023-11-24</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-2 group-hover:text-primary transition-colors">Digital Serenity Framework</h3>
+<p class="text-on-surface-variant line-clamp-2">Exploration of minimalist UI patterns that reduce cognitive load while maintaining high performance metrics in corporate environments...</p>
+<div class="mt-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-outline">attachment</span>
+<span class="text-xs text-outline">3 assets</span>
+</div>
+</div>
+<!-- Note Item 2 -->
+<div class="glass-card rounded-xl p-element-padding-h hover:shadow-lg transition-all duration-300 group">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-mono text-label-mono text-tertiary bg-tertiary-fixed px-2 py-0.5 rounded">PROJECT</span>
+<span class="font-label-mono text-label-mono text-outline">2023-11-20</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm mb-2 group-hover:text-primary transition-colors">Q4 Growth Strategy</h3>
+<p class="text-on-surface-variant line-clamp-2">Key performance indicators and market expansion notes for the upcoming fiscal review. Focus on user retention and platform stability...</p>
+<div class="mt-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-outline">link</span>
+<span class="text-xs text-outline">External Doc</span>
+</div>
+</div>
+<!-- Note Item 3 -->
+<div class="glass-card rounded-xl p-element-padding-h hover:shadow-lg transition-all duration-300 group md:col-span-2">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-mono text-label-mono text-secondary bg-secondary-fixed px-2 py-0.5 rounded">DRAFT</span>
+<span class="font-label-mono text-label-mono text-outline">2023-11-18</span>
+</div>
+<div class="flex flex-col md:flex-row gap-stack-gap-md">
+<div class="flex-1">
+<h3 class="font-headline-sm text-headline-sm mb-2 group-hover:text-primary transition-colors">Philosophy of Organization</h3>
+<p class="text-on-surface-variant">An in-depth look at how spatial organization affects creative output. Discussing the "Bento Grid" vs "Freeform" layouts in digital interface design. Research suggests that structured constraints actually foster higher levels of convergent thinking...</p>
+</div>
+<div class="w-full md:w-32 h-32 rounded-lg bg-cover bg-center shrink-0" data-alt="A macro photograph of clean, organized architectural models with sharp lines and soft shadows. The lighting is diffused and professional, evoking a sense of calm and precision. The color palette is composed of cool blues and warm whites, consistent with a high-end corporate aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAsvAPCydGIBc-X6glaS5va1jKPIMw1GAfU0l6YKTgUV2i2aPPFZe-qmXwVHFmTXTmxwgB5fbD912SrcDnb9x1YFN3GRK6I77rzFHOI0oG_txKIkX8I0LROKJGiVAiUcI_0AAdl2XRAcLtEUjzx7W-Auh0Ni1JTkkzu_LZ2pQjFPPCHSdEmR1UyQ10wWTbw-7i7TrVoc5MxTWvbXFasQX8gA05qvvKB4zhX5VXJOpTIp4ogN3AnBw5iVA')"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Journals Content (Hidden by default) -->
+<section class="hidden space-y-stack-gap-lg" id="journals-content">
+<div class="border-l-2 border-primary-container/30 pl-stack-gap-lg space-y-stack-gap-lg">
+<!-- Journal Entry 1 -->
+<div class="relative group">
+<div class="absolute -left-[33px] top-1 w-4 h-4 rounded-full border-2 border-primary bg-surface group-hover:scale-125 transition-transform"></div>
+<div class="mb-1">
+<span class="font-label-mono text-label-mono text-primary font-bold">FRIDAY, NOV 24</span>
+</div>
+<div class="glass-card rounded-2xl p-6 shadow-sm border-l-4 border-l-primary transition-all duration-300 hover:shadow-md">
+<h4 class="font-headline-sm text-headline-sm mb-3">Reflections on Deep Work</h4>
+<p class="text-on-surface-variant italic mb-4 font-body-lg">"Today felt exceptionally clear. By removing all distractions and focusing on a single stream of thought, the interface designs started to flow naturally."</p>
+<div class="flex items-center gap-4 text-outline">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span class="text-xs">08:45 AM</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">sunny</span>
+<span class="text-xs">Productive</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Journal Entry 2 -->
+<div class="relative group">
+<div class="absolute -left-[33px] top-1 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface group-hover:scale-125 transition-transform"></div>
+<div class="mb-1">
+<span class="font-label-mono text-label-mono text-outline font-bold">THURSDAY, NOV 23</span>
+</div>
+<div class="glass-card rounded-2xl p-6 shadow-sm border-l-4 border-l-secondary-container transition-all duration-300 hover:shadow-md">
+<h4 class="font-headline-sm text-headline-sm mb-3">The Mid-Week Pivot</h4>
+<p class="text-on-surface-variant mb-4 font-body-lg">Discussed the roadmap with the team. Decided to prioritize the Vault feature. It feels right—users need a sanctuary for their thoughts before they can be productive with their tasks.</p>
+<div class="flex items-center gap-4 text-outline">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span class="text-xs">10:15 PM</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">cloud</span>
+<span class="text-xs">Reflective</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Journal Entry 3 -->
+<div class="relative group">
+<div class="absolute -left-[33px] top-1 w-4 h-4 rounded-full border-2 border-outline-variant bg-surface group-hover:scale-125 transition-transform"></div>
+<div class="mb-1">
+<span class="font-label-mono text-label-mono text-outline font-bold">WEDNESDAY, NOV 22</span>
+</div>
+<div class="glass-card rounded-2xl p-6 shadow-sm border-l-4 border-l-outline-variant transition-all duration-300 hover:shadow-md opacity-80">
+<h4 class="font-headline-sm text-headline-sm mb-3 text-outline">Morning Meditations</h4>
+<p class="text-outline-variant mb-4 font-body-lg">Focused on breathwork and the architectural sketches for the new dashboard...</p>
+<div class="flex items-center gap-4 text-outline">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span class="text-xs">06:00 AM</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- FAB for adding content -->
+<button onclick="openVaultCreateModal()" class="fixed right-6 bottom-24 w-14 h-14 rounded-2xl bg-primary text-on-primary shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-300 z-40">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full rounded-t-xl bg-surface/70 backdrop-blur-xl border-t border-white/10 shadow-[0px_-4px_20px_rgba(0,0,0,0.04)] flex justify-around items-center px-stack-gap-lg pb-safe h-[72px] z-50">
+<div onclick="window.location.href='../lifeos_nexus/code.html'" class="flex flex-col items-center justify-center text-on-surface-variant/60 p-2 hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined">dashboard</span>
+</div>
+<div onclick="window.location.href='../lifeos_tasks/code.html'" class="flex flex-col items-center justify-center text-on-surface-variant/60 p-2 hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined">checklist</span>
+</div>
+<div onclick="window.location.href='../lifeos_pulse/code.html'" class="flex flex-col items-center justify-center text-on-surface-variant/60 p-2 hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined">auto_graph</span>
+</div>
+<div onclick="window.location.href='../lifeos_vault/code.html'" class="flex flex-col items-center justify-center text-primary-container p-2 scale-110 cursor-pointer">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+</div>
+</nav>
+<script>
+        const API_BASE_URL = 'http://localhost:8081/api';
+
+        // Check Auth
+        const token = localStorage.getItem('jwt_token');
+        if (!token) {
+            window.location.href = '../lifeos_welcome/code.html';
+        }
+
+        async function fetchWithAuth(url, options = {}) {
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+                ...options.headers
+            };
+            const response = await fetch(url, { ...options, headers });
+            if (response.status === 401) {
+                localStorage.removeItem('jwt_token');
+                window.location.href = '../lifeos_welcome/code.html';
+                throw new Error('Unauthorized');
+            }
+            return response.json();
+        }
+
+        // Bind Settings button
+        const settingsBtn = document.querySelector('header button[class*="settings"]');
+        if (settingsBtn) {
+            settingsBtn.onclick = () => {
+                window.location.href = '../lifeos_orbit/code.html';
+            };
+        }
+        document.querySelectorAll('header button').forEach(btn => {
+            if (btn.querySelector('span')?.textContent === 'settings') {
+                btn.onclick = () => {
+                    window.location.href = '../lifeos_orbit/code.html';
+                };
+            }
+        });
+
+        let activeVaultSubTab = 'notes';
+
+        async function switchTab(tab) {
+            activeVaultSubTab = tab;
+            const notesBtn = document.getElementById('notes-tab-btn');
+            const journalsBtn = document.getElementById('journals-tab-btn');
+            const notesContent = document.getElementById('notes-content');
+            const journalsContent = document.getElementById('journals-content');
+
+            if (tab === 'notes') {
+                notesBtn.className = "px-6 py-2 rounded-full font-button-text transition-all duration-300 bg-primary text-on-primary shadow-md";
+                journalsBtn.className = "px-6 py-2 rounded-full font-button-text transition-all duration-300 text-on-surface-variant hover:bg-white/50";
+                
+                notesContent.classList.remove('hidden');
+                journalsContent.classList.add('hidden');
+                await loadNotes();
+            } else {
+                journalsBtn.className = "px-6 py-2 rounded-full font-button-text transition-all duration-300 bg-primary text-on-primary shadow-md";
+                notesBtn.className = "px-6 py-2 rounded-full font-button-text transition-all duration-300 text-on-surface-variant hover:bg-white/50";
+                
+                journalsContent.classList.remove('hidden');
+                notesContent.classList.add('hidden');
+                await loadJournals();
+            }
+        }
+
+        async function loadNotes() {
+            const container = document.querySelector('#notes-content > div');
+            container.innerHTML = '';
+            try {
+                const res = await fetchWithAuth(`${API_BASE_URL}/notes`);
+                if (res.success && res.data) {
+                    res.data.forEach(note => {
+                        const card = document.createElement('div');
+                        card.className = `glass-card rounded-xl p-element-padding-h hover:shadow-lg transition-all duration-300 group`;
+                        card.innerHTML = `
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-label-mono text-label-mono text-primary-container bg-primary-fixed px-2 py-0.5 rounded">NOTE</span>
+                                <button onclick="deleteNote(${note.id})" class="text-error hover:text-red-700 p-1 flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <span class="material-symbols-outlined text-[18px]">delete</span>
+                                </button>
+                            </div>
+                            <h3 class="font-headline-sm text-headline-sm mb-2 group-hover:text-primary transition-colors">${note.title}</h3>
+                            <p class="text-on-surface-variant text-[14px]">${note.content || ''}</p>
+                        `;
+                        container.appendChild(card);
+                    });
+                }
+            } catch(e){}
+        }
+
+        async function loadJournals() {
+            const container = document.querySelector('#journals-content > div');
+            container.innerHTML = '';
+            try {
+                const res = await fetchWithAuth(`${API_BASE_URL}/journals`);
+                if (res.success && res.data) {
+                    res.data.forEach(journal => {
+                        const entry = document.createElement('div');
+                        entry.className = `relative group`;
+                        entry.innerHTML = `
+                            <div class="absolute -left-[33px] top-1 w-4 h-4 rounded-full border-2 border-primary bg-surface group-hover:scale-125 transition-transform"></div>
+                            <div class="mb-1 flex justify-between items-center">
+                                <span class="font-label-mono text-label-mono text-primary font-bold">
+                                    ${journal.createdAt ? new Date(journal.createdAt).toLocaleDateString() : 'DIARY'}
+                                </span>
+                                <button onclick="deleteJournal(${journal.id})" class="text-error hover:text-red-700 p-1 flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <span class="material-symbols-outlined text-[18px]">delete</span>
+                                </button>
+                            </div>
+                            <div class="glass-card rounded-2xl p-6 shadow-sm border-l-4 border-l-primary transition-all duration-300 hover:shadow-md">
+                                <h4 class="font-headline-sm text-headline-sm mb-3">${journal.title}</h4>
+                                <p class="text-on-surface-variant italic mb-4 font-body-lg">"${journal.content || ''}"</p>
+                            </div>
+                        `;
+                        container.appendChild(entry);
+                    });
+                }
+            } catch(e){}
+        }
+
+        async function deleteNote(id) {
+            event.stopPropagation();
+            if (confirm('Delete note?')) {
+                try {
+                    const res = await fetchWithAuth(`${API_BASE_URL}/notes/${id}`, { method: 'DELETE' });
+                    if (res.success) loadNotes();
+                } catch(e){}
+            }
+        }
+
+        async function deleteJournal(id) {
+            event.stopPropagation();
+            if (confirm('Delete journal diary?')) {
+                try {
+                    const res = await fetchWithAuth(`${API_BASE_URL}/journals/${id}`, { method: 'DELETE' });
+                    if (res.success) loadJournals();
+                } catch(e){}
+            }
+        }
+
+        async function openVaultCreateModal() {
+            const title = prompt(`Enter ${activeVaultSubTab === 'notes' ? 'Note' : 'Journal'} Title:`);
+            if (!title) return;
+            const content = prompt("Enter Content:");
+
+            try {
+                const endpoint = activeVaultSubTab === 'notes' ? 'notes' : 'journals';
+                const res = await fetchWithAuth(`${API_BASE_URL}/${endpoint}`, {
+                    method: 'POST',
+                    body: JSON.stringify({ title, content })
+                });
+                if (res.success) {
+                    if (activeVaultSubTab === 'notes') await loadNotes();
+                    else await loadJournals();
+                }
+            } catch (err) {}
+        }
+
+        window.addEventListener('DOMContentLoaded', loadNotes);
+    </script>
+</body></html>

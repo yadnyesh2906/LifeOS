@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LifeOS Orbit - Settings</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=JetBrains+Mono:wght@500&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#8a5100",
+                        "on-primary-fixed-variant": "#004c6e",
+                        "on-surface-variant": "#3e4850",
+                        "on-tertiary-fixed": "#2c1600",
+                        "primary-fixed": "#c9e6ff",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#0ea5e9",
+                        "inverse-surface": "#2c3135",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#d6dae0",
+                        "on-background": "#171c20",
+                        "on-secondary-fixed": "#001e2b",
+                        "surface-variant": "#dee3e9",
+                        "on-tertiary-fixed-variant": "#693c00",
+                        "surface-container": "#eaeef4",
+                        "secondary-fixed-dim": "#7bd1fa",
+                        "on-secondary-fixed-variant": "#004d66",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#c0e8ff",
+                        "on-tertiary-container": "#4d2b00",
+                        "surface": "#f6faff",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#89ceff",
+                        "secondary-container": "#7ed4fd",
+                        "outline": "#6e7881",
+                        "inverse-on-surface": "#edf1f7",
+                        "tertiary-fixed-dim": "#ffb86e",
+                        "background": "#f6faff",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#89ceff",
+                        "surface-container-low": "#f0f4fa",
+                        "surface-bright": "#f6faff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#de8712",
+                        "surface-tint": "#006591",
+                        "on-surface": "#171c20",
+                        "secondary": "#006686",
+                        "on-primary-container": "#003751",
+                        "surface-container-highest": "#dee3e9",
+                        "on-primary-fixed": "#001e2f",
+                        "outline-variant": "#bec8d2",
+                        "tertiary-fixed": "#ffdcbd",
+                        "surface-container-high": "#e4e8ee",
+                        "on-error": "#ffffff",
+                        "primary": "#006591",
+                        "on-secondary-container": "#005b78"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-gap-md": "16px",
+                        "container-margin": "20px",
+                        "element-padding-v": "12px",
+                        "stack-gap-sm": "8px",
+                        "stack-gap-lg": "24px",
+                        "element-padding-h": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Manrope"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Manrope"],
+                        "button-text": ["Inter"],
+                        "label-mono": ["JetBrains Mono"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "button-text": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                        "label-mono": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .surface_glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        body {
+            background: radial-gradient(circle at top left, #f0f9ff 0%, #e0f2fe 50%, #f6faff 100%);
+            min-height: 100vh;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface selection:bg-primary-container selection:text-white">
+<!-- TopAppBar -->
+<header class="fixed top-4 left-5 right-5 rounded-full bg-surface/70 backdrop-blur-xl border border-white/20 shadow-[0px_10px_30px_rgba(15,23,42,0.08)] flex justify-between items-center px-container-margin h-[64px] z-50">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="hub">hub</span>
+<h1 class="font-headline-md text-headline-md font-bold tracking-tight text-primary">LifeOS</h1>
+</div>
+<button class="text-primary scale-95 transition-transform hover:opacity-80 active:scale-95 duration-200 ease-out">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</header>
+<main class="pt-28 pb-24 px-container-margin max-w-2xl mx-auto space-y-stack-gap-lg">
+<!-- Profile Card -->
+<section class="surface_glass rounded-xl p-6 shadow-[0px_10px_30px_rgba(15,23,42,0.08)] flex items-center gap-6">
+<div class="relative">
+<div class="w-20 h-20 rounded-full border-2 border-primary-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a modern executive in their early 30s with a confident expression. The lighting is soft and airy, matching a high-end corporate lifestyle aesthetic. The background is a clean, minimalist office environment with subtle blue and white tones. The overall atmosphere is one of digital serenity and high performance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEh6Yb8w_j55TdgQbKG2TRt17Ojx5CM_rNnozte0yV3HzERNC0G-KufTEUMjAJQ-P8Og7QdfJYFwxCWJ4gM_4JoLqVknlJf59rUgbrBG23HEwEQnmDIsG32KGBPlCJ4NusnGHx6ekgJu-2S0DnO8gQxFL5_3KaoazH8MST2mTbWrg8tFgHl6z7BzFqfL0Aoems6oUmUWxCAPuQTz-7CjJQqiYe9V0L_FLbKvC2dK6wgcgVzh24TqjdIg"/>
+</div>
+<div class="absolute bottom-0 right-0 bg-primary-container text-white p-1 rounded-full border-2 border-white">
+<span class="material-symbols-outlined text-[16px]" data-icon="verified">verified</span>
+</div>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Alex Rivera</h2>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-mono text-label-mono bg-primary-container/20 text-primary px-2 py-0.5 rounded-full">Operator</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">ID: #082294</span>
+</div>
+</div>
+</section>
+<!-- Bento Grid Layout for Settings -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-gap-md">
+<!-- Security Section: Password Reset -->
+<section class="surface_glass rounded-xl p-6 space-y-stack-gap-md md:col-span-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary" data-icon="security">security</span>
+<h3 class="font-headline-sm text-headline-sm">Security</h3>
+</div>
+<div class="space-y-stack-gap-sm">
+<label class="block font-label-mono text-label-mono text-on-surface-variant">Current Password</label>
+<input class="w-full bg-white/50 border-b border-outline-variant focus:border-primary-container focus:ring-0 transition-colors text-body-md py-2" placeholder="••••••••" type="password"/>
+</div>
+<div class="space-y-stack-gap-sm">
+<label class="block font-label-mono text-label-mono text-on-surface-variant">New Password</label>
+<input class="w-full bg-white/50 border-b border-outline-variant focus:border-primary-container focus:ring-0 transition-colors text-body-md py-2" placeholder="••••••••" type="password"/>
+</div>
+<div class="space-y-stack-gap-sm">
+<label class="block font-label-mono text-label-mono text-on-surface-variant">Confirm Password</label>
+<input class="w-full bg-white/50 border-b border-outline-variant focus:border-primary-container focus:ring-0 transition-colors text-body-md py-2" placeholder="••••••••" type="password"/>
+</div>
+<button class="w-full bg-primary-container text-white py-3 rounded-lg font-button-text hover:bg-primary transition-colors mt-2 active:scale-95 duration-200">
+                    Update Security Vault
+                </button>
+</section>
+<!-- Goals Checklist Section -->
+<section class="surface_glass rounded-xl p-6 flex flex-col h-full md:col-span-1">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="flag">flag</span>
+<h3 class="font-headline-sm text-headline-sm">Milestones</h3>
+</div>
+<span class="font-label-mono text-label-mono text-primary bg-primary/10 px-2 py-0.5 rounded">Orbit Q4</span>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar pr-2 space-y-3 max-h-[320px]">
+<!-- Item 1 -->
+<div class="flex items-start gap-3 p-3 bg-white/40 rounded-lg group hover:bg-white/60 transition-colors cursor-pointer">
+<div class="mt-0.5">
+<span class="material-symbols-outlined text-primary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<p class="font-body-md text-on-surface">Establish Bio-Sync Protocol</p>
+<p class="font-label-mono text-label-mono text-on-surface-variant/70">Completed: Oct 12</p>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-start gap-3 p-3 bg-white/40 rounded-lg group hover:bg-white/60 transition-colors cursor-pointer">
+<div class="mt-0.5">
+<span class="material-symbols-outlined text-outline-variant" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+</div>
+<div>
+<p class="font-body-md text-on-surface">Reach Level 5 Productivity Tier</p>
+<div class="w-full bg-surface-variant h-1 rounded-full mt-2 overflow-hidden">
+<div class="bg-primary-container h-full w-3/4"></div>
+</div>
+<p class="font-label-mono text-label-mono text-on-surface-variant/70 mt-1">75% Optimized</p>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex items-start gap-3 p-3 bg-white/40 rounded-lg group hover:bg-white/60 transition-colors cursor-pointer">
+<div class="mt-0.5">
+<span class="material-symbols-outlined text-outline-variant" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+</div>
+<div>
+<p class="font-body-md text-on-surface">Deep Work Streak (30 Days)</p>
+<p class="font-label-mono text-label-mono text-on-surface-variant/70">Day 18 of 30</p>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="flex items-start gap-3 p-3 bg-white/40 rounded-lg group hover:bg-white/60 transition-colors cursor-pointer">
+<div class="mt-0.5">
+<span class="material-symbols-outlined text-outline-variant" data-icon="lock">lock</span>
+</div>
+<div>
+<p class="font-body-md text-on-surface-variant">Executive Retreat Planning</p>
+<p class="font-label-mono text-label-mono text-on-surface-variant/50">Unlocks at Level 10</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- System Preferences (Extra Content for UI depth) -->
+<section class="surface_glass rounded-xl p-6">
+<h3 class="font-headline-sm text-headline-sm mb-4">Operating Environment</h3>
+<div class="space-y-2">
+<div class="flex items-center justify-between p-4 border border-white/40 rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="palette">palette</span>
+<span class="font-body-md">Interface Theme</span>
+</div>
+<span class="font-label-mono text-label-mono text-primary">Serenity Light</span>
+</div>
+<div class="flex items-center justify-between p-4 border border-white/40 rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications_active">notifications_active</span>
+<span class="font-body-md">Haptic Feedback</span>
+</div>
+<div class="w-10 h-5 bg-primary-container rounded-full relative">
+<div class="absolute right-1 top-1 w-3 h-3 bg-white rounded-full"></div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full rounded-t-xl bg-surface/70 backdrop-blur-xl border-t border-white/10 shadow-[0px_-4px_20px_rgba(0,0,0,0.04)] flex justify-around items-center px-stack-gap-lg pb-safe h-[72px] z-50">
+<button onclick="window.location.href='../lifeos_nexus/code.html'" class="flex flex-col items-center justify-center text-on-surface-variant/60 p-2 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">dashboard</span>
+</button>
+<button onclick="window.location.href='../lifeos_tasks/code.html'" class="flex flex-col items-center justify-center text-on-surface-variant/60 p-2 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">checklist</span>
+</button>
+<button onclick="window.location.href='../lifeos_pulse/code.html'" class="flex flex-col items-center justify-center text-on-surface-variant/60 p-2 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">auto_graph</span>
+</button>
+<!-- Active Tab: Settings/Inventory/Orbit -->
+<button onclick="window.location.href='../lifeos_orbit/code.html'" class="flex flex-col items-center justify-center text-primary-container p-2 scale-110 active:scale-90 duration-300">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+</button>
+</nav>
+<script>
+        const API_BASE_URL = 'http://localhost:8081/api';
+
+        // Check Auth
+        const token = localStorage.getItem('jwt_token');
+        if (!token) {
+            window.location.href = '../lifeos_welcome/code.html';
+        }
+
+        async function fetchWithAuth(url, options = {}) {
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+                ...options.headers
+            };
+            const response = await fetch(url, { ...options, headers });
+            if (response.status === 401) {
+                localStorage.removeItem('jwt_token');
+                window.location.href = '../lifeos_welcome/code.html';
+                throw new Error('Unauthorized');
+            }
+            return response.json();
+        }
+
+        // Configure change password forms
+        const form = document.querySelector('section.space-y-stack-gap-md');
+        if (form) {
+            const inputs = form.querySelectorAll('input');
+            const submitBtn = form.querySelector('button');
+            
+            if (inputs.length >= 3 && submitBtn) {
+                inputs[0].id = 'pwd-current';
+                inputs[1].id = 'pwd-new';
+                inputs[2].id = 'pwd-confirm';
+                
+                submitBtn.onclick = async () => {
+                    const currentPassword = document.getElementById('pwd-current').value;
+                    const newPassword = document.getElementById('pwd-new').value;
+                    const confirmPassword = document.getElementById('pwd-confirm').value;
+                    
+                    if (!currentPassword || !newPassword || !confirmPassword) {
+                        alert('Please fill out all password fields.');
+                        return;
+                    }
+                    
+                    try {
+                        const res = await fetch(`${API_BASE_URL}/users/change-password`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify({ currentPassword, newPassword, confirmPassword })
+                        });
+                        if (res.status === 200) {
+                            alert('Password changed successfully!');
+                            inputs[0].value = '';
+                            inputs[1].value = '';
+                            inputs[2].value = '';
+                        } else {
+                            const text = await res.text();
+                            alert(text || 'Failed to update password.');
+                        }
+                    } catch(e){
+                        alert('Connection error.');
+                    }
+                };
+            }
+        }
+
+        // Bind profile loader
+        async function loadProfile() {
+            try {
+                const profile = await fetchWithAuth(`${API_BASE_URL}/users/profile`);
+                if (profile) {
+                    document.querySelector('section.flex.items-center h2').textContent = profile.fullName;
+                    document.querySelector('section.flex.items-center span.text-on-surface-variant').textContent = profile.email;
+                }
+            } catch(e){}
+        }
+
+        // Bind goals loader
+        async function loadGoals() {
+            try {
+                const res = await fetchWithAuth(`${API_BASE_URL}/goals`);
+                if (res.success && res.data) {
+                    const list = document.querySelector('section.flex-col .space-y-3');
+                    list.innerHTML = '';
+                    
+                    res.data.forEach(goal => {
+                        const item = document.createElement('div');
+                        item.className = `flex items-start justify-between p-3 bg-white/40 rounded-lg group hover:bg-white/60 transition-colors cursor-pointer ${goal.completed ? 'opacity-60' : ''}`;
+                        item.innerHTML = `
+                            <div class="flex items-start gap-3" onclick="toggleGoalCompletion(${goal.id}, ${goal.completed})">
+                                <div class="mt-0.5">
+                                    <span class="material-symbols-outlined text-primary">
+                                        ${goal.completed ? 'check_circle' : 'radio_button_unchecked'}
+                                    </span>
+                                </div>
+                                <div>
+                                    <p class="font-body-md text-on-surface ${goal.completed ? 'line-through' : ''}">${goal.title}</p>
+                                    <p class="font-label-mono text-label-mono text-on-surface-variant/70">${goal.description || ''}</p>
+                                </div>
+                            </div>
+                            <button onclick="deleteGoal(${goal.id})" class="text-error opacity-0 group-hover:opacity-100 transition-opacity">
+                                <span class="material-symbols-outlined text-[20px]">delete</span>
+                            </button>
+                        `;
+                        list.appendChild(item);
+                    });
+                }
+            } catch(e){}
+        }
+
+        async function toggleGoalCompletion(id, completed) {
+            try {
+                const res = await fetchWithAuth(`${API_BASE_URL}/goals/${id}/${completed ? 'pending' : 'complete'}`, { method: 'PATCH' });
+                if (res.success) loadGoals();
+            } catch(e){}
+        }
+
+        async function deleteGoal(id) {
+            event.stopPropagation();
+            if (confirm('Delete this goal milestone?')) {
+                try {
+                    const res = await fetchWithAuth(`${API_BASE_URL}/goals/${id}`, { method: 'DELETE' });
+                    if (res.success) loadGoals();
+                } catch(e){}
+            }
+        }
+
+        async function openGoalCreateModal() {
+            const title = prompt("Enter Goal Milestone Title:");
+            if (!title) return;
+            const description = prompt("Description:");
+            
+            try {
+                const res = await fetchWithAuth(`${API_BASE_URL}/goals`, {
+                    method: 'POST',
+                    body: JSON.stringify({ title, description, targetDate: new Date().toISOString(), completed: false })
+                });
+                if (res.success) loadGoals();
+            } catch(err){}
+        }
+
+        // Add Logout Trigger to bottom preference card
+        const signoutBtn = document.createElement('div');
+        signoutBtn.className = "flex items-center justify-between p-4 border border-red-500/20 bg-red-500/5 rounded-lg cursor-pointer hover:bg-red-500/10 transition-colors mt-4";
+        signoutBtn.innerHTML = `
+            <div class="flex items-center gap-3 text-error">
+                <span class="material-symbols-outlined">logout</span>
+                <span class="font-body-md font-semibold">Sign Out Profile</span>
+            </div>
+            <span class="material-symbols-outlined text-error">chevron_right</span>
+        `;
+        signoutBtn.onclick = () => {
+            if (confirm('Do you want to sign out from LifeOS?')) {
+                localStorage.removeItem('jwt_token');
+                window.location.href = '../lifeos_welcome/code.html';
+            }
+        };
+        const prefsSection = document.querySelector('section.surface_glass:nth-of-type(2)');
+        if (prefsSection) {
+            prefsSection.appendChild(signoutBtn);
+        }
+
+        // Bind Milestone addition
+        const milestoneHeader = document.querySelector('section.flex-col h3').closest('div');
+        if (milestoneHeader) {
+            const addGoalBtn = document.createElement('button');
+            addGoalBtn.className = "text-primary hover:underline text-xs font-mono flex items-center gap-1";
+            addGoalBtn.innerHTML = '<span class="material-symbols-outlined text-[16px]">add</span> Add Goal';
+            addGoalBtn.onclick = openGoalCreateModal;
+            milestoneHeader.appendChild(addGoalBtn);
+        }
+
+        // Particle background effects
+        const createParticle = () => {
+            const particle = document.createElement('div');
+            particle.className = 'fixed rounded-full bg-primary/10 pointer-events-none z-[-1]';
+            const size = Math.random() * 100 + 50;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${Math.random() * 100}vw`;
+            particle.style.top = `${Math.random() * 100}vh`;
+            particle.style.filter = 'blur(40px)';
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.style.transition = 'all 10s ease-in-out';
+                particle.style.transform = `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px)`;
+            }, 100);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 10000);
+        };
+
+        setInterval(createParticle, 2000);
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadProfile();
+            loadGoals();
+        });
+    </script>
+</body></html>

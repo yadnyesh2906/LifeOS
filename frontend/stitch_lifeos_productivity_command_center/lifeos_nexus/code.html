@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LifeOS Nexus Dashboard</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Manrope:wght@600;700;800&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;family=Manrope:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#8a5100",
+                    "on-primary-fixed-variant": "#004c6e",
+                    "on-surface-variant": "#3e4850",
+                    "on-tertiary-fixed": "#2c1600",
+                    "primary-fixed": "#c9e6ff",
+                    "on-tertiary": "#ffffff",
+                    "primary-container": "#0ea5e9",
+                    "inverse-surface": "#2c3135",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#d6dae0",
+                    "on-background": "#171c20",
+                    "on-secondary-fixed": "#001e2b",
+                    "surface-variant": "#dee3e9",
+                    "on-tertiary-fixed-variant": "#693c00",
+                    "surface-container": "#eaeef4",
+                    "secondary-fixed-dim": "#7bd1fa",
+                    "on-secondary-fixed-variant": "#004d66",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#c0e8ff",
+                    "on-tertiary-container": "#4d2b00",
+                    "surface": "#f6faff",
+                    "on-secondary": "#ffffff",
+                    "inverse-primary": "#89ceff",
+                    "secondary-container": "#7ed4fd",
+                    "outline": "#6e7881",
+                    "inverse-on-surface": "#edf1f7",
+                    "tertiary-fixed-dim": "#ffb86e",
+                    "background": "#f6faff",
+                    "on-error-container": "#93000a",
+                    "primary-fixed-dim": "#89ceff",
+                    "surface-container-low": "#f0f4fa",
+                    "surface-bright": "#f6faff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#de8712",
+                    "surface-tint": "#006591",
+                    "on-surface": "#171c20",
+                    "secondary": "#006686",
+                    "on-primary-container": "#003751",
+                    "surface-container-highest": "#dee3e9",
+                    "on-primary-fixed": "#001e2f",
+                    "outline-variant": "#bec8d2",
+                    "tertiary-fixed": "#ffdcbd",
+                    "surface-container-high": "#e4e8ee",
+                    "on-error": "#ffffff",
+                    "primary": "#006591",
+                    "on-secondary-container": "#005b78"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-gap-md": "16px",
+                    "container-margin": "20px",
+                    "element-padding-v": "12px",
+                    "stack-gap-sm": "8px",
+                    "stack-gap-lg": "24px",
+                    "element-padding-h": "16px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Manrope"],
+                    "body-lg": ["Inter"],
+                    "display-lg": ["Manrope"],
+                    "button-text": ["Inter"],
+                    "label-mono": ["JetBrains Mono"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Manrope"]
+            },
+            "fontSize": {
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "button-text": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                    "label-mono": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .surface_glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .spring-animation:active {
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        body {
+            background: radial-gradient(circle at top left, #f0f9ff 0%, #ffffff 100%);
+            min-height: 100vh;
+        }
+        .radial-progress-ring {
+            transition: stroke-dashoffset 1s ease-in-out;
+        }
+    </style>
+</head>
+<body class="text-on-surface font-body-md bg-background">
+<!-- TopAppBar -->
+<header class="fixed top-4 left-5 right-5 rounded-full bg-surface/70 backdrop-blur-xl border border-white/20 shadow-[0px_10px_30px_rgba(15,23,42,0.08)] h-[64px] flex justify-between items-center px-container-margin z-50">
+<div class="flex items-center gap-stack-gap-sm">
+<span class="material-symbols-outlined text-primary font-headline-md">hub</span>
+<h1 class="font-headline-md text-headline-md font-bold tracking-tight text-primary">LifeOS</h1>
+</div>
+<button class="text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-200 ease-out">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</header>
+<main class="pt-24 pb-32 px-container-margin max-w-2xl mx-auto space-y-stack-gap-lg">
+<!-- Top Progress: Radial Ring Section -->
+<section class="flex flex-col items-center">
+<div class="relative flex items-center justify-center w-64 h-64">
+<!-- Background Ring -->
+<svg class="w-full h-full -rotate-90">
+<circle class="text-surface-container" cx="128" cy="128" fill="transparent" r="110" stroke="currentColor" stroke-width="12"></circle>
+<!-- Progress Fill -->
+<circle class="text-primary radial-progress-ring" cx="128" cy="128" fill="transparent" r="110" stroke="currentColor" stroke-dasharray="691" stroke-dashoffset="172" stroke-linecap="round" stroke-width="12"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="font-display-lg text-display-lg text-primary">75%</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-widest">Tasks Done</span>
+</div>
+</div>
+<p class="mt-4 font-body-lg text-body-lg text-center text-on-surface-variant">Focusing on your evening routine. 4 tasks left.</p>
+</section>
+<!-- Mood Logger -->
+<section class="surface_glass rounded-xl p-element-padding-h shadow-sm">
+<h2 class="font-headline-sm text-headline-sm mb-stack-gap-md">How are you today?</h2>
+<div class="flex justify-between items-center gap-stack-gap-sm">
+<button class="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-secondary-container/20 transition-colors active:scale-90 duration-200">
+<span class="text-2xl">🤩</span>
+<span class="font-label-mono text-[10px]">Excellent</span>
+</button>
+<button class="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-secondary-container/20 transition-colors active:scale-90 duration-200">
+<span class="text-2xl">😊</span>
+<span class="font-label-mono text-[10px]">Good</span>
+</button>
+<button class="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-secondary-container/20 transition-colors active:scale-90 duration-200 ring-2 ring-primary bg-primary/5">
+<span class="text-2xl">😐</span>
+<span class="font-label-mono text-[10px] text-primary">Neutral</span>
+</button>
+<button class="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-secondary-container/20 transition-colors active:scale-90 duration-200">
+<span class="text-2xl">😔</span>
+<span class="font-label-mono text-[10px]">Bad</span>
+</button>
+<button class="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-secondary-container/20 transition-colors active:scale-90 duration-200">
+<span class="text-2xl">😫</span>
+<span class="font-label-mono text-[10px]">Awful</span>
+</button>
+</div>
+</section>
+<!-- Quick Stats: Bento Grid Style -->
+<section class="grid grid-cols-2 md:grid-cols-3 gap-stack-gap-md">
+<!-- Habits Card -->
+<div class="surface_glass rounded-xl p-element-padding-h shadow-sm flex flex-col justify-between group cursor-pointer hover:shadow-lg transition-all border-l-4 border-l-primary">
+<div>
+<span class="material-symbols-outlined text-primary mb-2">auto_graph</span>
+<h3 class="font-headline-sm text-headline-sm">Habits</h3>
+</div>
+<div class="mt-4">
+<p class="font-display-lg text-primary">12</p>
+<p class="font-label-mono text-label-mono text-on-surface-variant">Day Streak</p>
+</div>
+</div>
+<!-- Goals Card -->
+<div class="surface_glass rounded-xl p-element-padding-h shadow-sm flex flex-col justify-between group cursor-pointer hover:shadow-lg transition-all border-l-4 border-l-secondary-container">
+<div>
+<span class="material-symbols-outlined text-secondary mb-2" style="font-variation-settings: 'FILL' 1;">flag</span>
+<h3 class="font-headline-sm text-headline-sm">Goals</h3>
+</div>
+<div class="mt-4">
+<p class="font-display-lg text-secondary">3/5</p>
+<p class="font-label-mono text-label-mono text-on-surface-variant">Active</p>
+</div>
+</div>
+<!-- Notes Card -->
+<div class="surface_glass rounded-xl p-element-padding-h shadow-sm flex flex-col justify-between group cursor-pointer hover:shadow-lg transition-all col-span-2 md:col-span-1 border-l-4 border-l-tertiary">
+<div>
+<span class="material-symbols-outlined text-tertiary mb-2">description</span>
+<h3 class="font-headline-sm text-headline-sm">Notes</h3>
+</div>
+<div class="mt-4">
+<p class="font-display-lg text-tertiary">24</p>
+<p class="font-label-mono text-label-mono text-on-surface-variant">Saved Ideas</p>
+</div>
+</div>
+</section>
+<!-- Dynamic Activity Visualization -->
+<section class="surface_glass rounded-xl overflow-hidden shadow-sm relative h-48 group">
+<div class="absolute inset-0 z-0">
+
+</div>
+<div class="relative z-10 p-element-padding-h flex flex-col justify-end h-full">
+<span class="font-label-mono text-label-mono text-primary uppercase mb-1">Focus Flow</span>
+<h2 class="font-headline-md text-headline-md">Nexus Core Active</h2>
+<div class="flex items-center gap-2 mt-2">
+<div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+<span class="text-sm font-medium text-on-surface-variant">System optimizing performance</span>
+</div>
+</div>
+</section>
+<!-- Quick Image Gallery for context -->
+<section class="grid grid-cols-2 gap-stack-gap-md">
+<div class="h-40 rounded-xl overflow-hidden relative shadow-md group">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="A serene workspace with a clean wooden desk, a high-end laptop showing data visualizations, and a single green plant. The room is flooded with soft morning sunlight, creating a high-fidelity and professional atmosphere consistent with a Digital Serenity UI brand. Vibrant blue accents on the screen reflect the primary brand color." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuArXJCexxmD_IYiRJ5xLkgym6BrBg1M2eQ1xCy_mtqIFqM5dEq4TGFRnM86E6Hc2JILjoVJGjKle_6a1fGhX1_Y0TNjou1S7UkLRmxRVZI6hIXJx3IvnYJAsZR1w5RKt8pVXhAl16qFIYLicbrpFvJW68iE8FCavrLBGKbw7KJZgpcx-T9oG8m0X8NF3CQxI68vwlKXD4_KZ7_ULZwKuJ6m8kEKZWFM6NrDZ6Jt88eJ4dM0-bEJgsu7UQ')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+<div class="absolute bottom-3 left-3 text-white">
+<p class="font-label-mono text-[10px] uppercase">Environment</p>
+<p class="font-headline-sm text-sm">Focus Mode</p>
+</div>
+</div>
+<div class="h-40 rounded-xl overflow-hidden relative shadow-md group">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Macro photography of a sleek architectural detail featuring translucent glass panels and polished steel. The lighting is soft and diffused, highlighting the clean lines and minimalist structure. The image evokes a sense of architectural calm and controlled focus, mirroring the professional glassmorphic design system's aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDPbxjKcE7wYCUXkMXzMTQdo9n-pMw1H-9z7lzcU0hBEnuGYjAbOatB-Wr9U9Fmaj246_N1NvXDCJGoiQRPuEGYSL8k5zSl1q6a97PzKy3KlPBQeavKxN4Q_dxXN4qtYI0JxMLAZ_yUVXVC7cIJ05Q6bM-bG0lR5TABT9EZBLA0hRtLr-bHgGnoPKJAfauo8oLEN6lNyoGHUvBemSG1PlM384AhG03tGk7zex8mrkN5y3h_PKpXbxYUrw')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+<div class="absolute bottom-3 left-3 text-white">
+<p class="font-label-mono text-[10px] uppercase">Insights</p>
+<p class="font-headline-sm text-sm">Design Serenity</p>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full bg-surface/70 backdrop-blur-xl border-t border-white/10 shadow-[0px_-4px_20px_rgba(0,0,0,0.04)] flex justify-around items-center px-stack-gap-lg pb-safe h-[72px] z-50">
+<!-- Active Dashboard -->
+<div onclick="window.location.href='../lifeos_nexus/code.html'" class="flex flex-col items-center justify-center text-primary-container p-2 scale-110 spring-animation cursor-pointer">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+</div>
+<!-- Checklist -->
+<div onclick="window.location.href='../lifeos_tasks/code.html'" class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors p-2 spring-animation cursor-pointer">
+<span class="material-symbols-outlined">checklist</span>
+</div>
+<!-- Auto Graph -->
+<div onclick="window.location.href='../lifeos_pulse/code.html'" class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors p-2 spring-animation cursor-pointer">
+<span class="material-symbols-outlined">auto_graph</span>
+</div>
+<!-- Inventory -->
+<div onclick="window.location.href='../lifeos_vault/code.html'" class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors p-2 spring-animation cursor-pointer">
+<span class="material-symbols-outlined">inventory_2</span>
+</div>
+</nav>
+<!-- Floating Action Button (FAB) -->
+<button onclick="window.location.href='../lifeos_tasks/code.html'" class="fixed bottom-24 right-5 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center active:scale-90 transition-transform duration-300 z-40">
+<span class="material-symbols-outlined">add</span>
+</button>
+<script>
+        const API_BASE_URL = 'http://localhost:8081/api';
+
+        // Check Auth
+        const token = localStorage.getItem('jwt_token');
+        if (!token) {
+            window.location.href = '../lifeos_welcome/code.html';
+        }
+
+        async function fetchWithAuth(url, options = {}) {
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+                ...options.headers
+            };
+            const response = await fetch(url, { ...options, headers });
+            if (response.status === 401) {
+                localStorage.removeItem('jwt_token');
+                window.location.href = '../lifeos_welcome/code.html';
+                throw new Error('Unauthorized');
+            }
+            return response.json();
+        }
+
+        // Bind Settings button
+        const settingsBtn = document.querySelector('header button');
+        if (settingsBtn) {
+            settingsBtn.onclick = () => {
+                window.location.href = '../lifeos_orbit/code.html';
+            };
+        }
+
+        async function loadDashboard() {
+            try {
+                const res = await fetchWithAuth(`${API_BASE_URL}/dashboard`);
+                if (res.success && res.data) {
+                    const stats = res.data;
+                    const completionPercent = stats.totalTasks > 0 ? Math.round((stats.completedTasks / stats.totalTasks) * 100) : 0;
+                    
+                    // Update progress UI
+                    document.querySelector('.text-primary.font-display-lg').textContent = `${completionPercent}%`;
+                    document.querySelector('main section p').textContent = `System initialized. ${stats.pendingTasks} tasks left to focus on today.`;
+                    
+                    // Animate progress ring
+                    const ring = document.querySelector('.radial-progress-ring');
+                    const circumference = 2 * Math.PI * 110; // ~691
+                    const offset = circumference - (completionPercent / 100) * circumference;
+                    ring.style.strokeDashoffset = offset;
+
+                    // Update grid cards
+                    document.querySelector('section.grid > div:nth-child(1) p.text-primary').textContent = stats.totalHabits;
+                    document.querySelector('section.grid > div:nth-child(2) p.text-secondary').textContent = `${stats.completedGoals}/${stats.totalGoals}`;
+                    document.querySelector('section.grid > div:nth-child(3) p.text-tertiary').textContent = `${stats.totalNotes} Notes / ${stats.totalJournals} Journals`;
+
+                    // Update active mood highlights
+                    const moods = {
+                        'Excellent': '🤩',
+                        'Good': '😊',
+                        'Neutral': '😐',
+                        'Bad': '😔',
+                        'Awful': '😫'
+                    };
+                    const moodButtons = document.querySelectorAll('section:nth-of-type(2) button');
+                    moodButtons.forEach(btn => {
+                        btn.classList.remove('ring-2', 'ring-primary', 'bg-primary/5');
+                        const label = btn.querySelector('span:last-child');
+                        label.classList.remove('text-primary');
+                        
+                        if (stats.todayMood && moods[stats.todayMood] === btn.querySelector('span:first-child').textContent) {
+                            btn.classList.add('ring-2', 'ring-primary', 'bg-primary/5');
+                            label.classList.add('text-primary');
+                        }
+                    });
+                }
+            } catch(e){}
+        }
+
+        async function submitMood(val) {
+            try {
+                const res = await fetchWithAuth(`${API_BASE_URL}/moods`, {
+                    method: 'POST',
+                    body: JSON.stringify({ moodValue: val, notes: 'Logged from Lovable Dashboard' })
+                });
+                if (res.success) loadDashboard();
+            } catch(e){}
+        }
+
+        // Bind mood button clicks
+        window.addEventListener('DOMContentLoaded', () => {
+            const moodButtons = document.querySelectorAll('section:nth-of-type(2) button');
+            const moodValues = ['Excellent', 'Good', 'Neutral', 'Bad', 'Awful'];
+            moodButtons.forEach((btn, index) => {
+                btn.onclick = () => submitMood(moodValues[index]);
+            });
+            loadDashboard();
+        });
+    </script>
+</body></html>

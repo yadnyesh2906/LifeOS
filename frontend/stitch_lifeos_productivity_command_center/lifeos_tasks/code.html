@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LifeOS - Tasks</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&family=Manrope:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(0, 101, 145, 0.1);
+            border-radius: 10px;
+        }
+
+        @keyframes bubble-pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4); }
+            100% { transform: scale(1); }
+        }
+        .animate-pop {
+            animation: bubble-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .task-card {
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .task-card:active {
+            transform: scale(1.03);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#8a5100",
+                        "on-primary-fixed-variant": "#004c6e",
+                        "on-surface-variant": "#3e4850",
+                        "on-tertiary-fixed": "#2c1600",
+                        "primary-fixed": "#c9e6ff",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#0ea5e9",
+                        "inverse-surface": "#2c3135",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#d6dae0",
+                        "on-background": "#171c20",
+                        "on-secondary-fixed": "#001e2b",
+                        "surface-variant": "#dee3e9",
+                        "on-tertiary-fixed-variant": "#693c00",
+                        "surface-container": "#eaeef4",
+                        "secondary-fixed-dim": "#7bd1fa",
+                        "on-secondary-fixed-variant": "#004d66",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#c0e8ff",
+                        "on-tertiary-container": "#4d2b00",
+                        "surface": "#f6faff",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#89ceff",
+                        "secondary-container": "#7ed4fd",
+                        "outline": "#6e7881",
+                        "inverse-on-surface": "#edf1f7",
+                        "tertiary-fixed-dim": "#ffb86e",
+                        "background": "#f6faff",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#89ceff",
+                        "surface-container-low": "#f0f4fa",
+                        "surface-bright": "#f6faff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#de8712",
+                        "surface-tint": "#006591",
+                        "on-surface": "#171c20",
+                        "secondary": "#006686",
+                        "on-primary-container": "#003751",
+                        "surface-container-highest": "#dee3e9",
+                        "on-primary-fixed": "#001e2f",
+                        "outline-variant": "#bec8d2",
+                        "tertiary-fixed": "#ffdcbd",
+                        "surface-container-high": "#e4e8ee",
+                        "on-error": "#ffffff",
+                        "primary": "#006591",
+                        "on-secondary-container": "#005b78"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Manrope"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Manrope"],
+                        "button-text": ["Inter"],
+                        "label-mono": ["JetBrains Mono"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "button-text": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                        "label-mono": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface min-h-screen font-body-md overflow-hidden">
+<!-- Top App Bar -->
+<header class="fixed top-4 left-5 right-5 rounded-full bg-surface/70 backdrop-blur-xl border border-white/20 shadow-[0px_10px_30px_rgba(15,23,42,0.08)] h-[64px] z-50 flex justify-between items-center px-container-margin">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">hub</span>
+<h1 class="font-headline-md text-headline-md font-bold tracking-tight text-primary">LifeOS</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="text-on-surface-variant hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Board Content -->
+<main class="pt-[100px] pb-[90px] px-container-margin h-screen overflow-hidden flex flex-col">
+<header class="mb-stack-gap-lg">
+<h2 class="font-display-lg text-display-lg text-on-surface">Task Board</h2>
+<p class="font-body-md text-on-surface-variant">Manage your high-performance focus blocks.</p>
+</header>
+<!-- 3-Column Board Layout -->
+<div class="flex-1 flex gap-stack-gap-lg overflow-x-auto pb-4 custom-scrollbar">
+<!-- Active Column -->
+<section class="flex-shrink-0 w-[320px] flex flex-col gap-stack-gap-md">
+<div class="flex items-center justify-between px-2">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<h3 class="font-headline-sm text-headline-sm">Active</h3>
+</div>
+<span class="font-label-mono text-label-mono bg-surface-container px-2 py-0.5 rounded-full">3</span>
+</div>
+<div class="flex flex-col gap-stack-gap-md overflow-y-auto custom-scrollbar flex-1 pr-1">
+<!-- Task Card 1 -->
+<div class="task-card glass-card p-element-padding-h rounded-xl shadow-sm cursor-pointer group">
+<div class="flex gap-3">
+<button class="mt-1 w-6 h-6 rounded-lg border-2 border-primary-container flex items-center justify-center transition-all" onclick="toggleCheck(this)">
+<span class="material-symbols-outlined text-[16px] text-white opacity-0 transition-opacity">check</span>
+</button>
+<div class="flex-1">
+<h4 class="font-headline-sm text-[16px] leading-tight mb-1">Architecture Review</h4>
+<p class="text-on-surface-variant text-[13px] line-clamp-2">Audit the system-level components for the new design system launch.</p>
+<div class="mt-3 flex items-center gap-2">
+<span class="font-label-mono text-label-mono text-primary bg-primary-fixed/30 px-2 py-0.5 rounded">High</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                                        Today
+                                    </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Task Card 2 -->
+<div class="task-card glass-card p-element-padding-h rounded-xl shadow-sm cursor-pointer group">
+<div class="flex gap-3">
+<button class="mt-1 w-6 h-6 rounded-lg border-2 border-primary-container flex items-center justify-center transition-all" onclick="toggleCheck(this)">
+<span class="material-symbols-outlined text-[16px] text-white opacity-0 transition-opacity">check</span>
+</button>
+<div class="flex-1">
+<h4 class="font-headline-sm text-[16px] leading-tight mb-1">UI/UX Polish</h4>
+<p class="text-on-surface-variant text-[13px] line-clamp-2">Fine-tune glassmorphic blur levels and shadow elevations.</p>
+<div class="mt-3 flex items-center gap-2">
+<span class="font-label-mono text-label-mono text-tertiary bg-tertiary-fixed/30 px-2 py-0.5 rounded">Design</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Upcoming Column -->
+<section class="flex-shrink-0 w-[320px] flex flex-col gap-stack-gap-md">
+<div class="flex items-center justify-between px-2">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+<h3 class="font-headline-sm text-headline-sm">Upcoming</h3>
+</div>
+<span class="font-label-mono text-label-mono bg-surface-container px-2 py-0.5 rounded-full">2</span>
+</div>
+<div class="flex flex-col gap-stack-gap-md overflow-y-auto custom-scrollbar flex-1 pr-1">
+<div class="task-card glass-card p-element-padding-h rounded-xl shadow-sm cursor-pointer opacity-80 hover:opacity-100 transition-opacity">
+<div class="flex gap-3">
+<button class="mt-1 w-6 h-6 rounded-lg border-2 border-outline flex items-center justify-center transition-all" onclick="toggleCheck(this)">
+<span class="material-symbols-outlined text-[16px] text-white opacity-0 transition-opacity">check</span>
+</button>
+<div class="flex-1">
+<h4 class="font-headline-sm text-[16px] leading-tight mb-1">Stakeholder Sync</h4>
+<p class="text-on-surface-variant text-[13px] line-clamp-2">Weekly update on development velocity and feature roadmap.</p>
+<div class="mt-3">
+<span class="font-label-mono text-label-mono text-on-surface-variant bg-surface-variant px-2 py-0.5 rounded">Tomorrow, 10:00</span>
+</div>
+</div>
+</div>
+</div>
+<div class="task-card glass-card p-element-padding-h rounded-xl shadow-sm cursor-pointer opacity-80 hover:opacity-100 transition-opacity">
+<div class="flex gap-3">
+<button class="mt-1 w-6 h-6 rounded-lg border-2 border-outline flex items-center justify-center transition-all" onclick="toggleCheck(this)">
+<span class="material-symbols-outlined text-[16px] text-white opacity-0 transition-opacity">check</span>
+</button>
+<div class="flex-1">
+<h4 class="font-headline-sm text-[16px] leading-tight mb-1">Documentation Audit</h4>
+<div class="mt-3 flex -space-x-2">
+<div class="w-6 h-6 rounded-full border-2 border-white bg-cover bg-center" data-alt="Close-up portrait of a professional woman with glasses in a bright office setting, soft focus background, corporate headshot style." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC52HSbU71SEKvZe-nAaXjFhKMpcwRHUK5lstMoOokyScThqGgUV2toSsJBRsemu8i58KjTWrAQdX2Lc2v56IbMxYmMBVd6gt9V510XucQ8-pkoS6__jU_6dsUIqKXLRbrxwZ1nebx_DIQNWZnsv_r60B1k56j12yKgCgAXlVrqTrRgPpsvmpx2LOAtoBSdfqbBzkqdBaHz24CBrlnJP-iOx8jbnRDg7aAxXbTz0Jd7RjT__JCmPscLCg')"></div>
+<div class="w-6 h-6 rounded-full border-2 border-white bg-cover bg-center" data-alt="Portrait of a creative professional man smiling, wearing a casual sweater in a modern architectural workspace, natural window light." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA_2b1PoLou7od7XAnTJKm9g_6vC8xTTODzAuVJl3f7axvOfCOnESJvqfzHU2ML0SEbqGV_JPpsWLiH35ELDKol3mPAgBNHmMFcz9nAf6C0G50_F6TNM-QxKZaGGQHBo7QPOLrEv2-52AlwrC2ZghuGS3rPI0vWAeu8GxfONfWw2avR8w1Zmfw-u4gtSH3Sqblv9GoUXbIKPmpTdwDsu7h012cn6PDcZFl7Jdc8Mk0gShcWW8roNDcpKg')"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Completed Column -->
+<section class="flex-shrink-0 w-[320px] flex flex-col gap-stack-gap-md">
+<div class="flex items-center justify-between px-2">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<h3 class="font-headline-sm text-headline-sm">Completed</h3>
+</div>
+<span class="font-label-mono text-label-mono bg-surface-container px-2 py-0.5 rounded-full">12</span>
+</div>
+<div class="flex flex-col gap-stack-gap-md overflow-y-auto custom-scrollbar flex-1 pr-1">
+<div class="task-card glass-card p-element-padding-h rounded-xl shadow-sm cursor-pointer opacity-50 hover:opacity-70 transition-opacity">
+<div class="flex gap-3">
+<div class="mt-1 w-6 h-6 rounded-lg bg-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px] text-white">check</span>
+</div>
+<div class="flex-1">
+<h4 class="font-headline-sm text-[16px] leading-tight mb-1 line-through">Quarterly Budgeting</h4>
+<p class="text-on-surface-variant text-[13px]">Finalized and approved by the finance department.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- FAB -->
+<button onclick="openTaskCreateModal()" class="fixed bottom-24 right-5 w-14 h-14 rounded-2xl bg-primary-container text-white shadow-lg shadow-primary-container/30 flex items-center justify-center transition-transform active:scale-90 z-50">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full rounded-t-xl bg-surface/70 backdrop-blur-xl border-t border-white/10 shadow-[0px_-4px_20px_rgba(0,0,0,0.04)] flex justify-around items-center px-stack-gap-lg pb-safe h-[72px] z-50">
+<button onclick="window.location.href='../lifeos_nexus/code.html'" class="flex flex-col items-center justify-center text-on-surface-variant/60 p-2 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">dashboard</span>
+</button>
+<button onclick="window.location.href='../lifeos_tasks/code.html'" class="flex flex-col items-center justify-center text-primary-container p-2 scale-110">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">checklist</span>
+</button>
+<button onclick="window.location.href='../lifeos_pulse/code.html'" class="flex flex-col items-center justify-center text-on-surface-variant/60 p-2 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">auto_graph</span>
+</button>
+<button onclick="window.location.href='../lifeos_vault/code.html'" class="flex flex-col items-center justify-center text-on-surface-variant/60 p-2 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">inventory_2</span>
+</button>
+</nav>
+<script>
+        const API_BASE_URL = 'http://localhost:8081/api';
+
+        // Check Auth
+        const token = localStorage.getItem('jwt_token');
+        if (!token) {
+            window.location.href = '../lifeos_welcome/code.html';
+        }
+
+        async function fetchWithAuth(url, options = {}) {
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+                ...options.headers
+            };
+            const response = await fetch(url, { ...options, headers });
+            if (response.status === 401) {
+                localStorage.removeItem('jwt_token');
+                window.location.href = '../lifeos_welcome/code.html';
+                throw new Error('Unauthorized');
+            }
+            return response.json();
+        }
+
+        // Bind settings button
+        const settingsBtn = document.querySelector('header button[class*="settings"]');
+        if (settingsBtn) {
+            settingsBtn.onclick = () => {
+                window.location.href = '../lifeos_orbit/code.html';
+            };
+        }
+        // Also fallback settings gear handler
+        document.querySelectorAll('header button').forEach(btn => {
+            if (btn.querySelector('span')?.textContent === 'settings') {
+                btn.onclick = () => {
+                    window.location.href = '../lifeos_orbit/code.html';
+                };
+            }
+        });
+
+        async function loadTasks() {
+            try {
+                const res = await fetchWithAuth(`${API_BASE_URL}/tasks`);
+                if (res.success && res.data) {
+                    const activeList = document.getElementById('active-tasks-list') || document.querySelector('section:nth-of-type(1) .overflow-y-auto');
+                    const upcomingList = document.getElementById('upcoming-tasks-list') || document.querySelector('section:nth-of-type(2) .overflow-y-auto');
+                    const completedList = document.getElementById('completed-tasks-list') || document.querySelector('section:nth-of-type(3) .overflow-y-auto');
+
+                    activeList.innerHTML = '';
+                    upcomingList.innerHTML = '';
+                    completedList.innerHTML = '';
+
+                    let activeCount = 0;
+                    let upcomingCount = 0;
+                    let completedCount = 0;
+
+                    res.data.forEach(task => {
+                        const card = document.createElement('div');
+                        
+                        if (task.completed) {
+                            card.className = `task-card glass-card p-element-padding-h rounded-xl shadow-sm cursor-pointer opacity-50 hover:opacity-75 transition-opacity`;
+                            card.innerHTML = `
+                                <div class="flex gap-3">
+                                    <button class="mt-1 w-6 h-6 rounded-lg bg-secondary flex items-center justify-center" onclick="toggleTaskCompletion(${task.id}, true)">
+                                        <span class="material-symbols-outlined text-[16px] text-white">check</span>
+                                    </button>
+                                    <div class="flex-1">
+                                        <h4 class="font-headline-sm text-[16px] leading-tight mb-1 line-through">${task.title}</h4>
+                                        <p class="text-on-surface-variant text-[13px]">${task.description || ''}</p>
+                                        <button onclick="deleteTask(${task.id})" class="text-error hover:text-red-700 flex items-center gap-1 text-[11px] font-label-mono mt-2">
+                                            <span class="material-symbols-outlined text-[14px]">delete</span> Delete
+                                        </button>
+                                    </div>
+                                </div>
+                            `;
+                            completedList.appendChild(card);
+                            completedCount++;
+                        } else {
+                            const isUpcoming = task.dueDate && new Date(task.dueDate) > new Date(new Date().setHours(23, 59, 59, 999));
+                            card.className = `task-card glass-card p-element-padding-h rounded-xl shadow-sm cursor-pointer group`;
+                            card.innerHTML = `
+                                <div class="flex gap-3">
+                                    <button class="mt-1 w-6 h-6 rounded-lg border-2 border-primary-container flex items-center justify-center transition-all" onclick="toggleTaskCompletion(${task.id}, false)">
+                                        <span class="material-symbols-outlined text-[16px] text-white opacity-0 transition-opacity">check</span>
+                                    </button>
+                                    <div class="flex-1">
+                                        <h4 class="font-headline-sm text-[16px] leading-tight mb-1">${task.title}</h4>
+                                        <p class="text-on-surface-variant text-[13px] line-clamp-2">${task.description || ''}</p>
+                                        <div class="mt-3 flex items-center justify-between">
+                                            <span class="font-label-mono text-label-mono text-on-surface-variant flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-[14px]">${isUpcoming ? 'calendar_month' : 'schedule'}</span>
+                                                ${task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'No Deadline'}
+                                            </span>
+                                            <button onclick="deleteTask(${task.id})" class="text-error hover:text-red-700 flex items-center text-[14px] opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <span class="material-symbols-outlined">delete</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+
+                            if (isUpcoming) {
+                                upcomingList.appendChild(card);
+                                upcomingCount++;
+                            } else {
+                                activeList.appendChild(card);
+                                activeCount++;
+                            }
+                        }
+                    });
+
+                    // Update columns counts
+                    document.querySelector('section:nth-of-type(1) span.font-label-mono').textContent = activeCount;
+                    document.querySelector('section:nth-of-type(2) span.font-label-mono').textContent = upcomingCount;
+                    document.querySelector('section:nth-of-type(3) span.font-label-mono').textContent = completedCount;
+                }
+            } catch(e){}
+        }
+
+        async function toggleTaskCompletion(id, completed) {
+            try {
+                let res;
+                if (!completed) {
+                    res = await fetchWithAuth(`${API_BASE_URL}/tasks/${id}/complete`, { method: 'PATCH' });
+                } else {
+                    res = await fetchWithAuth(`${API_BASE_URL}/tasks/${id}`, {
+                        method: 'PUT',
+                        body: JSON.stringify({ completed: false })
+                    });
+                }
+                if (res.success) loadTasks();
+            } catch(e){}
+        }
+
+        async function deleteTask(id) {
+            event.stopPropagation();
+            if (confirm('Delete this task?')) {
+                try {
+                    const res = await fetchWithAuth(`${API_BASE_URL}/tasks/${id}`, { method: 'DELETE' });
+                    if (res.success) loadTasks();
+                } catch(e){}
+            }
+        }
+
+        async function openTaskCreateModal() {
+            const title = prompt("Enter Task Title:");
+            if (!title) return;
+            const description = prompt("Enter Description:");
+            
+            try {
+                const res = await fetchWithAuth(`${API_BASE_URL}/tasks`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        title,
+                        description,
+                        dueDate: new Date().toISOString()
+                    })
+                });
+                if (res.success) loadTasks();
+            } catch(err){}
+        }
+
+        // Horizontal scroll with mouse wheel for the board
+        const board = document.querySelector('.overflow-x-auto');
+        if (board) {
+            board.addEventListener('wheel', (evt) => {
+                evt.preventDefault();
+                board.scrollLeft += evt.deltaY;
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', loadTasks);
+    </script>
+</body></html>
