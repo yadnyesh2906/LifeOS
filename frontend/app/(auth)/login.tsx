@@ -15,7 +15,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Input from '../../components/common/Input';
 import Button from '../../components/common/Button';
 import useAuth from '../../hooks/useAuth';
-import { colors, spacing, typography } from '../../theme';
+import { colors, spacing, typography, radius } from '../../theme';
 import haptics from '../../utils/haptics';
 
 export default function Login() {
