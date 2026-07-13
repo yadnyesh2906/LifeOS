@@ -55,6 +55,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = async (email: string, password: string) => {
     setState(prev => ({ ...prev, isLoading: true }));
     try {
+      // Mock login check for testing/offline support
+      if (email.toLowerCase() === 'abc@gmail.com' && password === '123456') {
+        const mockUser: User = {
+          id: 1,
+          fullName: 'Default User',
+          email: 'abc@gmail.com',
+        };
+        const mockToken = 'mock-jwt-token-for-demo-user';
+        await storage.setItem(STORAGE_KEYS.AUTH_TOKEN, mockToken);
+        await storage.setItem(STORAGE_KEYS.USER_DATA, JSON.stringify(mockUser));
+        
+        setState({
+          token: mockToken,
+          user: mockUser,
+          isAuthenticated: true,
+          isLoading: false,
+        });
+        return;
+      }
+
       const response = await authService.login(email, password);
       if (response.success && response.data) {
         const { token, user } = response.data;
