@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View,
   TextInput,
@@ -33,6 +33,7 @@ export const Input: React.FC<InputProps> = ({
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const inputRef = useRef<TextInput>(null);
 
   const handleFocus = (e: any) => {
     setIsFocused(true);
@@ -48,13 +49,18 @@ export const Input: React.FC<InputProps> = ({
     setIsPasswordVisible(!isPasswordVisible);
   };
 
+  const handlePressContainer = () => {
+    inputRef.current?.focus();
+  };
+
   const themeColors = colors.light; // Base theme light
 
   return (
     <View style={[styles.container, containerStyle]}>
       {label && <Text style={styles.label}>{label}</Text>}
       
-      <View
+      <Pressable
+        onPress={handlePressContainer}
         style={[
           styles.inputContainer,
           {
@@ -74,10 +80,12 @@ export const Input: React.FC<InputProps> = ({
             size={20}
             color={error ? themeColors.danger : isFocused ? themeColors.primary : '#8E8E93'}
             style={styles.icon}
+            onPress={handlePressContainer}
           />
         )}
         
         <TextInput
+          ref={inputRef}
           secureTextEntry={secureTextEntry && !isPasswordVisible}
           placeholderTextColor="#8E8E93"
           onFocus={handleFocus}
@@ -99,7 +107,7 @@ export const Input: React.FC<InputProps> = ({
             />
           </Pressable>
         )}
-      </View>
+      </Pressable>
 
       {error && <Text style={[styles.errorText, { color: themeColors.danger }]}>{error}</Text>}
     </View>
@@ -158,6 +166,11 @@ const styles = StyleSheet.create({
     fontSize: typography.sizes.body,
     fontWeight: typography.weights.regular,
     padding: 0,
+    ...Platform.select({
+      web: {
+        outlineStyle: 'none',
+      },
+    }),
   },
   eyeButton: {
     padding: spacing.xs,
