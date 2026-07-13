@@ -121,7 +121,13 @@ export default function MoodScreen() {
           {item.note ? <Text style={styles.moodNote}>{item.note}</Text> : null}
           <Text style={styles.moodTime}>{formatter.formatDate(item.createdAt)}</Text>
         </View>
-        <Pressable onPress={() => handleDelete(item.id)} style={styles.deleteBtn}>
+        <Pressable
+          onPress={() => handleDelete(item.id)}
+          style={({ pressed }) => [
+            styles.deleteBtn,
+            pressed && { opacity: 0.6 },
+          ]}
+        >
           <Ionicons name="trash-outline" size={16} color={colors.light.danger} />
         </Pressable>
       </View>
@@ -136,6 +142,7 @@ export default function MoodScreen() {
         renderItem={renderMoodItem}
         ListHeaderComponent={renderHeader}
         contentContainerStyle={styles.listContainer}
+        showsVerticalScrollIndicator={false}
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
             <Text style={styles.emptyTitle}>No Entries Logged</Text>
@@ -152,24 +159,26 @@ export default function MoodScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#F2F2F7',
+    backgroundColor: '#F8F9FE',
   },
   listContainer: {
     padding: spacing.md,
-    paddingBottom: 40,
+    paddingBottom: 100,
   },
   headerCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#F4F3FF', // Matching the dashboard purple log card
     borderRadius: radius.xl,
     padding: spacing.md,
     marginBottom: spacing.lg,
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#E2E0FF',
     ...shadows.sm,
   },
   cardTitle: {
     fontSize: typography.sizes.headline,
     fontWeight: typography.weights.bold,
-    color: '#000000',
+    color: '#1C1C1E',
     marginBottom: spacing.md,
   },
   emojiRow: {
@@ -186,6 +195,8 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: 'transparent',
     marginHorizontal: 4,
+    backgroundColor: '#FFFFFF',
+    borderStyle: 'solid',
   },
   emojiText: {
     fontSize: 28,
@@ -209,6 +220,8 @@ const styles = StyleSheet.create({
     padding: spacing.md,
     marginBottom: spacing.md,
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#EBF0FF',
     ...shadows.sm,
   },
   avatar: {
@@ -228,7 +241,7 @@ const styles = StyleSheet.create({
   moodName: {
     fontSize: typography.sizes.body,
     fontWeight: typography.weights.bold,
-    color: '#000000',
+    color: '#1C1C1E',
   },
   moodNote: {
     fontSize: typography.sizes.subheadline,
@@ -246,6 +259,7 @@ const styles = StyleSheet.create({
   emptyContainer: {
     alignItems: 'center',
     paddingVertical: spacing.xl,
+    marginTop: spacing.xl,
   },
   emptyTitle: {
     fontSize: typography.sizes.title3,

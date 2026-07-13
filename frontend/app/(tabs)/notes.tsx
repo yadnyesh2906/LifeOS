@@ -88,12 +88,21 @@ export default function NotesScreen() {
   };
 
   const renderNoteItem = ({ item }: { item: Note }) => (
-    <Pressable onPress={() => openEditModal(item)} style={styles.noteCard}>
+    <Pressable
+      onPress={() => openEditModal(item)}
+      style={({ pressed }) => [
+        styles.noteCard,
+        pressed && styles.noteCardPressed,
+      ]}
+    >
       <View style={styles.cardHeader}>
         <Text style={styles.noteTitle} numberOfLines={1}>{item.title}</Text>
         <Pressable
           onPress={() => handleDelete(item.id)}
-          style={styles.deleteBtn}
+          style={({ pressed }) => [
+            styles.deleteBtn,
+            pressed && { opacity: 0.6 },
+          ]}
         >
           <Ionicons name="trash-outline" size={16} color={colors.light.danger} />
         </Pressable>
@@ -114,9 +123,10 @@ export default function NotesScreen() {
         numColumns={2}
         columnWrapperStyle={styles.row}
         contentContainerStyle={styles.listContainer}
+        showsVerticalScrollIndicator={false}
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
-            <Ionicons name="document-text-outline" size={64} color="#8E8E93" />
+            <Ionicons name="document-text-outline" size={64} color="#AEAEB2" />
             <Text style={styles.emptyTitle}>Capture Ideas</Text>
             <Text style={styles.emptyDescription}>
               Never let an idea slip away. Jot down lists, drafts, or reminders quickly.
@@ -134,7 +144,7 @@ export default function NotesScreen() {
       <Modal visible={modalVisible} animationType="slide" presentationStyle="pageSheet" onRequestClose={() => setModalVisible(false)}>
         <SafeAreaView style={styles.modalSafeArea}>
           <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
             style={styles.modalKeyboard}
           >
             <View style={styles.modalHeader}>
@@ -147,7 +157,7 @@ export default function NotesScreen() {
               </Pressable>
             </View>
 
-            <ScrollView contentContainerStyle={styles.modalContent} keyboardShouldPersistTaps="handled">
+            <ScrollView contentContainerStyle={styles.modalContent} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
               <Input
                 label="Note Title"
                 placeholder="Meeting Notes, Groceries list..."
@@ -177,11 +187,11 @@ export default function NotesScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#F2F2F7',
+    backgroundColor: '#F8F9FE',
   },
   listContainer: {
     padding: spacing.sm,
-    paddingBottom: 80,
+    paddingBottom: 100,
   },
   row: {
     justifyContent: 'space-between',
@@ -192,9 +202,15 @@ const styles = StyleSheet.create({
     borderRadius: radius.xl,
     padding: spacing.md,
     marginBottom: spacing.md,
-    minHeight: 140,
+    minHeight: 145,
     justifyContent: 'space-between',
+    borderWidth: 1,
+    borderColor: '#EBF0FF',
     ...shadows.sm,
+  },
+  noteCardPressed: {
+    opacity: 0.9,
+    transform: [{ scale: 0.98 }],
   },
   cardHeader: {
     flexDirection: 'row',
@@ -205,7 +221,7 @@ const styles = StyleSheet.create({
   noteTitle: {
     fontSize: typography.sizes.headline,
     fontWeight: typography.weights.bold,
-    color: '#000000',
+    color: '#1C1C1E',
     flex: 1,
   },
   deleteBtn: {
@@ -229,6 +245,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.xl,
     width: '200%', // Take full width across 2 columns
     left: '-50%',
+    marginTop: spacing.xl,
   },
   emptyTitle: {
     fontSize: typography.sizes.title3,
@@ -250,14 +267,14 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: colors.light.primary,
+    backgroundColor: colors.light.accent,
     justifyContent: 'center',
     alignItems: 'center',
     ...shadows.md,
   },
   modalSafeArea: {
     flex: 1,
-    backgroundColor: '#F2F2F7',
+    backgroundColor: '#F8F9FE',
   },
   modalKeyboard: {
     flex: 1,
@@ -268,8 +285,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: spacing.md,
     backgroundColor: '#FFFFFF',
-    borderBottomWidth: 0.5,
-    borderBottomColor: '#C6C6C8',
+    borderBottomWidth: 1,
+    borderBottomColor: '#EBF0FF',
   },
   modalHeaderBtn: {
     padding: spacing.xs,
@@ -286,7 +303,7 @@ const styles = StyleSheet.create({
   modalTitle: {
     fontSize: typography.sizes.headline,
     fontWeight: typography.weights.bold,
-    color: '#000000',
+    color: '#1C1C1E',
   },
   modalContent: {
     padding: spacing.md,

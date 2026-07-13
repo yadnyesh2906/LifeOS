@@ -101,8 +101,20 @@ export default function Habits() {
   };
 
   const renderHabitItem = ({ item }: { item: Habit }) => (
-    <View style={styles.habitCard}>
-      <Pressable onPress={() => handleToggleComplete(item.id)} style={styles.checkBtn}>
+    <Pressable
+      onPress={() => openEditModal(item)}
+      style={({ pressed }) => [
+        styles.habitCard,
+        pressed && styles.habitCardPressed,
+      ]}
+    >
+      <Pressable
+        onPress={() => handleToggleComplete(item.id)}
+        style={({ pressed }) => [
+          styles.checkBtn,
+          pressed && { opacity: 0.7 },
+        ]}
+      >
         <Ionicons
           name={item.completedToday ? 'checkmark-circle' : 'ellipse-outline'}
           size={28}
@@ -110,24 +122,31 @@ export default function Habits() {
         />
       </Pressable>
 
-      <Pressable onPress={() => openEditModal(item)} style={styles.habitDetails}>
+      <View style={styles.habitDetails}>
         <Text style={[styles.habitTitle, item.completedToday && styles.habitCompletedText]}>
           {item.title}
         </Text>
         <Text style={styles.habitFreq}>{item.frequency}</Text>
-      </Pressable>
+      </View>
 
       <View style={styles.rightSection}>
         {item.streak > 0 ? (
           <View style={styles.streakBadge}>
-            <Text style={styles.streakText}>🔥 {item.streak}</Text>
+            <Ionicons name="flame" size={12} color="#FF9500" style={{ marginRight: 2 }} />
+            <Text style={styles.streakText}>{item.streak}</Text>
           </View>
         ) : null}
-        <Pressable onPress={() => handleDelete(item.id)} style={styles.deleteBtn}>
+        <Pressable
+          onPress={() => handleDelete(item.id)}
+          style={({ pressed }) => [
+            styles.deleteBtn,
+            pressed && { opacity: 0.6 },
+          ]}
+        >
           <Ionicons name="trash-outline" size={18} color={colors.light.danger} />
         </Pressable>
       </View>
-    </View>
+    </Pressable>
   );
 
   return (
@@ -137,9 +156,10 @@ export default function Habits() {
         keyExtractor={item => item.id.toString()}
         renderItem={renderHabitItem}
         contentContainerStyle={styles.listContainer}
+        showsVerticalScrollIndicator={false}
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
-            <Ionicons name="flame-outline" size={64} color="#8E8E93" />
+            <Ionicons name="flame-outline" size={64} color="#AEAEB2" />
             <Text style={styles.emptyTitle}>Build New Habits</Text>
             <Text style={styles.emptyDescription}>
               Small daily changes compound into major results. Add a habit to start tracking.
@@ -157,7 +177,7 @@ export default function Habits() {
       <Modal visible={modalVisible} animationType="slide" presentationStyle="pageSheet" onRequestClose={() => setModalVisible(false)}>
         <SafeAreaView style={styles.modalSafeArea}>
           <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
             style={styles.modalKeyboard}
           >
             <View style={styles.modalHeader}>
@@ -170,7 +190,7 @@ export default function Habits() {
               </Pressable>
             </View>
 
-            <ScrollView contentContainerStyle={styles.modalContent} keyboardShouldPersistTaps="handled">
+            <ScrollView contentContainerStyle={styles.modalContent} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
               <Input
                 label="Habit Name"
                 placeholder="Morning Meditation, Read Books..."
@@ -218,11 +238,11 @@ export default function Habits() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#F2F2F7',
+    backgroundColor: '#F8F9FE',
   },
   listContainer: {
     padding: spacing.md,
-    paddingBottom: 80,
+    paddingBottom: 100,
   },
   habitCard: {
     flexDirection: 'row',
@@ -231,7 +251,13 @@ const styles = StyleSheet.create({
     padding: spacing.md,
     marginBottom: spacing.md,
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#EBF0FF',
     ...shadows.sm,
+  },
+  habitCardPressed: {
+    opacity: 0.9,
+    transform: [{ scale: 0.98 }],
   },
   checkBtn: {
     padding: spacing.xs,
@@ -242,12 +268,12 @@ const styles = StyleSheet.create({
   },
   habitTitle: {
     fontSize: typography.sizes.body,
-    fontWeight: typography.weights.semibold,
-    color: '#000000',
+    fontWeight: typography.weights.bold,
+    color: '#1C1C1E',
   },
   habitCompletedText: {
     textDecorationLine: 'line-through',
-    color: '#8E8E93',
+    color: '#AEAEB2',
   },
   habitFreq: {
     fontSize: typography.sizes.subheadline,
@@ -259,10 +285,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   streakBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: '#FF9500' + '15',
     paddingHorizontal: spacing.sm,
     paddingVertical: 4,
-    borderRadius: radius.lg,
+    borderRadius: radius.md,
     marginRight: spacing.sm,
   },
   streakText: {
@@ -277,6 +305,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: spacing.xxl,
     paddingHorizontal: spacing.xl,
+    marginTop: spacing.xl,
   },
   emptyTitle: {
     fontSize: typography.sizes.title3,
@@ -298,14 +327,14 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: colors.light.primary,
+    backgroundColor: colors.light.accent,
     justifyContent: 'center',
     alignItems: 'center',
     ...shadows.md,
   },
   modalSafeArea: {
     flex: 1,
-    backgroundColor: '#F2F2F7',
+    backgroundColor: '#F8F9FE',
   },
   modalKeyboard: {
     flex: 1,
@@ -316,8 +345,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: spacing.md,
     backgroundColor: '#FFFFFF',
-    borderBottomWidth: 0.5,
-    borderBottomColor: '#C6C6C8',
+    borderBottomWidth: 1,
+    borderBottomColor: '#EBF0FF',
   },
   modalHeaderBtn: {
     padding: spacing.xs,
@@ -334,7 +363,7 @@ const styles = StyleSheet.create({
   modalTitle: {
     fontSize: typography.sizes.headline,
     fontWeight: typography.weights.bold,
-    color: '#000000',
+    color: '#1C1C1E',
   },
   modalContent: {
     padding: spacing.md,
@@ -357,27 +386,27 @@ const styles = StyleSheet.create({
   pickerContainer: {
     flexDirection: 'row',
     backgroundColor: '#E5E5EA',
-    padding: 2,
-    borderRadius: radius.lg,
+    padding: 3,
+    borderRadius: radius.xl,
     marginBottom: spacing.md,
   },
   pickerItem: {
     flex: 1,
     paddingVertical: spacing.sm,
     alignItems: 'center',
-    borderRadius: radius.lg - 2,
+    borderRadius: radius.xl - 2,
   },
   activePickerItem: {
     backgroundColor: '#FFFFFF',
-    ...shadows.sm,
+    ...shadows.xs,
   },
   pickerItemText: {
     fontSize: typography.sizes.footnote,
-    fontWeight: typography.weights.medium,
+    fontWeight: typography.weights.semibold,
     color: '#8E8E93',
   },
   activePickerText: {
-    color: '#000000',
+    color: '#1C1C1E',
     fontWeight: typography.weights.bold,
   },
 });

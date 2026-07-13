@@ -113,7 +113,13 @@ export default function JournalScreen() {
   };
 
   const renderJournalItem = ({ item }: { item: Journal }) => (
-    <Pressable onPress={() => openViewModal(item)} style={styles.journalCard}>
+    <Pressable
+      onPress={() => openViewModal(item)}
+      style={({ pressed }) => [
+        styles.journalCard,
+        pressed && styles.journalCardPressed,
+      ]}
+    >
       <View style={styles.cardHeader}>
         <Text style={styles.journalTitle}>{item.title}</Text>
         <Text style={styles.journalDate}>{formatter.formatDate(item.createdAt)}</Text>
@@ -131,9 +137,10 @@ export default function JournalScreen() {
         keyExtractor={item => item.id.toString()}
         renderItem={renderJournalItem}
         contentContainerStyle={styles.listContainer}
+        showsVerticalScrollIndicator={false}
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
-            <Ionicons name="book-outline" size={64} color="#8E8E93" />
+            <Ionicons name="book-outline" size={64} color="#AEAEB2" />
             <Text style={styles.emptyTitle}>Your Mindful Space</Text>
             <Text style={styles.emptyDescription}>
               Reflection is the key to clarity. Log your first journal entry to store your thoughts.
@@ -161,7 +168,7 @@ export default function JournalScreen() {
           </View>
 
           {selectedJournal && (
-            <ScrollView contentContainerStyle={styles.viewContent}>
+            <ScrollView contentContainerStyle={styles.viewContent} showsVerticalScrollIndicator={false}>
               <Text style={styles.viewTitle}>{selectedJournal.title}</Text>
               <Text style={styles.viewDate}>{formatter.formatDate(selectedJournal.createdAt)}</Text>
               <Text style={styles.viewBody}>{selectedJournal.content}</Text>
@@ -181,7 +188,7 @@ export default function JournalScreen() {
       <Modal visible={modalVisible} animationType="slide" presentationStyle="pageSheet" onRequestClose={() => setModalVisible(false)}>
         <SafeAreaView style={styles.modalSafeArea}>
           <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
             style={styles.modalKeyboard}
           >
             <View style={styles.modalHeader}>
@@ -194,7 +201,7 @@ export default function JournalScreen() {
               </Pressable>
             </View>
 
-            <ScrollView contentContainerStyle={styles.modalContent} keyboardShouldPersistTaps="handled">
+            <ScrollView contentContainerStyle={styles.modalContent} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
               <Input
                 label="Entry Title"
                 placeholder="Morning Thoughts, Today's Wins..."
@@ -225,18 +232,24 @@ export default function JournalScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#F2F2F7',
+    backgroundColor: '#F8F9FE',
   },
   listContainer: {
     padding: spacing.md,
-    paddingBottom: 80,
+    paddingBottom: 100,
   },
   journalCard: {
     backgroundColor: '#FFFFFF',
     borderRadius: radius.xl,
     padding: spacing.md,
     marginBottom: spacing.md,
+    borderWidth: 1,
+    borderColor: '#EBF0FF',
     ...shadows.sm,
+  },
+  journalCardPressed: {
+    opacity: 0.9,
+    transform: [{ scale: 0.98 }],
   },
   cardHeader: {
     flexDirection: 'row',
@@ -247,7 +260,7 @@ const styles = StyleSheet.create({
   journalTitle: {
     fontSize: typography.sizes.headline,
     fontWeight: typography.weights.bold,
-    color: '#000000',
+    color: '#1C1C1E',
     flex: 1,
     marginRight: spacing.sm,
   },
@@ -264,6 +277,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: spacing.xxl,
     paddingHorizontal: spacing.xl,
+    marginTop: spacing.xl,
   },
   emptyTitle: {
     fontSize: typography.sizes.title3,
@@ -285,14 +299,14 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: colors.light.primary,
+    backgroundColor: colors.light.accent,
     justifyContent: 'center',
     alignItems: 'center',
     ...shadows.md,
   },
   modalSafeArea: {
     flex: 1,
-    backgroundColor: '#F2F2F7',
+    backgroundColor: '#F8F9FE',
   },
   modalKeyboard: {
     flex: 1,
@@ -303,8 +317,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: spacing.md,
     backgroundColor: '#FFFFFF',
-    borderBottomWidth: 0.5,
-    borderBottomColor: '#C6C6C8',
+    borderBottomWidth: 1,
+    borderBottomColor: '#EBF0FF',
   },
   modalHeaderBtn: {
     padding: spacing.xs,
@@ -321,7 +335,7 @@ const styles = StyleSheet.create({
   modalTitle: {
     fontSize: typography.sizes.headline,
     fontWeight: typography.weights.bold,
-    color: '#000000',
+    color: '#1C1C1E',
   },
   modalContent: {
     padding: spacing.md,
@@ -337,7 +351,7 @@ const styles = StyleSheet.create({
   viewTitle: {
     fontSize: typography.sizes.title1,
     fontWeight: typography.weights.bold,
-    color: '#000000',
+    color: '#1C1C1E',
     letterSpacing: -0.5,
   },
   viewDate: {
@@ -348,7 +362,7 @@ const styles = StyleSheet.create({
   },
   viewBody: {
     fontSize: typography.sizes.body,
-    color: '#333333',
+    color: '#3A3A3C',
     lineHeight: 24,
     marginBottom: spacing.xxl,
   },

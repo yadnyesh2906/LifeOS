@@ -130,7 +130,13 @@ export default function Goals() {
   };
 
   const renderGoalItem = ({ item }: { item: Goal }) => (
-    <View style={styles.goalCard}>
+    <Pressable
+      onPress={() => openEditModal(item)}
+      style={({ pressed }) => [
+        styles.goalCard,
+        pressed && styles.goalCardPressed,
+      ]}
+    >
       <View style={styles.goalHeader}>
         <View style={styles.titleContainer}>
           <Text style={[styles.goalTitle, item.status === 'COMPLETED' && styles.goalTitleCompleted]}>
@@ -142,7 +148,13 @@ export default function Goals() {
             </Text>
           </View>
         </View>
-        <Pressable onPress={() => handleDelete(item.id)} style={styles.deleteBtn}>
+        <Pressable
+          onPress={() => handleDelete(item.id)}
+          style={({ pressed }) => [
+            styles.deleteBtn,
+            pressed && { opacity: 0.6 },
+          ]}
+        >
           <Ionicons name="trash-outline" size={18} color={colors.light.danger} />
         </Pressable>
       </View>
@@ -152,6 +164,21 @@ export default function Goals() {
           {item.description}
         </Text>
       ) : null}
+
+      {/* Inline Goal Progress Bar */}
+      <View style={styles.goalProgressContainer}>
+        <View style={styles.progressBarBg}>
+          <View
+            style={[
+              styles.progressBarFill,
+              {
+                backgroundColor: getStatusColor(item.status),
+                width: item.status === 'COMPLETED' ? '100%' : item.status === 'IN_PROGRESS' ? '50%' : '15%',
+              },
+            ]}
+          />
+        </View>
+      </View>
 
       <View style={styles.goalFooter}>
         {item.targetDate ? (
@@ -164,14 +191,12 @@ export default function Goals() {
         )}
 
         <View style={styles.actionRow}>
-          <Pressable onPress={() => openEditModal(item)} style={styles.editBtn}>
-            <Text style={styles.editBtnText}>Edit</Text>
-          </Pressable>
           <Pressable
             onPress={() => handleToggleComplete(item)}
-            style={[
+            style={({ pressed }) => [
               styles.completeBtn,
               { backgroundColor: item.status === 'COMPLETED' ? '#E5E5EA' : colors.light.primary },
+              pressed && { opacity: 0.8 },
             ]}
           >
             <Text style={[styles.completeBtnText, item.status === 'COMPLETED' && { color: '#8E8E93' }]}>
@@ -180,7 +205,7 @@ export default function Goals() {
           </Pressable>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 
   return (
@@ -190,9 +215,10 @@ export default function Goals() {
         keyExtractor={item => item.id.toString()}
         renderItem={renderGoalItem}
         contentContainerStyle={styles.listContainer}
+        showsVerticalScrollIndicator={false}
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
-            <Ionicons name="trophy-outline" size={64} color="#8E8E93" />
+            <Ionicons name="trophy-outline" size={64} color="#AEAEB2" />
             <Text style={styles.emptyTitle}>No Goals Found</Text>
             <Text style={styles.emptyDescription}>
               Dream big! Create your first milestone and track your long-term progress.
@@ -210,7 +236,7 @@ export default function Goals() {
       <Modal visible={modalVisible} animationType="slide" presentationStyle="pageSheet" onRequestClose={() => setModalVisible(false)}>
         <SafeAreaView style={styles.modalSafeArea}>
           <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
             style={styles.modalKeyboard}
           >
             <View style={styles.modalHeader}>
@@ -223,7 +249,7 @@ export default function Goals() {
               </Pressable>
             </View>
 
-            <ScrollView contentContainerStyle={styles.modalContent} keyboardShouldPersistTaps="handled">
+            <ScrollView contentContainerStyle={styles.modalContent} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
               <Input
                 label="Goal Title"
                 placeholder="Secure Internship, Save money..."
@@ -289,18 +315,24 @@ export default function Goals() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#F2F2F7',
+    backgroundColor: '#F8F9FE',
   },
   listContainer: {
     padding: spacing.md,
-    paddingBottom: 80,
+    paddingBottom: 100,
   },
   goalCard: {
     backgroundColor: '#FFFFFF',
     borderRadius: radius.xl,
     padding: spacing.md,
     marginBottom: spacing.md,
+    borderWidth: 1,
+    borderColor: '#EBF0FF',
     ...shadows.sm,
+  },
+  goalCardPressed: {
+    opacity: 0.9,
+    transform: [{ scale: 0.98 }],
   },
   goalHeader: {
     flexDirection: 'row',
@@ -316,12 +348,12 @@ const styles = StyleSheet.create({
   goalTitle: {
     fontSize: typography.sizes.headline,
     fontWeight: typography.weights.bold,
-    color: '#000000',
+    color: '#1C1C1E',
     marginRight: spacing.sm,
   },
   goalTitleCompleted: {
     textDecorationLine: 'line-through',
-    color: '#8E8E93',
+    color: '#AEAEB2',
   },
   statusBadge: {
     paddingHorizontal: spacing.sm,
@@ -338,7 +370,23 @@ const styles = StyleSheet.create({
   goalDescription: {
     fontSize: typography.sizes.subheadline,
     color: '#8E8E93',
+    marginBottom: spacing.sm,
+  },
+  goalProgressContainer: {
+    width: '100%',
     marginBottom: spacing.md,
+    marginTop: spacing.xs,
+  },
+  progressBarBg: {
+    height: 5,
+    borderRadius: 2.5,
+    backgroundColor: '#F2F2F7',
+    width: '100%',
+    overflow: 'hidden',
+  },
+  progressBarFill: {
+    height: '100%',
+    borderRadius: 2.5,
   },
   goalFooter: {
     flexDirection: 'row',
@@ -361,15 +409,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  editBtn: {
-    marginRight: spacing.md,
-    padding: spacing.xs,
-  },
-  editBtnText: {
-    fontSize: typography.sizes.footnote,
-    color: colors.light.primary,
-    fontWeight: typography.weights.semibold,
-  },
   completeBtn: {
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm - 2,
@@ -384,6 +423,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: spacing.xxl,
     paddingHorizontal: spacing.xl,
+    marginTop: spacing.xl,
   },
   emptyTitle: {
     fontSize: typography.sizes.title3,
@@ -405,14 +445,14 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: colors.light.primary,
+    backgroundColor: colors.light.accent,
     justifyContent: 'center',
     alignItems: 'center',
     ...shadows.md,
   },
   modalSafeArea: {
     flex: 1,
-    backgroundColor: '#F2F2F7',
+    backgroundColor: '#F8F9FE',
   },
   modalKeyboard: {
     flex: 1,
@@ -423,8 +463,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: spacing.md,
     backgroundColor: '#FFFFFF',
-    borderBottomWidth: 0.5,
-    borderBottomColor: '#C6C6C8',
+    borderBottomWidth: 1,
+    borderBottomColor: '#EBF0FF',
   },
   modalHeaderBtn: {
     padding: spacing.xs,
@@ -441,7 +481,7 @@ const styles = StyleSheet.create({
   modalTitle: {
     fontSize: typography.sizes.headline,
     fontWeight: typography.weights.bold,
-    color: '#000000',
+    color: '#1C1C1E',
   },
   modalContent: {
     padding: spacing.md,
@@ -464,15 +504,15 @@ const styles = StyleSheet.create({
   pickerContainer: {
     flexDirection: 'row',
     backgroundColor: '#E5E5EA',
-    padding: 2,
-    borderRadius: radius.lg,
+    padding: 3,
+    borderRadius: radius.xl,
     marginBottom: spacing.md,
   },
   pickerItem: {
     flex: 1,
     paddingVertical: spacing.sm,
     alignItems: 'center',
-    borderRadius: radius.lg - 2,
+    borderRadius: radius.xl - 2,
   },
   pickerItemText: {
     fontSize: typography.sizes.footnote,
