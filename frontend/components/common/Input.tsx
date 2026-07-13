@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useImperativeHandle, forwardRef } from 'react';
 import {
   View,
   TextInput,
@@ -20,7 +20,7 @@ interface InputProps extends TextInputProps {
   containerStyle?: ViewStyle;
 }
 
-export const Input: React.FC<InputProps> = ({
+export const Input = forwardRef<TextInput, InputProps>(({
   label,
   error,
   iconName,
@@ -30,10 +30,13 @@ export const Input: React.FC<InputProps> = ({
   onFocus,
   onBlur,
   ...props
-}) => {
+}, ref) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const inputRef = useRef<TextInput>(null);
+  const localInputRef = useRef<TextInput>(null);
+
+  // Expose the local TextInput ref to parent components
+  useImperativeHandle(ref, () => localInputRef.current!);
 
   const handleFocus = (e: any) => {
     setIsFocused(true);
@@ -50,7 +53,7 @@ export const Input: React.FC<InputProps> = ({
   };
 
   const handlePressContainer = () => {
-    inputRef.current?.focus();
+    localInputRef.current?.focus();
   };
 
   const themeColors = colors.light; // Base theme light
@@ -85,7 +88,7 @@ export const Input: React.FC<InputProps> = ({
         )}
         
         <TextInput
-          ref={inputRef}
+          ref={localInputRef}
           secureTextEntry={secureTextEntry && !isPasswordVisible}
           placeholderTextColor="#8E8E93"
           onFocus={handleFocus}
@@ -112,7 +115,9 @@ export const Input: React.FC<InputProps> = ({
       {error && <Text style={[styles.errorText, { color: themeColors.danger }]}>{error}</Text>}
     </View>
   );
-};
+});
+
+Input.displayName = 'Input';
 
 const styles = StyleSheet.create({
   container: {

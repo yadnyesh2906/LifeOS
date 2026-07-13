@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, Text, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Pressable, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -20,6 +20,8 @@ export default function Login() {
   
   const [isLoading, setIsLoading] = useState(false);
   const [formError, setFormError] = useState('');
+
+  const passwordRef = useRef<any>(null);
 
   const validateForm = () => {
     let isValid = true;
@@ -102,9 +104,13 @@ export default function Login() {
               value={email}
               onChangeText={setEmail}
               error={emailError}
+              returnKeyType="next"
+              onSubmitEditing={() => passwordRef.current?.focus()}
+              blurOnSubmit={false}
             />
 
             <Input
+              ref={passwordRef}
               label="Password"
               placeholder="Min. 6 characters"
               secureTextEntry
@@ -114,6 +120,8 @@ export default function Login() {
               value={password}
               onChangeText={setPassword}
               error={passwordError}
+              returnKeyType="done"
+              onSubmitEditing={handleLogin}
             />
 
             <Pressable

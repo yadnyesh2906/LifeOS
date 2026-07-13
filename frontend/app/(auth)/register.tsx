@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, Text, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Pressable, Alert} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -25,6 +25,10 @@ export default function Register() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [formError, setFormError] = useState('');
+
+  const emailRef = useRef<any>(null);
+  const passwordRef = useRef<any>(null);
+  const confirmPasswordRef = useRef<any>(null);
 
   const validateForm = () => {
     let isValid = true;
@@ -125,9 +129,13 @@ export default function Register() {
               value={fullName}
               onChangeText={setFullName}
               error={fullNameError}
+              returnKeyType="next"
+              onSubmitEditing={() => emailRef.current?.focus()}
+              blurOnSubmit={false}
             />
 
             <Input
+              ref={emailRef}
               label="Email"
               placeholder="example@email.com"
               keyboardType="email-address"
@@ -137,9 +145,13 @@ export default function Register() {
               value={email}
               onChangeText={setEmail}
               error={emailError}
+              returnKeyType="next"
+              onSubmitEditing={() => passwordRef.current?.focus()}
+              blurOnSubmit={false}
             />
 
             <Input
+              ref={passwordRef}
               label="Password"
               placeholder="Min. 6 characters"
               secureTextEntry
@@ -149,9 +161,13 @@ export default function Register() {
               value={password}
               onChangeText={setPassword}
               error={passwordError}
+              returnKeyType="next"
+              onSubmitEditing={() => confirmPasswordRef.current?.focus()}
+              blurOnSubmit={false}
             />
 
             <Input
+              ref={confirmPasswordRef}
               label="Confirm Password"
               placeholder="Repeat your password"
               secureTextEntry
@@ -161,6 +177,8 @@ export default function Register() {
               value={confirmPassword}
               onChangeText={setConfirmPassword}
               error={confirmPasswordError}
+              returnKeyType="done"
+              onSubmitEditing={handleRegister}
             />
           </View>
 
