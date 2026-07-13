@@ -64,7 +64,7 @@ export default function ForgotPassword() {
 
           <View style={styles.header}>
             <Text style={styles.title}>Reset Password</Text>
-            <Text style={styles.subtitle}>Enter your email address and we'll send you instructions to reset your password.</Text>
+            <Text style={styles.subtitle}>{"Enter your email address and we'll send you instructions to reset your password."}</Text>
           </View>
 
           <View style={styles.form}>

@@ -142,7 +142,7 @@ export default function Login() {
             />
 
             <View style={styles.signUpContainer}>
-              <Text style={styles.signUpLabel}>Don't have an account? </Text>
+              <Text style={styles.signUpLabel}>{"Don't have an account? "}</Text>
               <Pressable onPress={() => router.push('/(auth)/register')}>
                 <Text style={styles.signUpLink}>Sign Up</Text>
               </Pressable>

@@ -58,6 +58,7 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchDashboardData();
   }, []);
 
@@ -113,7 +114,7 @@ export default function Dashboard() {
         <View style={styles.moodCard}>
           <View style={styles.moodHeader}>
             <View>
-              <Text style={styles.moodTitle}>Today's Mood</Text>
+              <Text style={styles.moodTitle}>{"Today's Mood"}</Text>
               <Text style={styles.moodSubtitle}>
                 {stats.todayMood ? `You are feeling ${stats.todayMood.toLowerCase()} today.` : 'How are you feeling today?'}
               </Text>
