@@ -93,10 +93,10 @@ export default function Register() {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={styles.keyboardView}
       >
-        <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
+        <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
           
           <Pressable style={styles.backButton} onPress={() => router.back()}>
             <Ionicons name="chevron-back" size={24} color={colors.light.primary} />
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
     marginBottom: spacing.lg,
   },
   footer: {
-    marginTop: spacing.md,
+    marginTop: spacing.xl,
     alignItems: 'center',
   },
   submitBtn: {

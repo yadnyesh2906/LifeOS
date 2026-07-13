@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, StatusBar, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -31,48 +31,49 @@ export default function Welcome() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      
-      <View style={styles.header}>
-        <Text style={styles.welcomeText}>Welcome to</Text>
-        <Text style={styles.appName}>LifeOS</Text>
-        <Text style={styles.subtitle}>Your personal productivity command center.</Text>
-      </View>
+      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+        <View style={styles.header}>
+          <Text style={styles.welcomeText}>Welcome to</Text>
+          <Text style={styles.appName}>LifeOS</Text>
+          <Text style={styles.subtitle}>Your personal productivity command center.</Text>
+        </View>
 
-      <View style={styles.features}>
-        <FeatureRow
-          icon="checkbox-outline"
-          iconColor="#007AFF" // Blue
-          title="Tasks & Goals"
-          description="Plan your day, set priorities, and track long-term goals easily."
-        />
-        <FeatureRow
-          icon="flame-outline"
-          iconColor="#FF9500" // Orange
-          title="Habit Building"
-          description="Form healthy daily routines and build streaks to keep yourself motivated."
-        />
-        <FeatureRow
-          icon="journal-outline"
-          iconColor="#5856D6" // Purple
-          title="Mind & Mood"
-          description="Log daily mood states and write reflective journal entries."
-        />
-      </View>
+        <View style={styles.features}>
+          <FeatureRow
+            icon="checkbox-outline"
+            iconColor="#007AFF" // Blue
+            title="Tasks & Goals"
+            description="Plan your day, set priorities, and track long-term goals easily."
+          />
+          <FeatureRow
+            icon="flame-outline"
+            iconColor="#FF9500" // Orange
+            title="Habit Building"
+            description="Form healthy daily routines and build streaks to keep yourself motivated."
+          />
+          <FeatureRow
+            icon="journal-outline"
+            iconColor="#5856D6" // Purple
+            title="Mind & Mood"
+            description="Log daily mood states and write reflective journal entries."
+          />
+        </View>
 
-      <View style={styles.footer}>
-        <Button
-          title="Get Started"
-          variant="primary"
-          onPress={() => router.push('/(auth)/register')}
-          style={styles.btn}
-        />
-        <Button
-          title="Sign In"
-          variant="text"
-          onPress={() => router.push('/(auth)/login')}
-          style={styles.signInBtn}
-        />
-      </View>
+        <View style={styles.footer}>
+          <Button
+            title="Get Started"
+            variant="primary"
+            onPress={() => router.push('/(auth)/register')}
+            style={styles.btn}
+          />
+          <Button
+            title="Sign In"
+            variant="text"
+            onPress={() => router.push('/(auth)/login')}
+            style={styles.signInBtn}
+          />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -81,8 +82,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF',
+  },
+  scrollContent: {
+    flexGrow: 1,
     justifyContent: 'space-between',
     paddingHorizontal: spacing.xl,
+    paddingBottom: spacing.lg,
   },
   header: {
     alignItems: 'center',
