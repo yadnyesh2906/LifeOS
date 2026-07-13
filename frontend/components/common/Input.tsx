@@ -73,6 +73,10 @@ export const Input = forwardRef<TextInput, InputProps>(({
               ? themeColors.primary
               : 'transparent',
             backgroundColor: isFocused ? '#FFFFFF' : '#E9E9EB', // iOS light system grey
+            height: props.multiline ? undefined : 52,
+            minHeight: props.multiline ? 100 : undefined,
+            alignItems: props.multiline ? 'flex-start' : 'center',
+            paddingVertical: props.multiline ? spacing.sm : 0,
           },
           isFocused && styles.focusedShadow,
         ]}
@@ -82,7 +86,7 @@ export const Input = forwardRef<TextInput, InputProps>(({
             name={iconName}
             size={20}
             color={error ? themeColors.danger : isFocused ? themeColors.primary : '#8E8E93'}
-            style={styles.icon}
+            style={[styles.icon, props.multiline && { marginTop: spacing.xs }]}
             onPress={handlePressContainer}
           />
         )}
@@ -96,6 +100,7 @@ export const Input = forwardRef<TextInput, InputProps>(({
           style={[
             styles.input,
             { color: themeColors.text },
+            props.multiline && { textAlignVertical: 'top', height: '100%', minHeight: 80 },
             style,
           ]}
           {...props}
@@ -135,8 +140,6 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
-    height: 52,
     borderRadius: radius.xl,
     borderWidth: 1.5,
     paddingHorizontal: spacing.md,
@@ -167,7 +170,6 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    height: '100%',
     fontSize: typography.sizes.body,
     fontWeight: typography.weights.regular,
     padding: 0,
